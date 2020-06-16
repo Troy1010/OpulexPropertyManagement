@@ -6,7 +6,11 @@
     <fragment
         android:id="@+id/fragHome"
         android:name="com.example.opulexpropertymanagement.ui.FragHome"
-        android:label="Home" />
+        android:label="Home" >
+        <action
+            android:id="@+id/action_fragHome_to_fragProperties"
+            app:destination="@id/fragProperties" />
+    </fragment>
     <fragment
         android:id="@+id/fragLogin"
         android:name="com.example.opulexpropertymanagement.ui.FragLogin"
@@ -37,4 +41,8 @@
             android:id="@+id/action_fragTenantOrLandlord_to_fragHome"
             app:destination="@id/fragHome" />
     </fragment>
+    <fragment
+        android:id="@+id/fragProperties"
+        android:name="com.example.opulexpropertymanagement.ui.FragProperties"
+        android:label="FragProperties" />
 </navigation>

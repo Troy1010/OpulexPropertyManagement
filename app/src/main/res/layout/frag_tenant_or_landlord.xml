@@ -13,7 +13,6 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@id/guideline_1"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -58,7 +57,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="16dp"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_1">
 

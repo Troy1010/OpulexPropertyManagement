@@ -21,6 +21,7 @@
     </style>
     <style name="OpulexTheme.CardView">
         <item name="cardCornerRadius">16dp</item>
+        <item name="cardBackgroundColor">@color/colorPrimaryDark</item>
     </style>
 
 </resources>
