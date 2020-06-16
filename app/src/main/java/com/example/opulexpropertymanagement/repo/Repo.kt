@@ -1,10 +1,6 @@
-package com.example.pg_mvvm.repo
+package com.example.opulexpropertymanagement.ui
 
-import com.example.pg_mvvm.models.User
-import com.example.pg_mvvm.models.UserState
-import com.example.pg_mvvm.repo.db.dao
-import com.example.pg_mvvm.repo.db.db
-import com.example.pg_mvvm.repo.network.NetworkClient
+import com.example.opulexpropertymanagement.repo.network.NetworkClient
 import com.example.tmcommonkotlin.*
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers

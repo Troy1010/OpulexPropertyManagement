@@ -1,10 +1,9 @@
-package com.example.pg_mvvm.repo.db
+package com.example.opulexpropertymanagement.ui
 
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.pg_mvvm.app.App
-import com.example.pg_mvvm.models.User
+import com.example.opulexpropertymanagement.app.App
 
 
 val db = Room

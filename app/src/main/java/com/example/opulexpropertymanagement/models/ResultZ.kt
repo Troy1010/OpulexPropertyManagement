@@ -1,4 +1,4 @@
-package com.example.pg_mvvm.models
+package com.example.opulexpropertymanagement.ui
 
 
 sealed class ResultZ {

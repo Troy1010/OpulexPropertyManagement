@@ -1,4 +1,4 @@
-package com.example.pg_mvvm
+package com.example.opulexpropertymanagement.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.pg_mvvm.databinding.FragRegisterBinding
-import com.example.pg_mvvm.view_models.UserVM
+import com.example.opulexpropertymanagement.R
+import com.example.opulexpropertymanagement.databinding.FragRegisterBinding
+
 
 class FragRegister : Fragment() {
 

@@ -1,8 +1,7 @@
-package com.example.pg_mvvm.repo.db
+package com.example.opulexpropertymanagement.ui
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.pg_mvvm.models.User
 
 @Dao
 interface UserDao {

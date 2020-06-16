@@ -1,4 +1,4 @@
-package com.example.pg_mvvm.models
+package com.example.opulexpropertymanagement.ui
 
 data class UserState(
     val wantsLogin:Boolean = false,

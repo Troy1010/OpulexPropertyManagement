@@ -1,8 +1,8 @@
 package com.example.opulexpropertymanagement.repo.network
 
-import com.example.pg_mvvm.app.Config
-import com.example.pg_mvvm.models.User
-import com.example.pg_mvvm.models.network_responses.LoginResponse
+import com.example.opulexpropertymanagement.app.Config
+import com.example.opulexpropertymanagement.models.network_responses.LoginResponse
+import com.example.opulexpropertymanagement.ui.User
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

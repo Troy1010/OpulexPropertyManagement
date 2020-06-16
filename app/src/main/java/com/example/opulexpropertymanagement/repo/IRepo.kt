@@ -1,7 +1,5 @@
-package com.example.pg_mvvm.repo
+package com.example.opulexpropertymanagement.ui
 
-import com.example.pg_mvvm.models.User
-import com.example.pg_mvvm.models.UserState
 import io.reactivex.Observable
 
 interface IRepo {

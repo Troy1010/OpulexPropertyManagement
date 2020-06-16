@@ -3,7 +3,7 @@
     <data>
         <variable
             name="userInfo"
-            type="com.example.pg_mvvm.models.User" />
+            type="com.example.opulexpropertymanagement.ui.User" />
     </data>
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"

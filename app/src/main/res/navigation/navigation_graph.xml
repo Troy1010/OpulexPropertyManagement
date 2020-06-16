@@ -5,11 +5,11 @@
 
     <fragment
         android:id="@+id/fragHome"
-        android:name="com.example.pg_mvvm.FragHome"
+        android:name="com.example.opulexpropertymanagement.ui.FragHome"
         android:label="FragHome" />
     <fragment
         android:id="@+id/fragLogin"
-        android:name="com.example.pg_mvvm.FragLogin"
+        android:name="com.example.opulexpropertymanagement.ui.FragLogin"
         android:label="FragLogin" >
         <action
             android:id="@+id/action_fragLogin_to_fragRegister"
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragRegister"
-        android:name="com.example.pg_mvvm.FragRegister"
+        android:name="com.example.opulexpropertymanagement.ui.FragRegister"
         android:label="FragRegister" >
         <action
             android:id="@+id/action_fragRegister_to_fragLogin"
