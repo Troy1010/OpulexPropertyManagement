@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_graph"
-    app:startDestination="@id/fragLogin">
+    app:startDestination="@id/fragTenantOrLandlord">
 
     <fragment
         android:id="@+id/fragHome"
@@ -27,6 +27,14 @@
             app:destination="@id/fragLogin" />
         <action
             android:id="@+id/action_fragRegister_to_fragHome"
+            app:destination="@id/fragHome" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragTenantOrLandlord"
+        android:name="com.example.opulexpropertymanagement.ui.FragTenantOrLandlord"
+        android:label="Actions" >
+        <action
+            android:id="@+id/action_fragTenantOrLandlord_to_fragHome"
             app:destination="@id/fragHome" />
     </fragment>
 </navigation>
