@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="userInfo"
+            type="com.example.pg_mvvm.models.User" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/edittext_name"
+            android:hint="Name"
+            android:text="@{userInfo.firstName}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edittext_email"
+            android:hint="Email"
+            android:text="@{userInfo.email}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edittext_password"
+            android:hint="Password"
+            android:text="@{userInfo.password}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textview_new_user_click_here"
+            android:gravity="center_horizontal"
+            android:textColor="#00F"
+            android:text="Already registered? Sign in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:text="Register"
+            android:id="@+id/btn_register_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>

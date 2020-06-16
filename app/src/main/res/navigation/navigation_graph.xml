@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_graph"
+    app:startDestination="@id/fragLogin">
+
+    <fragment
+        android:id="@+id/fragHome"
+        android:name="com.example.pg_mvvm.FragHome"
+        android:label="FragHome" />
+    <fragment
+        android:id="@+id/fragLogin"
+        android:name="com.example.pg_mvvm.FragLogin"
+        android:label="FragLogin" >
+        <action
+            android:id="@+id/action_fragLogin_to_fragRegister"
+            app:destination="@id/fragRegister" />
+        <action
+            android:id="@+id/action_fragLogin_to_fragHome"
+            app:destination="@id/fragHome" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragRegister"
+        android:name="com.example.pg_mvvm.FragRegister"
+        android:label="FragRegister" >
+        <action
+            android:id="@+id/action_fragRegister_to_fragLogin"
+            app:destination="@id/fragLogin" />
+        <action
+            android:id="@+id/action_fragRegister_to_fragHome"
+            app:destination="@id/fragHome" />
+    </fragment>
+</navigation>
