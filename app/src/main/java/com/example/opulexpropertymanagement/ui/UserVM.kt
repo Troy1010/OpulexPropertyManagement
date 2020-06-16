@@ -10,8 +10,6 @@ import io.reactivex.subjects.PublishSubject
 class UserVM : TMViewModel(), IRepo by Repo {
     val userStateStreamLiveData by lazy { MutableLiveData<UserState>() }
     val userType by lazy { MutableLiveData<UserType>() }
-
-    private val setUserTypeSubject by lazy { PublishSubject.create<UserType>() }
     init {
         disposables.add(
             userStateStream
@@ -20,10 +18,6 @@ class UserVM : TMViewModel(), IRepo by Repo {
                     userStateStreamLiveData.value = it
                 }
         )
-    }
-
-    fun setUserType(userType: UserType) {
-        setUserTypeSubject.onNext(userType)
     }
 
     fun whipeDBAndAddUser() {
