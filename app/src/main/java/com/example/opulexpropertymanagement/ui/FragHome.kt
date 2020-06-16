@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.grocerygo.activities_and_frags.Inheritables.TMFragment
 import com.example.opulexpropertymanagement.R
+import com.example.opulexpropertymanagement.databinding.FragHomeBinding
 import com.example.pg_mvvm.databinding.FragHomeBinding
 import com.example.pg_mvvm.view_models.UserVM
 import com.example.tmcommonkotlin.logz
