@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">OpulexPropertyManagement</string>
+    <string name="app_name">Opulex</string>
+    <string name="app_name_subtext">Property Management</string>
 </resources>
