@@ -30,7 +30,10 @@ class FragRegister : OXFragment(isToolbarEnabled = false) {
 
     private fun init() {
         mBinding.btnRegisterSend.setOnClickListener {
-            navController.navigate(R.id.fragHome)
+//            navController.navigate(R.id.fragHome)
+            val email = mBinding.textinputeditEmail.text.toString()
+            val password = mBinding.textinputeditPassword.text.toString()
+            userVM.register(email, password)
         }
         mBinding.textviewAlreadyRegisteredSignIn.setOnClickListener {
             navController.navigate(R.id.fragLogin)

@@ -11,14 +11,14 @@ class UserVM : TMViewModel(), IRepo by Repo {
     val userType by lazy { MutableLiveData<UserType>() }
     val hasLogin by lazy { MutableLiveData<Boolean>().apply { value = false } }
     init {
-        disposables.add(
-            userStateStream
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    userStateStreamLiveData.value = it
-                    hasLogin.value = it.hasLogin
-                }
-        )
+//        disposables.add(
+//            userStateStream
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe {
+//                    userStateStreamLiveData.value = it
+//                    hasLogin.value = it.hasLogin
+//                }
+//        )
     }
 
     fun whipeDBAndAddUser() {

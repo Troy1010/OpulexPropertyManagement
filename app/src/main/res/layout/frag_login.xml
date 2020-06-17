@@ -71,6 +71,7 @@
                 app:layout_constraintTop_toBottomOf="@id/imageview_opulex_chicago">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textinputedit_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryDark"
@@ -93,6 +94,7 @@
                 app:layout_constraintTop_toBottomOf="@id/textinputlayout_email">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textinputedit_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryDark"

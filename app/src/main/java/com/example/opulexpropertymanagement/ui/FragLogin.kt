@@ -33,6 +33,9 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
 //            val email = mBinding.edittextEmail.text.toString()
 //            val password = mBinding.edittextPassword.text.toString()
 //            userVM.tryLogin(User(email, password))
+            val email = mBinding.textinputeditEmail.text.toString()
+            val password = mBinding.textinputeditPassword.text.toString()
+            userVM.tryLogin(email, password)
         }
 //        compositeDisposable.add(
 //            userVM.userStateStream
