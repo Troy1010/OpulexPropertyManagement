@@ -40,6 +40,7 @@ class FragProperties: Fragment(), AdapterRVProperties.ARVInterface {
 
     override fun onStart() {
         super.onStart()
+        (activity as ActivityHostInterface).setDrawerEnabled(true)
         recyclerview_1.layoutManager = LinearLayoutManager(requireActivity())
         recyclerview_1.adapter = AdapterRVProperties(this, R.layout.item_property)
         btn_add_property.setOnClickListener {

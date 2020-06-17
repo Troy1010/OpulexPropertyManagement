@@ -58,6 +58,7 @@ class FragLogin : TMFragment() {
 
     override fun onStart() {
         super.onStart()
+        (activity as ActivityHostInterface).setDrawerEnabled(true)
         // Does this survive rotation..?
         val args = arguments?.let { FragLoginArgs.fromBundle(it) }
         if (args?.ReasonForLoginInt == ReasonForLogin.Properties.ordinal) {

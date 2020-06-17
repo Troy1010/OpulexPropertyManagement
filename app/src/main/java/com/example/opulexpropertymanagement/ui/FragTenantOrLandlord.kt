@@ -22,5 +22,6 @@ class FragTenantOrLandlord : Fragment(R.layout.frag_tenant_or_landlord) {
             val directions = FragTenantOrLandlordDirections.actionFragTenantOrLandlordToFragHome()
             navController.navigate(directions)
         }
+        (activity as ActivityHostInterface).setDrawerEnabled(false)
     }
 }

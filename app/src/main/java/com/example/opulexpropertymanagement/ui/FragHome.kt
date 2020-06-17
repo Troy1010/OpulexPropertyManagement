@@ -31,4 +31,9 @@ class FragHome : Fragment(R.layout.frag_home) {
         }
         return mBinding.root
     }
+
+    override fun onStart() {
+        super.onStart()
+        (activity as ActivityHostInterface).setDrawerEnabled(true)
+    }
 }

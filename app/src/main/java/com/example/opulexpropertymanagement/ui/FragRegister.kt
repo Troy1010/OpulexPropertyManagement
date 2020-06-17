@@ -28,6 +28,11 @@ class FragRegister : Fragment() {
         return mBinding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        (activity as ActivityHostInterface).setDrawerEnabled(true)
+    }
+
     private fun init() {
         mBinding.btnRegisterSend.setOnClickListener {
             navController.navigate(R.id.fragHome)
