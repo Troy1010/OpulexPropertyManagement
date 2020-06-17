@@ -10,11 +10,11 @@
         <item name="titleTextColor">@color/colorPrimary</item>
     </style>
     <style name="OpulexTheme.ButtonSoft">
-        <item name="android:background">@color/colorLightGrey</item>
+        <item name="android:background">@drawable/button_soft_background</item>
         <item name="android:textColor">@color/colorVsLight</item>
     </style>
     <style name="OpulexTheme.ButtonPop">
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:background">@drawable/button_pop_background</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:padding">10dp</item>
     </style>

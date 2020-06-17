@@ -10,32 +10,35 @@
         <action
             android:id="@+id/action_fragHome_to_fragProperties"
             app:destination="@id/fragProperties" />
+        <action
+            android:id="@+id/action_fragHome_to_activitySplashscreen"
+            app:destination="@id/activitySplashscreen" />
     </fragment>
     <fragment
         android:id="@+id/fragLogin"
         android:name="com.example.opulexpropertymanagement.ui.FragLogin"
         android:label="Login" >
+        <argument
+            android:name="ReasonForLoginInt"
+            app:argType="integer"
+            android:defaultValue="0" />
         <action
             android:id="@+id/action_fragLogin_to_fragRegister"
             app:destination="@id/fragRegister" />
         <action
             android:id="@+id/action_fragLogin_to_fragHome"
             app:destination="@id/fragHome" />
-        <argument
-            android:name="ReasonForLoginInt"
-            app:argType="integer"
-            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/fragRegister"
         android:name="com.example.opulexpropertymanagement.ui.FragRegister"
         android:label="Register" >
         <action
-            android:id="@+id/action_fragRegister_to_fragLogin"
-            app:destination="@id/fragLogin" />
-        <action
             android:id="@+id/action_fragRegister_to_fragHome"
             app:destination="@id/fragHome" />
+        <action
+            android:id="@+id/action_fragRegister_to_fragLogin"
+            app:destination="@id/fragLogin" />
     </fragment>
     <fragment
         android:id="@+id/fragTenantOrLandlord"
@@ -63,4 +66,8 @@
         android:id="@+id/action_global_fragHome"
         app:destination="@id/fragHome"
         app:popUpTo="@id/navigation_graph" />
+    <activity
+        android:id="@+id/activitySplashscreen"
+        android:name="com.example.opulexpropertymanagement.ui.ActivitySplashscreen"
+        android:label="ActivitySplashscreen" />
 </navigation>

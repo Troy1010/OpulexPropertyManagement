@@ -34,9 +34,6 @@ class FragLogin : OXFragment() {
             val password = mBinding.edittextPassword.text.toString()
             userVM.tryLogin(User(email, password))
         }
-        mBinding.btnGoBack.setOnClickListener {
-            navController.navigateUp()
-        }
 //        compositeDisposable.add(
 //            userVM.userStateStream
 //                .subscribeOn(Schedulers.io())
