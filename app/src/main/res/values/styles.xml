@@ -27,4 +27,8 @@
         <item name="cardBackgroundColor">@color/colorBackgroundHighlight</item>
     </style>
 
+    <style name="OpulexOverlay" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+    </style>
+
 </resources>
