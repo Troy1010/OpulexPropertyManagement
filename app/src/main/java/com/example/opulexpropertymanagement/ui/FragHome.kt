@@ -25,8 +25,10 @@ class FragHome : Fragment(R.layout.frag_home) {
             inflater, R.layout.frag_home, container, false
         )
         mBinding.lifecycleOwner = this
-        val directions = FragHomeDirections.actionFragHomeToFragProperties()
-        navController.navigate(directions)
+        mBinding.btnGoToProperties.setOnClickListener {
+            val directions = FragHomeDirections.actionFragHomeToFragProperties()
+            navController.navigate(directions)
+        }
         return mBinding.root
     }
 }

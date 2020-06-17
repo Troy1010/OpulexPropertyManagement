@@ -10,22 +10,22 @@ import androidx.navigation.fragment.findNavController
 import com.example.grocerygo.activities_and_frags.Inheritables.TMFragment
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragLoginBinding
+import com.example.opulexpropertymanagement.models.ReasonForLogin
+import kotlinx.android.synthetic.main.frag_login.*
 
 
 class FragLogin : TMFragment() {
 
     lateinit var mBinding: FragLoginBinding
     val navController by lazy { this.findNavController() }
+    val userVM: UserVM by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val userVM: UserVM by viewModels()
-        mBinding = DataBindingUtil.inflate(
-            inflater, R.layout.frag_login, container, false
-        )
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.frag_login, container, false)
         mBinding.textviewNewUserClickHere.setOnClickListener {
             navController.navigate(R.id.fragRegister)
         }
@@ -33,6 +33,9 @@ class FragLogin : TMFragment() {
             val email = mBinding.edittextEmail.text.toString()
             val password = mBinding.edittextPassword.text.toString()
             userVM.tryLogin(User(email, password))
+        }
+        mBinding.btnGoBack.setOnClickListener {
+            navController.navigateUp()
         }
 //        compositeDisposable.add(
 //            userVM.userStateStream
@@ -51,5 +54,15 @@ class FragLogin : TMFragment() {
 //                })
 //        )
         return mBinding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Does this survive rotation..?
+        val args = arguments?.let { FragLoginArgs.fromBundle(it) }
+        if (args?.ReasonForLoginInt == ReasonForLogin.Properties.ordinal) {
+            textview_reason_for_login.text =
+                "In order to see your properties, you must be logged in."
+        }
     }
 }

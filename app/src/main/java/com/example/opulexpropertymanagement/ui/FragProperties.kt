@@ -8,16 +8,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragPropertiesBinding
 import com.example.opulexpropertymanagement.databinding.ItemPropertyBinding
 import com.example.opulexpropertymanagement.models.Property
+import com.example.opulexpropertymanagement.models.ReasonForLogin
 import kotlinx.android.synthetic.main.frag_properties.*
 
 class FragProperties: Fragment(), AdapterRVProperties.ARVInterface {
     lateinit var mBinding: FragPropertiesBinding
     val propertiesVM: PropertiesVM by viewModels()
+    val userVM: UserVM by viewModels()
+    val navController by lazy { this.findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +46,10 @@ class FragProperties: Fragment(), AdapterRVProperties.ARVInterface {
             val x = propertiesVM.properties.value ?: arrayListOf()
             x.add(Property(propertyaddress = "aaaaaaaaaa"))
             propertiesVM.properties.value = x
+        }
+        if (userVM.hasLogin.value != true) {
+            val directions = FragPropertiesDirections.actionFragPropertiesToFragLogin(ReasonForLogin.Properties.ordinal)
+            navController.navigate(directions)
         }
     }
 

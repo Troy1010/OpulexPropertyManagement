@@ -9,12 +9,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 class UserVM : TMViewModel(), IRepo by Repo {
     val userStateStreamLiveData by lazy { MutableLiveData<UserState>() }
     val userType by lazy { MutableLiveData<UserType>() }
+    val hasLogin by lazy { MutableLiveData<Boolean>().apply { value = false } }
     init {
         disposables.add(
             userStateStream
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     userStateStreamLiveData.value = it
+                    hasLogin.value = it.hasLogin
                 }
         )
     }
