@@ -12,7 +12,7 @@ import com.example.opulexpropertymanagement.databinding.FragRegisterBinding
 import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
 
 
-class FragRegister : OXFragment() {
+class FragRegister : OXFragment(isToolbarEnabled = false) {
 
     lateinit var mBinding: FragRegisterBinding
     val navController by lazy {this.findNavController()}
@@ -32,7 +32,7 @@ class FragRegister : OXFragment() {
         mBinding.btnRegisterSend.setOnClickListener {
             navController.navigate(R.id.fragHome)
         }
-        mBinding.textviewNewUserClickHere.setOnClickListener {
+        mBinding.textviewAlreadyRegisteredSignIn.setOnClickListener {
             navController.navigate(R.id.fragLogin)
         }
     }
