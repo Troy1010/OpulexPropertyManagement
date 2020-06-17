@@ -1,13 +1,12 @@
 package com.example.opulexpropertymanagement.ui
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.opulexpropertymanagement.R
-import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.activity_host.*
 
 class ActivityHost: AppCompatActivity() {
@@ -23,12 +22,17 @@ class ActivityHost: AppCompatActivity() {
         setupActionBarWithNavController(navController)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var returning = super.onOptionsItemSelected(item)
+        val returning = super.onOptionsItemSelected(item)
         when (item.itemId) {
             android.R.id.home -> {
                 this.onBackPressed()
             }
         }
         return returning
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }
