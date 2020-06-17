@@ -9,7 +9,8 @@
         android:label="Home" >
         <action
             android:id="@+id/action_fragHome_to_fragProperties"
-            app:destination="@id/fragProperties" />
+            app:destination="@id/fragProperties"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_fragHome_to_activitySplashscreen"
             app:destination="@id/activitySplashscreen" />
@@ -56,12 +57,13 @@
         <action
             android:id="@+id/action_fragProperties_to_fragLogin"
             app:destination="@id/fragLogin"
-            app:popUpTo="@id/fragHome" />
+            app:popUpTo="@id/fragHome"
+            app:popUpToInclusive="false" />
     </fragment>
     <action
         android:id="@+id/action_global_fragProperties"
         app:destination="@id/fragProperties"
-        app:popUpTo="@id/navigation_graph" />
+        app:popUpTo="@id/fragHome" />
     <action
         android:id="@+id/action_global_fragHome"
         app:destination="@id/fragHome"

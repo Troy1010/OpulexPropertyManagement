@@ -14,7 +14,7 @@ import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
 import kotlinx.android.synthetic.main.frag_login.*
 
 
-class FragLogin : OXFragment() {
+class FragLogin : OXFragment(isToolbarEnabled = false) {
 
     lateinit var mBinding: FragLoginBinding
     val navController by lazy { this.findNavController() }
@@ -30,9 +30,9 @@ class FragLogin : OXFragment() {
             navController.navigate(R.id.fragRegister)
         }
         mBinding.btnLoginSend.setOnClickListener {
-            val email = mBinding.edittextEmail.text.toString()
-            val password = mBinding.edittextPassword.text.toString()
-            userVM.tryLogin(User(email, password))
+//            val email = mBinding.edittextEmail.text.toString()
+//            val password = mBinding.edittextPassword.text.toString()
+//            userVM.tryLogin(User(email, password))
         }
 //        compositeDisposable.add(
 //            userVM.userStateStream

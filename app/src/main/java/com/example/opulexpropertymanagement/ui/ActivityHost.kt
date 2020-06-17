@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -65,5 +66,13 @@ class ActivityHost : AppCompatActivity(), ActivityHostInterface {
         drawer_layout.setDrawerLockMode(lockMode)
         drawerToggle.isDrawerIndicatorEnabled = isEnabled
         drawerToggle.syncState()
+    }
+
+    override fun setToolbarEnabled(isEnabled: Boolean) {
+        if (isEnabled) {
+            toolbar_main.visibility = View.VISIBLE
+        } else {
+            toolbar_main.visibility = View.GONE
+        }
     }
 }

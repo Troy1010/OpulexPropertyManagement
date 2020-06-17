@@ -19,7 +19,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.opulexpropertymanagement"
-        minSdkVersion 16
+        // for letter spacing
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

@@ -3,8 +3,15 @@
     <color name="colorPrimary">#b28e2c</color>
     <color name="colorPrimaryDark">#191618</color>
     <color name="colorAccent">#467030</color>
+
+    <color name="colorControlNormal">#c5c5c5</color>
+    <color name="colorControlActivated">@color/colorAccent</color>
+    <color name="colorControlHighlight">@color/colorAccent</color>
+<!--    my personal colors-->
     <color name="colorLightGrey">#54544a</color>
     <color name="colorBackground">#eee</color>
     <color name="colorBackgroundHighlight">#fff</color>
     <color name="colorVsLight">#111</color>
+    <color name="colorVsDark">#eee</color>
+    <color name="colorVsDarkSoft">#999</color>
 </resources>

@@ -26,11 +26,10 @@ class FragHome : OXFragment() {
         )
         mBinding.lifecycleOwner = this
         mBinding.btnGoToProperties.setOnClickListener {
-            val directions = FragHomeDirections.actionFragHomeToActivitySplashscreen()
-            navController.navigate(directions)
-//            this.findNavController().navigate(directions)
-//            val directions = FragHomeDirections.actionFragHomeToFragProperties()
+//            val directions = FragHomeDirections.actionFragHomeToActivitySplashscreen()
 //            navController.navigate(directions)
+            val directions = FragHomeDirections.actionFragHomeToFragProperties()
+            navController.navigate(directions)
         }
         return mBinding.root
     }
