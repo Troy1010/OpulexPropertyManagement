@@ -7,7 +7,6 @@
     </style>
     <style name="Splashscreen" parent="Theme.AppCompat.NoActionBar"/>
     <style name="OpulexTheme.Toolbar">
-        <item name="android:textColor">@color/colorPrimary</item>
         <item name="titleTextColor">@color/colorPrimary</item>
     </style>
     <style name="OpulexTheme.ButtonSoft">
