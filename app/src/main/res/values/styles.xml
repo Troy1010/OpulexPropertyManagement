@@ -10,7 +10,7 @@
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="titleTextColor">@color/colorPrimary</item>
     </style>
-    <style name="OpulexTheme.ButtonCool">
+    <style name="OpulexTheme.ButtonSoft">
         <item name="android:background">@color/colorLightGrey</item>
         <item name="android:textColor">@color/colorVsLight</item>
     </style>
