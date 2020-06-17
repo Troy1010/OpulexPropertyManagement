@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -15,9 +14,10 @@ import com.example.opulexpropertymanagement.databinding.FragPropertiesBinding
 import com.example.opulexpropertymanagement.databinding.ItemPropertyBinding
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.ReasonForLogin
+import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
 import kotlinx.android.synthetic.main.frag_properties.*
 
-class FragProperties: Fragment(), AdapterRVProperties.ARVInterface {
+class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
     lateinit var mBinding: FragPropertiesBinding
     val propertiesVM: PropertiesVM by viewModels()
     val userVM: UserVM by viewModels()
@@ -40,7 +40,6 @@ class FragProperties: Fragment(), AdapterRVProperties.ARVInterface {
 
     override fun onStart() {
         super.onStart()
-        (activity as ActivityHostInterface).setDrawerEnabled(true)
         recyclerview_1.layoutManager = LinearLayoutManager(requireActivity())
         recyclerview_1.adapter = AdapterRVProperties(this, R.layout.item_property)
         btn_add_property.setOnClickListener {

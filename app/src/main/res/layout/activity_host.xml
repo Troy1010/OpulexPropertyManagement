@@ -2,7 +2,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer_layout">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    tools:openDrawer="start">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,7 +22,8 @@
             android:background="?colorPrimaryDark"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:popupTheme="@style/Theme.AppCompat.Light"
-            app:theme="@style/OpulexOverlay" />
+            app:theme="@style/OpulexOverlay"
+            android:elevation="4dp"/>
 
         <fragment
             android:id="@+id/fragNavHost"
@@ -33,9 +36,11 @@
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/drawer_nav_view"
+        android:id="@+id/drawer_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/drawer_header"
         app:menu="@menu/drawer_menu"/>
 </androidx.drawerlayout.widget.DrawerLayout>

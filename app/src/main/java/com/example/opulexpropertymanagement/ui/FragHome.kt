@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragHomeBinding
+import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
 
-class FragHome : Fragment(R.layout.frag_home) {
+class FragHome : OXFragment() {
     lateinit var mBinding: FragHomeBinding
     val navController by lazy { this.findNavController() }
 
@@ -30,10 +30,5 @@ class FragHome : Fragment(R.layout.frag_home) {
             navController.navigate(directions)
         }
         return mBinding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        (activity as ActivityHostInterface).setDrawerEnabled(true)
     }
 }

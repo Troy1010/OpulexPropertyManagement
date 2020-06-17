@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.grocerygo.activities_and_frags.Inheritables.TMFragment
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragLoginBinding
 import com.example.opulexpropertymanagement.models.ReasonForLogin
+import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
 import kotlinx.android.synthetic.main.frag_login.*
 
 
-class FragLogin : TMFragment() {
+class FragLogin : OXFragment() {
 
     lateinit var mBinding: FragLoginBinding
     val navController by lazy { this.findNavController() }
@@ -58,7 +58,6 @@ class FragLogin : TMFragment() {
 
     override fun onStart() {
         super.onStart()
-        (activity as ActivityHostInterface).setDrawerEnabled(true)
         // Does this survive rotation..?
         val args = arguments?.let { FragLoginArgs.fromBundle(it) }
         if (args?.ReasonForLoginInt == ReasonForLogin.Properties.ordinal) {

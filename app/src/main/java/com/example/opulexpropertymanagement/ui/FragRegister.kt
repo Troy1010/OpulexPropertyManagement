@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragRegisterBinding
+import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
 
 
-class FragRegister : Fragment() {
+class FragRegister : OXFragment() {
 
     lateinit var mBinding: FragRegisterBinding
     val navController by lazy {this.findNavController()}
@@ -26,11 +26,6 @@ class FragRegister : Fragment() {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.frag_register, container, false)
         init()
         return mBinding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        (activity as ActivityHostInterface).setDrawerEnabled(true)
     }
 
     private fun init() {
