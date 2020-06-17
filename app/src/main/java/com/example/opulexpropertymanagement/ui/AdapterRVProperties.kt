@@ -15,10 +15,7 @@ class AdapterRVProperties(
 ) : RecyclerView.Adapter<AdapterRVProperties.ViewHolder>() {
     inner class ViewHolder(val binding: ItemPropertyBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): AdapterRVProperties.ViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterRVProperties.ViewHolder =
         ViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),

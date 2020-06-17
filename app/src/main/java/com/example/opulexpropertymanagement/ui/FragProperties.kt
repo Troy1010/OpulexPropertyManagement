@@ -10,13 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.opulexpropertymanagement.R
-import com.example.opulexpropertymanagement.databinding.FragLoginBinding
 import com.example.opulexpropertymanagement.databinding.FragPropertiesBinding
 import com.example.opulexpropertymanagement.databinding.ItemPropertyBinding
 import com.example.opulexpropertymanagement.models.Property
-import com.example.tmcommonkotlin.TMRecyclerViewAdapter
 import kotlinx.android.synthetic.main.frag_properties.*
-import kotlinx.android.synthetic.main.item_property.view.*
 
 class FragProperties: Fragment(), AdapterRVProperties.ARVInterface {
     lateinit var mBinding: FragPropertiesBinding
@@ -41,6 +38,11 @@ class FragProperties: Fragment(), AdapterRVProperties.ARVInterface {
         super.onStart()
         recyclerview_1.layoutManager = LinearLayoutManager(requireActivity())
         recyclerview_1.adapter = AdapterRVProperties(this, R.layout.item_property)
+        btn_add_property.setOnClickListener {
+            val x = propertiesVM.properties.value ?: arrayListOf()
+            x.add(Property(propertyaddress = "aaaaaaaaaa"))
+            propertiesVM.properties.value = x
+        }
     }
 
     override fun getRecyclerDataSize(): Int {
