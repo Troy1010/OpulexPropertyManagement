@@ -10,6 +10,7 @@ data class User(
     val msg: String,
     @SerializedName("useremail")
     val email: String,
+    @PrimaryKey
     @SerializedName("userid")
     val id: String,
     val usertype: String
