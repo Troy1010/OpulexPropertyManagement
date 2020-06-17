@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragRegisterBinding
-import com.example.opulexpropertymanagement.ui.ViewModels.UserVM
 
 
 class FragRegister : Fragment() {

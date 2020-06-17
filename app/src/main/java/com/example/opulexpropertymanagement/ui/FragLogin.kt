@@ -5,30 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.grocerygo.activities_and_frags.Inheritables.TMFragment
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragLoginBinding
-import com.example.tmcommonkotlin.easyToast
-import com.example.tmcommonkotlin.logz
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 
 class FragLogin : TMFragment() {
 
     lateinit var mBinding: FragLoginBinding
     val navController by lazy { this.findNavController() }
-//    val userVM: UserVM by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val userVM: UserVM by viewModels()
         mBinding = DataBindingUtil.inflate(
             inflater, R.layout.frag_login, container, false
         )
@@ -38,7 +32,7 @@ class FragLogin : TMFragment() {
         mBinding.btnLoginSend.setOnClickListener {
             val email = mBinding.edittextEmail.text.toString()
             val password = mBinding.edittextPassword.text.toString()
-//            userVM.tryLogin(User(email, password))
+            userVM.tryLogin(User(email, password))
         }
 //        compositeDisposable.add(
 //            userVM.userStateStream
