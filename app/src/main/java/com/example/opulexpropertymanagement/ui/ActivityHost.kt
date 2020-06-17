@@ -28,10 +28,13 @@ class ActivityHost : AppCompatActivity(), ActivityHostInterface {
         toolbar?.title = navController.currentDestination?.label // for some reason this is required on first page
         setSupportActionBar(toolbar_main)
         // Drawer
-        drawer_layout.closeDrawers()
-        drawer_view.setNavigationItemSelectedListener {
-            it.isChecked = true
+        drawer_view.setNavigationItemSelectedListener { menuItem ->
+            menuItem.isChecked = true
             drawer_layout.closeDrawers()
+            when (menuItem.itemId) {
+                R.id.menuitem_properties -> navController.navigate(R.id.action_global_fragProperties)
+                R.id.menuitem_home -> navController.navigate(R.id.action_global_fragHome)
+            }
             true
         }
         // Drawer + Toolbar

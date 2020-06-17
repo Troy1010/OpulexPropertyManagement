@@ -55,4 +55,12 @@
             app:destination="@id/fragLogin"
             app:popUpTo="@id/fragHome" />
     </fragment>
+    <action
+        android:id="@+id/action_global_fragProperties"
+        app:destination="@id/fragProperties"
+        app:popUpTo="@id/navigation_graph" />
+    <action
+        android:id="@+id/action_global_fragHome"
+        app:destination="@id/fragHome"
+        app:popUpTo="@id/navigation_graph" />
 </navigation>
