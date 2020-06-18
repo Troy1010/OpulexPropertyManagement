@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragHomeBinding
 import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
+import com.example.tmcommonkotlin.logz
 
 class FragHome : OXFragment() {
     lateinit var mBinding: FragHomeBinding
@@ -34,6 +35,9 @@ class FragHome : OXFragment() {
         }
         mBinding.btnGoToLogin.setOnClickListener {
             navController.navigate(R.id.fragLogin)
+        }
+        mBinding.btnLogout.setOnClickListener {
+            userVM.logout()
         }
         return mBinding.root
     }

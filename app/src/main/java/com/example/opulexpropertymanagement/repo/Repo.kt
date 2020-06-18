@@ -70,9 +70,4 @@ object Repo : IRepo {
             StreamableLoginAttempt(email, password)
         )
     }
-
-    override fun logout() {
-        logx()
-        logoutSubject.onNext(Unit)
-    }
 }

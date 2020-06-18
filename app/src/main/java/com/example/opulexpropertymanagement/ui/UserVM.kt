@@ -7,6 +7,7 @@ import com.example.opulexpropertymanagement.repo.SharedPref
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
 import com.example.tmcommonkotlin.logSubscribe
+import com.example.tmcommonkotlin.logx
 import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
 
@@ -25,6 +26,10 @@ class UserVM : ViewModel(), IRepo by Repo {
             }
         }
         user.value = SharedPref.getUserFromSharedPref()
+    }
+
+    fun logout() {
+        user.value = null
     }
 
     fun whipeDBAndAddUser() {

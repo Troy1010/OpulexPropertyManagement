@@ -8,7 +8,6 @@ interface IRepo {
     fun tryLogin(user: User)
     fun register(email:String, password:String)
     fun tryLogin(email:String, password:String)
-    fun logout()
     val loginAttemptResponse: Flowable<StreamableLoginAttemptResponse>
 //    val userStateStream: Observable<UserState>
     fun whipeDBAndAddUser(user: User)
