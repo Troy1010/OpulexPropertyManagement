@@ -24,8 +24,7 @@ object SharedPref {
         if ((storedID == null) || (storedEmail == null) || (storedAppApiKey==null) || (storedUserType==null)) {
             return null
         } else {
-//            return User(storedID, "??", storedEmail, storedAppApiKey, storedUserType)
-            return null
+            return User(storedID, "??", storedEmail, storedAppApiKey, storedUserType)
         }
     }
 
