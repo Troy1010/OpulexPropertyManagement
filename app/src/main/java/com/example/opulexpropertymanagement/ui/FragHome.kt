@@ -31,6 +31,9 @@ class FragHome : OXFragment() {
             val directions = FragHomeDirections.actionFragHomeToFragProperties()
             navController.navigate(directions)
         }
+        mBinding.btnGoToLogin.setOnClickListener {
+            navController.navigate(R.id.fragLogin)
+        }
         return mBinding.root
     }
 }

@@ -1,16 +1,50 @@
 package com.example.opulexpropertymanagement.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.opulexpropertymanagement.models.UserType
+import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
 import com.example.tmcommonkotlin.inheritables.TMViewModel
 import com.example.tmcommonkotlin.logz
+import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import org.reactivestreams.Publisher
 
-class UserVM : TMViewModel(), IRepo by Repo {
+class UserVM : ViewModel(), IRepo by Repo {
+    val user: LiveData<User?> = LiveDataReactiveStreams.fromPublisher(
+        loginAttemptResponse
+            .map {
+                if (it is StreamableLoginAttemptResponse.Success) {
+                    it.user
+                } else {
+                    null
+                }
+            }.toFlowable(BackpressureStrategy.DROP)
+    )
+
+
+    val disposables by lazy { CompositeDisposable() }
     val userStateStreamLiveData by lazy { MutableLiveData<UserState>() }
     val userType by lazy { MutableLiveData<UserType>() }
-    val hasLogin by lazy { MutableLiveData<Boolean>().apply { value = false } }
+    //    val user by lazy { MutableLiveData<User?>().apply { value = null } }
+
     init {
+
+//        disposables.add(
+//
+//            . observeOn (AndroidSchedulers.mainThread())
+//            .subscribe {
+//                if (it is StreamableLoginAttemptResponse.Success) {
+//                    logz("updating user value to:${it.user}")
+//                    user.value = it.user
+//                } else {
+//                    user.value = null
+//                }
+//            }
+//        )
 //        disposables.add(
 //            userStateStream
 //                .observeOn(AndroidSchedulers.mainThread())
@@ -29,5 +63,9 @@ class UserVM : TMViewModel(), IRepo by Repo {
 
     fun printDBUser() {
         logz("${getFirstUserInDB()}")
+    }
+
+    fun finalize() {
+        disposables.dispose()
     }
 }

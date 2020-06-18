@@ -1,5 +1,6 @@
 package com.example.opulexpropertymanagement.ui
 
+import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
 import io.reactivex.Observable
 
 interface IRepo {
@@ -7,6 +8,7 @@ interface IRepo {
     fun register(email:String, password:String)
     fun tryLogin(email:String, password:String)
     fun logout()
+    val loginAttemptResponse: Observable<StreamableLoginAttemptResponse>
 //    val userStateStream: Observable<UserState>
     fun whipeDBAndAddUser(user: User)
     fun getFirstUserInDB() : User?

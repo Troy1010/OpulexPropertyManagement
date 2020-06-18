@@ -6,11 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragLoginBinding
 import com.example.opulexpropertymanagement.models.ReasonForLogin
+import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
 import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
+import com.example.tmcommonkotlin.easyToast
+import com.example.tmcommonkotlin.exhaustive
+import com.example.tmcommonkotlin.logz
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.frag_login.*
 
 
@@ -19,6 +26,8 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
     lateinit var mBinding: FragLoginBinding
     val navController by lazy { this.findNavController() }
     val userVM: UserVM by viewModels()
+    val compositeDisposable by lazy { CompositeDisposable() }
+    val args by lazy { arguments?.let { FragLoginArgs.fromBundle(it) } }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +46,34 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
             val password = mBinding.textinputeditPassword.text.toString()
             userVM.tryLogin(email, password)
         }
+        userVM.user
+            .observe(viewLifecycleOwner, Observer {user ->
+                logz("FragLogin`new user:$user")
+                if (user!=null) {
+                    when (args?.ReasonForLoginInt) {
+                        ReasonForLogin.Properties.ordinal -> {
+                            logz("Navigate to fragProperties")
+                            val directions = FragLoginDirections.actionGlobalFragProperties(true)
+                            navController.navigate(directions)
+                        }
+                        else -> navController.navigate(R.id.fragHome)
+                    }
+                } else {
+                    easyToast(requireActivity(), "Login Failed")
+                }
+            })
+//        compositeDisposable.add(
+//            userVM.loginAttemptResponse
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe {
+//                    when (it) {
+//                        is StreamableLoginAttemptResponse.Error -> {
+//                            easyToast(requireActivity(), "Login Failed")
+//                            logz(it.msg)
+//                        }
+//                    }
+//                }
+//        )
 //        compositeDisposable.add(
 //            userVM.userStateStream
 //                .subscribeOn(Schedulers.io())
@@ -59,10 +96,14 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
     override fun onStart() {
         super.onStart()
         // Does this survive rotation..?
-        val args = arguments?.let { FragLoginArgs.fromBundle(it) }
         if (args?.ReasonForLoginInt == ReasonForLogin.Properties.ordinal) {
             textview_reason_for_login.text =
                 "In order to see your properties, you must be logged in."
         }
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.dispose()
+        super.onDestroy()
     }
 }

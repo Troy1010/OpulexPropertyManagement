@@ -1,6 +1,8 @@
 package com.example.opulexpropertymanagement.repo.network
 
 import com.example.opulexpropertymanagement.app.Config
+import com.example.opulexpropertymanagement.models.network_responses.LoginResponse
+import com.example.opulexpropertymanagement.ui.User
 import com.google.gson.GsonBuilder
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
@@ -26,15 +28,11 @@ interface INetworkClient {
         @Query("account_for") userType: String
     ): Observable<String>
 
-//    fun register(email: String, password:String, userType: UserType): String {
-//        return register(email, password, userType.name)
-//    }
-
-    @GET("pro_mgt_login.php?email={email}&password={password}")
+    @GET("pro_mgt_login.php")
     fun login(
-        @Path("email") email: String,
-        @Path("password") password: String
-    ): String
+        @Query("email") email: String,
+        @Query("password") password: String
+    ): Observable<User>
 
 //    @GET("pro_mgt_forgot_pass.php?email=aa@aa.com")
 //    fun forgotPassword(

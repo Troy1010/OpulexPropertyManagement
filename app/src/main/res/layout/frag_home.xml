@@ -21,6 +21,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/btn_go_to_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go To Login"
+            app:layout_constraintBottom_toTopOf="@+id/btn_go_to_properties"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <Button
             android:id="@+id/btn_go_to_properties"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,6 +1,8 @@
 package com.example.opulexpropertymanagement.ui
 
 import com.example.opulexpropertymanagement.models.UserType
+import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttempt
+import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
 import com.example.opulexpropertymanagement.repo.network.NetworkClient
 import com.example.tmcommonkotlin.*
 import io.reactivex.Observable
@@ -11,7 +13,7 @@ import io.reactivex.subjects.PublishSubject
 //AndroidSchedulers.mainThread()
 
 object Repo : IRepo {
-//    override lateinit var userStateStream: Observable<UserState>
+    //    override lateinit var userStateStream: Observable<UserState>
     override fun whipeDBAndAddUser(user: User) {
         dao.clear()
         dao.addUser(user)
@@ -29,7 +31,25 @@ object Repo : IRepo {
     private val tryToLoginSubject by lazy { PublishSubject.create<User>() }
     private val logoutSubject by lazy { PublishSubject.create<Unit>() }
 
+    private val tryToLoginSubject2 by lazy { PublishSubject.create<StreamableLoginAttempt>() }
+    override lateinit var loginAttemptResponse: Observable<StreamableLoginAttemptResponse>
+
     init {
+        loginAttemptResponse = tryToLoginSubject2
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .flatMap {
+                NetworkClient.login(it.email, it.password)
+                    .map<StreamableLoginAttemptResponse> { user ->
+                        StreamableLoginAttemptResponse.Success(user)
+                    }
+                    .onErrorReturn {
+                        StreamableLoginAttemptResponse.Error("$it")
+                    }
+            }
+        loginAttemptResponse
+            .logSubscribe("loginAttemptResponse")
+
 //        userStateStream = tryToLoginSubject
 //            .subscribeOn(Schedulers.io())
 //            .observeOn(Schedulers.io())
@@ -65,9 +85,14 @@ object Repo : IRepo {
     }
 
     override fun tryLogin(email: String, password: String) {
-        logx()
-        logz("NetworkClient.login(email, password):${NetworkClient.login(email, password)}")
-
+        logz("tryLogin")
+        tryToLoginSubject2.onNext(
+            StreamableLoginAttempt(email, password)
+        )
+//        logz("NetworkClient.login(email, password):${NetworkClient.login(email, password)}")
+//        NetworkClient.login(email, password)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun logout() {

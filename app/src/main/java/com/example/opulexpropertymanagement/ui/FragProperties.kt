@@ -15,6 +15,7 @@ import com.example.opulexpropertymanagement.databinding.ItemPropertyBinding
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.ReasonForLogin
 import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
+import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_properties.*
 
 class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
@@ -22,6 +23,7 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
     val propertiesVM: PropertiesVM by viewModels()
     val userVM: UserVM by viewModels()
     val navController by lazy { this.findNavController() }
+    val args by lazy { arguments?.let { FragPropertiesArgs.fromBundle(it) } }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +42,10 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
 
     override fun onStart() {
         super.onStart()
+        if ((userVM.user.value == null) && (!(args?.ignoreNextRedirection?:false))) {
+            val directions = FragPropertiesDirections.actionFragPropertiesToFragLogin(ReasonForLoginInt = ReasonForLogin.Properties.ordinal)
+            navController.navigate(directions)
+        }
         recyclerview_1.layoutManager = LinearLayoutManager(requireActivity())
         recyclerview_1.adapter = AdapterRVProperties(this, R.layout.item_property)
         btn_add_property.setOnClickListener {
@@ -47,10 +53,7 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
             x.add(Property(propertyaddress = "aaaaaaaaaa"))
             propertiesVM.properties.value = x
         }
-        if (userVM.hasLogin.value != true) {
-            val directions = FragPropertiesDirections.actionFragPropertiesToFragLogin(ReasonForLogin.Properties.ordinal)
-            navController.navigate(directions)
-        }
+        logz("FragProperties`onStart`userVM.user.value:${userVM.user.value}")
     }
 
     override fun getRecyclerDataSize(): Int {
