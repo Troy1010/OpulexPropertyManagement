@@ -52,10 +52,6 @@ object Repo : IRepo {
                     }
             }
             .toFlowable(BackpressureStrategy.DROP)
-        loginAttemptResponse
-            .logSubscribe("loginAttemptResponse")
-
-
     }
 
     override fun register(email: String, password: String) {
@@ -70,7 +66,6 @@ object Repo : IRepo {
     }
 
     override fun tryLogin(email: String, password: String) {
-        logz("tryLogin")
         tryToLoginSubject2.onNext(
             StreamableLoginAttempt(email, password)
         )

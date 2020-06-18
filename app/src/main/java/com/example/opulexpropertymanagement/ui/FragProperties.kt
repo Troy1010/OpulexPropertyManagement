@@ -39,7 +39,6 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
             recyclerview_1.adapter?.notifyDataSetChanged()
         })
         userVM.user.observe(viewLifecycleOwner, Observer {
-            logz("FragProperties` new user:$it")
             if (it==null) {
                 val directions = FragPropertiesDirections.actionFragPropertiesToFragLogin(ReasonForLoginInt = ReasonForLogin.Properties.ordinal)
                 navController.navigate(directions)
@@ -50,11 +49,6 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
 
     override fun onStart() {
         super.onStart()
-        userVM.user.value
-//        if (userVM.user.value == null) { // If you uncomment this, and comment lines 43-46, then somehow, loginAttemptResponse comes after onStart on 2nd attempt
-//            val directions = FragPropertiesDirections.actionFragPropertiesToFragLogin(ReasonForLoginInt = ReasonForLogin.Properties.ordinal)
-//            navController.navigate(directions)
-//        }
         recyclerview_1.layoutManager = LinearLayoutManager(requireActivity())
         recyclerview_1.adapter = AdapterRVProperties(this, R.layout.item_property)
         btn_add_property.setOnClickListener {
@@ -62,7 +56,6 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
             x.add(Property(propertyaddress = "aaaaaaaaaa"))
             propertiesVM.properties.value = x
         }
-        logz("FragProperties`onStart`userVM.user.value:${userVM.user.value}")
     }
 
     override fun getRecyclerDataSize(): Int {

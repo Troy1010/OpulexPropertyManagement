@@ -17,18 +17,13 @@ class UserVM : ViewModel(), IRepo by Repo {
     val userType by lazy { MutableLiveData<UserType>() }
 
     init {
-        logz("UserVM`init")
         user.addSource(LiveDataReactiveStreams.fromPublisher(loginAttemptResponse)) {
             if (it is StreamableLoginAttemptResponse.Success) {
-                logz("user.addSource`loginAttemptResponse`Success")
                 user.value = it.user
             } else {
-                logz("user.addSource`loginAttemptResponse`Failure")
                 user.value = null
             }
         }
-        loginAttemptResponse
-            .logSubscribe("zzzzzzzzz")
         user.value = SharedPref.getUserFromSharedPref()
     }
 
