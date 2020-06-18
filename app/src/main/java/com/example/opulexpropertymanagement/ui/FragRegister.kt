@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
@@ -16,7 +17,7 @@ class FragRegister : OXFragment(isToolbarEnabled = false) {
 
     lateinit var mBinding: FragRegisterBinding
     val navController by lazy {this.findNavController()}
-    val userVM: UserVM by viewModels()
+    val userVM: UserVM by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

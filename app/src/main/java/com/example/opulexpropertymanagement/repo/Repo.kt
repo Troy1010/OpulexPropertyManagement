@@ -1,10 +1,14 @@
 package com.example.opulexpropertymanagement.ui
 
+import com.example.opulexpropertymanagement.app.Config
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttempt
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
+import com.example.opulexpropertymanagement.repo.SharedPref
 import com.example.opulexpropertymanagement.repo.network.NetworkClient
 import com.example.tmcommonkotlin.*
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -32,7 +36,7 @@ object Repo : IRepo {
     private val logoutSubject by lazy { PublishSubject.create<Unit>() }
 
     private val tryToLoginSubject2 by lazy { PublishSubject.create<StreamableLoginAttempt>() }
-    override lateinit var loginAttemptResponse: Observable<StreamableLoginAttemptResponse>
+    override lateinit var loginAttemptResponse: Flowable<StreamableLoginAttemptResponse>
 
     init {
         loginAttemptResponse = tryToLoginSubject2
@@ -47,33 +51,14 @@ object Repo : IRepo {
                         StreamableLoginAttemptResponse.Error("$it")
                     }
             }
+            .toFlowable(BackpressureStrategy.DROP)
         loginAttemptResponse
             .logSubscribe("loginAttemptResponse")
 
-//        userStateStream = tryToLoginSubject
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(Schedulers.io())
-//            .flatMap { user ->
-//                NetworkClient.login(user.email, user.pa)
-//                    .map {
-//                        UserState(true, true, it.user)
-//                    }
-//                    .onErrorReturn {
-//                        UserState(true, false, user, it.message)
-//                    }
-//            }
-//            .mergeWith(logoutSubject
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(Schedulers.io())
-//                .map { UserState() })
-//            .startWith(UserState())
-//            .replay(1).refCount()
-//        userStateStream.subscribe()
+
     }
 
     override fun register(email: String, password: String) {
-//        logx(NetworkClient.register(email, email, password, UserType.Tenant.name)
-//            .toString())
         NetworkClient.register(email, email, password, UserType.Tenant.name)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -89,10 +74,6 @@ object Repo : IRepo {
         tryToLoginSubject2.onNext(
             StreamableLoginAttempt(email, password)
         )
-//        logz("NetworkClient.login(email, password):${NetworkClient.login(email, password)}")
-//        NetworkClient.login(email, password)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun logout() {

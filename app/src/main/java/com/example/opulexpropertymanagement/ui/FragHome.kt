@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
@@ -14,13 +15,13 @@ import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
 class FragHome : OXFragment() {
     lateinit var mBinding: FragHomeBinding
     val navController by lazy { this.findNavController() }
+    val userVM: UserVM by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val userVM: UserVM by viewModels()
         mBinding = DataBindingUtil.inflate(
             inflater, R.layout.frag_home, container, false
         )

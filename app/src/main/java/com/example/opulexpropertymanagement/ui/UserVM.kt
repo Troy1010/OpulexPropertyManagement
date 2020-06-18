@@ -1,62 +1,39 @@
 package com.example.opulexpropertymanagement.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.example.opulexpropertymanagement.app.App
+import com.example.opulexpropertymanagement.app.Config
+import com.example.opulexpropertymanagement.repo.SharedPref
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
-import com.example.tmcommonkotlin.inheritables.TMViewModel
+import com.example.tmcommonkotlin.logSubscribe
 import com.example.tmcommonkotlin.logz
-import io.reactivex.BackpressureStrategy
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import org.reactivestreams.Publisher
 
 class UserVM : ViewModel(), IRepo by Repo {
     val disposables by lazy { CompositeDisposable() }
-    val user: LiveData<User?> = LiveDataReactiveStreams.fromPublisher(
-        loginAttemptResponse
-            .map {
-                if (it is StreamableLoginAttemptResponse.Success) {
-                    it.user
-                } else {
-                    null
-                }
-            }.toFlowable(BackpressureStrategy.DROP)
-    )
+
+    val user = MediatorLiveData<User?>()
     val userType by lazy { MutableLiveData<UserType>() }
 
-
-    val userStateStreamLiveData by lazy { MutableLiveData<UserState>() }
-    //    val user by lazy { MutableLiveData<User?>().apply { value = null } }
-
     init {
-
-//        disposables.add(
-//
-//            . observeOn (AndroidSchedulers.mainThread())
-//            .subscribe {
-//                if (it is StreamableLoginAttemptResponse.Success) {
-//                    logz("updating user value to:${it.user}")
-//                    user.value = it.user
-//                } else {
-//                    user.value = null
-//                }
-//            }
-//        )
-//        disposables.add(
-//            userStateStream
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe {
-//                    userStateStreamLiveData.value = it
-//                    hasLogin.value = it.hasLogin
-//                }
-//        )
+        logz("UserVM`init")
+        user.addSource(LiveDataReactiveStreams.fromPublisher(loginAttemptResponse)) {
+            if (it is StreamableLoginAttemptResponse.Success) {
+                logz("user.addSource`loginAttemptResponse`Success")
+                user.value = it.user
+            } else {
+                logz("user.addSource`loginAttemptResponse`Failure")
+                user.value = null
+            }
+        }
+        loginAttemptResponse
+            .logSubscribe("zzzzzzzzz")
+        user.value = SharedPref.getUserFromSharedPref()
     }
 
     fun whipeDBAndAddUser() {
-        userStateStreamLiveData.value?.user?.apply {
+        user.value?.apply {
             whipeDBAndAddUser(this)
         }
     }

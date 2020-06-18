@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.frag_properties.*
 class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
     lateinit var mBinding: FragPropertiesBinding
     val propertiesVM: PropertiesVM by viewModels()
-    val userVM: UserVM by viewModels()
+    val userVM: UserVM by activityViewModels()
     val navController by lazy { this.findNavController() }
     val args by lazy { arguments?.let { FragPropertiesArgs.fromBundle(it) } }
 
@@ -37,15 +38,23 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
         propertiesVM.properties.observe(viewLifecycleOwner, Observer {
             recyclerview_1.adapter?.notifyDataSetChanged()
         })
+        userVM.user.observe(viewLifecycleOwner, Observer {
+            logz("FragProperties` new user:$it")
+            if (it==null) {
+                val directions = FragPropertiesDirections.actionFragPropertiesToFragLogin(ReasonForLoginInt = ReasonForLogin.Properties.ordinal)
+                navController.navigate(directions)
+            }
+        })
         return mBinding.root
     }
 
     override fun onStart() {
         super.onStart()
-        if ((userVM.user.value == null) && (!(args?.ignoreNextRedirection?:false))) {
-            val directions = FragPropertiesDirections.actionFragPropertiesToFragLogin(ReasonForLoginInt = ReasonForLogin.Properties.ordinal)
-            navController.navigate(directions)
-        }
+        userVM.user.value
+//        if (userVM.user.value == null) { // If you uncomment this, and comment lines 43-46, then somehow, loginAttemptResponse comes after onStart on 2nd attempt
+//            val directions = FragPropertiesDirections.actionFragPropertiesToFragLogin(ReasonForLoginInt = ReasonForLogin.Properties.ordinal)
+//            navController.navigate(directions)
+//        }
         recyclerview_1.layoutManager = LinearLayoutManager(requireActivity())
         recyclerview_1.adapter = AdapterRVProperties(this, R.layout.item_property)
         btn_add_property.setOnClickListener {

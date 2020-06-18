@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.frag_tenant_or_landlord.*
 
 class FragTenantOrLandlord : OXFragment(isDrawerEnabled = false) {
     val navController by lazy { this.findNavController() }
-    val userVM: UserVM by viewModels()
+    val userVM: UserVM by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -5,14 +5,17 @@ import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.opulexpropertymanagement.R
+import com.example.opulexpropertymanagement.repo.SharedPref
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.activity_host.*
 
@@ -20,6 +23,7 @@ class ActivityHost : AppCompatActivity(), ActivityHostInterface {
     lateinit var drawerToggle: ActionBarDrawerToggle
     override val toolbar: Toolbar? by lazy { toolbar_main }
     val navController by lazy { findNavController(R.id.fragNavHost) }
+    val userVM: UserVM by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,11 @@ class ActivityHost : AppCompatActivity(), ActivityHostInterface {
             ActionBarDrawerToggle(this, drawer_layout, toolbar_main, R.string.open, R.string.closed)
         drawer_layout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
+        // Keep user hot, save user changes in SharedPref
+        userVM.user.observe(this, Observer {
+            SharedPref.saveUserInSharedPref(it)
+        })
+
     }
 
     override fun onBackPressed() {
