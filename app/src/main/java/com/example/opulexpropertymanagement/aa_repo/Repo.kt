@@ -1,7 +1,7 @@
 package com.example.opulexpropertymanagement.ac_ui
 
 import com.example.opulexpropertymanagement.models.UserType
-import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttempt
+import com.example.opulexpropertymanagement.models.streamable.LoginAttempt
 import com.example.opulexpropertymanagement.aa_repo.NetworkClient
 import com.example.opulexpropertymanagement.aa_repo.SharedPref
 import com.google.gson.Gson
@@ -24,20 +24,24 @@ object Repo {
         }
     }
 
-    suspend fun register(email: String, password: String): Boolean {
-        val result = NetworkClient.register(email, email, password, UserType.Tenant.name)
+    suspend fun register(email: String, password: String, userType: UserType): LoginAttempt {
+        val result = NetworkClient.register(email, email, password, userType.name)
             .await()
-        return "success" in result.string()
+        if ("success" in result.string()) {
+            return tryLogin(email, password)
+        } else {
+            return LoginAttempt.Failure("Registration failed")
+        }
     }
 
-    suspend fun tryLogin(email: String, password: String): StreamableLoginAttempt {
+    suspend fun tryLogin(email: String, password: String): LoginAttempt {
         val responseString = NetworkClient.tryLogin(email, password)
             .await().string()
         if ("success" in responseString) {
             val user = Gson().fromJson(responseString, User::class.java)
-            return StreamableLoginAttempt.Success(user)
+            return LoginAttempt.Success(user)
         } else {
-            return StreamableLoginAttempt.Failure("Unknown error")
+            return LoginAttempt.Failure("Unknown error")
         }
     }
 

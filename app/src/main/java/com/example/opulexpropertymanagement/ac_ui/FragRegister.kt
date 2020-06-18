@@ -6,13 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
+import com.example.opulexpropertymanagement.ab_view_models.RegisterVM
 import com.example.opulexpropertymanagement.databinding.FragRegisterBinding
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.UserVM
+import com.example.opulexpropertymanagement.models.UserType
+import com.example.opulexpropertymanagement.models.streamable.LoginAttempt
 import com.example.tmcommonkotlin.easyToast
+import com.example.tmcommonkotlin.logv
 
 
 class FragRegister : OXFragment(isToolbarEnabled = false) {
@@ -20,6 +25,7 @@ class FragRegister : OXFragment(isToolbarEnabled = false) {
     lateinit var mBinding: FragRegisterBinding
     val navController by lazy {this.findNavController()}
     val userVM: UserVM by activityViewModels()
+    val registerVM: RegisterVM by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,11 +34,14 @@ class FragRegister : OXFragment(isToolbarEnabled = false) {
     ): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.frag_register, container, false)
         onCreateViewInit()
-        userVM.registrationAttempt.observe(viewLifecycleOwner, Observer {
-            if (!it) {
+        registerVM.registrationAttempt.observe(viewLifecycleOwner, Observer {
+            if (it is LoginAttempt.Success) {
                 navController.navigate(R.id.fragHome)
-            } else {
+                userVM.user.value = it.user
+            } else if (it is LoginAttempt.Failure) {
+                logv("RegistrationFailed`${it.msg}")
                 easyToast(requireActivity(), "Registration Failed")
+                userVM.user.value = null
             }
         })
         return mBinding.root
@@ -42,7 +51,7 @@ class FragRegister : OXFragment(isToolbarEnabled = false) {
         mBinding.btnRegisterSend.setOnClickListener {
             val email = mBinding.textinputeditEmail.text.toString()
             val password = mBinding.textinputeditPassword.text.toString()
-            userVM.register(email, password)
+            registerVM.register(email, password, userVM.userType.value?:UserType.Landlord)
         }
         mBinding.textviewAlreadyRegisteredSignIn.setOnClickListener {
             navController.navigate(R.id.fragLogin)

@@ -15,7 +15,6 @@ class UserVM : ViewModel() {
     val user = MediatorLiveData<User?>()
     val userType by lazy { MutableLiveData<UserType>() }
     val jobs = ArrayList<Job>()
-    val registrationAttempt by lazy { MutableLiveData<Boolean>() }
 
     init {
 //        user.addSource(LiveDataReactiveStreams.fromPublisher(loginAttemptResponse)) {
@@ -26,15 +25,6 @@ class UserVM : ViewModel() {
 //            }
 //        }
 //        user.value = SharedPref.getUserFromSharedPref()
-    }
-
-    fun register(email: String, password: String) {
-        jobs.add(
-            Coroutines.ioThenMain(
-                {Repo.register(email, password)},
-                {registrationAttempt.value = it}
-            )
-        )
     }
 
     fun logout() {
