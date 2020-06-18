@@ -18,6 +18,7 @@ import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.repo.SharedPref
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.activity_host.*
+import kotlinx.coroutines.Job
 
 class ActivityHost : AppCompatActivity(), ActivityHostInterface {
     lateinit var drawerToggle: ActionBarDrawerToggle

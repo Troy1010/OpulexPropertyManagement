@@ -42,24 +42,24 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
         mBinding.btnLoginSend.setOnClickListener {
             val email = mBinding.textinputeditEmail.text.toString()
             val password = mBinding.textinputeditPassword.text.toString()
-            userVM.tryLogin(email, password)
+//            userVM.tryLogin(email, password)
         }
-        compositeDisposable.add(
-            userVM.loginAttemptResponse
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    when (it) {
-                        is StreamableLoginAttemptResponse.Error -> {
-                            easyToast(requireActivity(), "Login Failed")
-                            logz(it.msg)
-                        }
-                        is StreamableLoginAttemptResponse.Success -> {
-                            val directions = FragLoginDirections.actionGlobalFragProperties(false)
-                            navController.navigate(directions)
-                        }
-                    }
-                }
-        )
+//        compositeDisposable.add(
+//            userVM.loginAttemptResponse
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe {
+//                    when (it) {
+//                        is StreamableLoginAttemptResponse.Error -> {
+//                            easyToast(requireActivity(), "Login Failed")
+//                            logz(it.msg)
+//                        }
+//                        is StreamableLoginAttemptResponse.Success -> {
+//                            val directions = FragLoginDirections.actionGlobalFragProperties(false)
+//                            navController.navigate(directions)
+//                        }
+//                    }
+//                }
+//        )
         return mBinding.root
     }
 

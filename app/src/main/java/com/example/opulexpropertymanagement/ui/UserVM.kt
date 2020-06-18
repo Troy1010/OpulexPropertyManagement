@@ -11,21 +11,21 @@ import com.example.tmcommonkotlin.logx
 import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
 
-class UserVM : ViewModel(), IRepo by Repo {
+class UserVM : ViewModel() {
     val disposables by lazy { CompositeDisposable() }
 
     val user = MediatorLiveData<User?>()
     val userType by lazy { MutableLiveData<UserType>() }
 
     init {
-        user.addSource(LiveDataReactiveStreams.fromPublisher(loginAttemptResponse)) {
-            if (it is StreamableLoginAttemptResponse.Success) {
-                user.value = it.user
-            } else {
-                user.value = null
-            }
-        }
-        user.value = SharedPref.getUserFromSharedPref()
+//        user.addSource(LiveDataReactiveStreams.fromPublisher(loginAttemptResponse)) {
+//            if (it is StreamableLoginAttemptResponse.Success) {
+//                user.value = it.user
+//            } else {
+//                user.value = null
+//            }
+//        }
+//        user.value = SharedPref.getUserFromSharedPref()
     }
 
     fun logout() {
@@ -34,12 +34,12 @@ class UserVM : ViewModel(), IRepo by Repo {
 
     fun whipeDBAndAddUser() {
         user.value?.apply {
-            whipeDBAndAddUser(this)
+            Repo.whipeDBAndAddUser(this)
         }
     }
 
     fun printDBUser() {
-        logz("${getFirstUserInDB()}")
+        logz("${Repo.getFirstUserInDB()}")
     }
 
     fun finalize() {

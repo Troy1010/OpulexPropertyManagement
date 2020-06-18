@@ -5,7 +5,7 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 
 interface IRepo {
-    fun register(email:String, password:String)
+    suspend fun register(email:String, password:String) : String
     fun tryLogin(email:String, password:String)
     val loginAttemptResponse: Flowable<StreamableLoginAttemptResponse>
 //    val userStateStream: Observable<UserState>

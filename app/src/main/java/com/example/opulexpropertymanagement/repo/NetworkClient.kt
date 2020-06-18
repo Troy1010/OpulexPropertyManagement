@@ -1,21 +1,19 @@
-package com.example.opulexpropertymanagement.repo.network
+package com.example.opulexpropertymanagement.repo
 
 import com.example.opulexpropertymanagement.app.Config
-import com.example.opulexpropertymanagement.models.network_responses.LoginResponse
 import com.example.opulexpropertymanagement.ui.User
 import com.google.gson.GsonBuilder
-import com.google.gson.TypeAdapter
-import com.google.gson.stream.JsonReader
-import com.google.gson.stream.JsonWriter
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import io.reactivex.Observable
-import retrofit2.Converter
+import kotlinx.coroutines.Deferred
+import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
-import java.lang.reflect.Type
 
 
 interface INetworkClient {
@@ -26,13 +24,13 @@ interface INetworkClient {
         @Query("landlord_email") landlord_email: String,
         @Query("password") password: String,
         @Query("account_for") userType: String
-    ): Observable<String>
+    ): Call<String>
 
     @GET("pro_mgt_login.php")
     fun login(
         @Query("email") email: String,
         @Query("password") password: String
-    ): Observable<User>
+    ): Deferred<User>
 
 //    @GET("pro_mgt_add_pro.php")
 //    fun addProperty(
@@ -46,7 +44,8 @@ val NetworkClient by lazy {
     Retrofit
         .Builder()
         .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .baseUrl(Config.BASE_URL)
         .build()
         .create(INetworkClient::class.java)
