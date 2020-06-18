@@ -19,7 +19,7 @@
             app:layout_constraintBottom_toTopOf="@id/btn_add_property"/>
 
         <Button
-            style="@style/OpulexTheme.ButtonSoft"
+            android:backgroundTint="@color/colorBackgroundHighlight"
             android:text="Add Property"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/btn_add_property"
