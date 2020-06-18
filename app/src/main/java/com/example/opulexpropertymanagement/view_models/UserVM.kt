@@ -6,12 +6,15 @@ import com.example.opulexpropertymanagement.ui.Repo
 import com.example.opulexpropertymanagement.ui.User
 import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.*
 
 class UserVM : ViewModel() {
     val disposables by lazy { CompositeDisposable() }
 
     val user = MediatorLiveData<User?>()
     val userType by lazy { MutableLiveData<UserType>() }
+    val jobs = ArrayList<Job>()
+    val registrationAttempt by lazy { MutableLiveData<Boolean>() }
 
     init {
 //        user.addSource(LiveDataReactiveStreams.fromPublisher(loginAttemptResponse)) {
@@ -24,6 +27,17 @@ class UserVM : ViewModel() {
 //        user.value = SharedPref.getUserFromSharedPref()
     }
 
+    fun register(email:String, password:String) {
+        jobs.add(
+            CoroutineScope(Dispatchers.IO).launch {
+                val result = Repo.register(email, password)
+                withContext(Dispatchers.Main) {
+                    registrationAttempt.value = "uccess" in result.string()
+                }
+            }
+        )
+    }
+
     fun logout() {
         user.value = null
     }
@@ -34,11 +48,14 @@ class UserVM : ViewModel() {
         }
     }
 
-    fun printDBUser() {
-        logz("${Repo.getFirstUserInDB()}")
+    fun printSomething() {
+        logz("${user.value?.email}")
     }
 
     fun finalize() {
+        for (job in jobs) {
+            job.cancel()
+        }
         disposables.dispose()
     }
 }

@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragRegisterBinding
 import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.view_models.UserVM
-import com.example.tmcommonkotlin.logz
-import kotlinx.coroutines.*
+import com.example.tmcommonkotlin.easyToast
 
 
 class FragRegister : OXFragment(isToolbarEnabled = false) {
@@ -27,31 +27,25 @@ class FragRegister : OXFragment(isToolbarEnabled = false) {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.frag_register, container, false)
-        init()
+        onCreateViewInit()
+        userVM.registrationAttempt.observe(viewLifecycleOwner, Observer {
+            if (!it) {
+                navController.navigate(R.id.fragHome)
+            } else {
+                easyToast(requireActivity(), "Registration Failed")
+            }
+        })
         return mBinding.root
     }
 
-    private fun init() {
+    private fun onCreateViewInit() {
         mBinding.btnRegisterSend.setOnClickListener {
-//            navController.navigate(R.id.fragHome)
             val email = mBinding.textinputeditEmail.text.toString()
             val password = mBinding.textinputeditPassword.text.toString()
-            myJob = CoroutineScope(Dispatchers.IO).launch {
-                val result = Repo.register(email, password)
-                withContext(Dispatchers.Main) {
-                    logz ("result:${result.string()}")
-                }
-            }
+            userVM.register(email, password)
         }
         mBinding.textviewAlreadyRegisteredSignIn.setOnClickListener {
             navController.navigate(R.id.fragLogin)
         }
-    }
-
-
-    private var myJob: Job? = null
-    override fun onDestroy() {
-        myJob?.cancel()
-        super.onDestroy()
     }
 }

@@ -16,8 +16,9 @@
             android:layout_height="0dp"
             android:gravity="center"
             android:text="@{userVM.user.email}"
+            tools:text="EMAIL"
             android:textSize="42sp"
-            app:layout_constraintBottom_toTopOf="@id/btn_logout"
+            app:layout_constraintBottom_toTopOf="@id/btn_go_to_login"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
@@ -50,15 +51,14 @@
             android:layout_height="wrap_content"
             android:onClick="@{() -> userVM.whipeDBAndAddUser()}"
             android:text="Whipe DB and add user"
-            app:layout_constraintBottom_toTopOf="@+id/btn_print_user_from_db"
+            app:layout_constraintBottom_toTopOf="@+id/btn_print_something"
             tools:layout_editor_absoluteX="16dp" />
 
         <Button
-            android:onClick="@{() -> userVM.printDBUser()}"
-            android:id="@+id/btn_print_user_from_db"
+            android:id="@+id/btn_print_something"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Print first user"
+            android:text="Print Something"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,44 +32,11 @@ object Repo {
         }
     }
 
-    private val tryToLoginSubject by lazy { PublishSubject.create<StreamableLoginAttempt>() }
-    lateinit var loginAttemptResponse: Flowable<StreamableLoginAttemptResponse>
-
-    init {
-//        loginAttemptResponse = tryToLoginSubject
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(Schedulers.io())
-//            .flatMap {
-//                NetworkClient.login(it.email, it.password)
-//                    .map<StreamableLoginAttemptResponse> { user ->
-//                        StreamableLoginAttemptResponse.Success(user)
-//                    }
-//                    .onErrorReturn {
-//                        StreamableLoginAttemptResponse.Error("$it")
-//                    }
-//            }
-//            .toFlowable(BackpressureStrategy.DROP)
-
-    }
-
     suspend fun register(email: String, password: String)= withContext(Dispatchers.IO) {
         val result = NetworkClient.register(email, email, password, UserType.Tenant.name)
             .await()
         result
     }
-
-//    fun register2(email: String, password: String) {
-//        val x = NetworkClient.register(email, email, password, UserType.Tenant.name)
-//        x.enqueue(object: Callback<String> {
-//            override fun onFailure(call: Call<String>, t: Throwable) {
-//                logz("ONFAILURE")
-//            }
-//
-//            override fun onResponse(call: Call<String>, response: Response<String>) {
-//                logz("ONRESPONSE. response:$response")
-//            }
-//        })
-//    }
 
     suspend fun tryLogin(email: String, password: String): User {
         return NetworkClient.tryLogin(email, password)
