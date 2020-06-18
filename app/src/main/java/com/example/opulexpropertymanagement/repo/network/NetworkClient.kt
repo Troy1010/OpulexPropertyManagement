@@ -34,13 +34,11 @@ interface INetworkClient {
         @Query("password") password: String
     ): Observable<User>
 
-//    @GET("pro_mgt_forgot_pass.php?email=aa@aa.com")
-//    fun forgotPassword(
-//        @Path()
+//    @GET("pro_mgt_add_pro.php")
+//    fun addProperty(
+//        @Query("")
 //    )
 
-//    @GET("/api/subcategory/{id}")
-//    fun getSubCategoriesObservable(@Path("id") id: Int) : Observable<ReceivedSubCategories>
 }
 
 val NetworkClient by lazy {
