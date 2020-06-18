@@ -1,13 +1,9 @@
-package com.example.opulexpropertymanagement.ui
+package com.example.opulexpropertymanagement.view_models
 
 import androidx.lifecycle.*
-import com.example.opulexpropertymanagement.app.App
-import com.example.opulexpropertymanagement.app.Config
-import com.example.opulexpropertymanagement.repo.SharedPref
 import com.example.opulexpropertymanagement.models.UserType
-import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
-import com.example.tmcommonkotlin.logSubscribe
-import com.example.tmcommonkotlin.logx
+import com.example.opulexpropertymanagement.ui.Repo
+import com.example.opulexpropertymanagement.ui.User
 import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
 

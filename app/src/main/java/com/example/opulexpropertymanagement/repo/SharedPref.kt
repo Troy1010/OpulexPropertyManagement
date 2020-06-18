@@ -17,10 +17,10 @@ object SharedPref {
 
     fun getUserFromSharedPref(): User? {
         // get User from SharedPref, and feed it into loginAttemptStream
-        val storedEmail = SharedPref.instance.getString(Config.KEY_EMAIL, null)
-        val storedUserType = SharedPref.instance.getString(Config.KEY_USER_TYPE, null)
-        val storedAppApiKey = SharedPref.instance.getString(Config.KEY_APP_API_KEY, null)
-        val storedID = SharedPref.instance.getString(Config.KEY_ID, null)
+        val storedEmail = instance.getString(Config.KEY_EMAIL, null)
+        val storedUserType = instance.getString(Config.KEY_USER_TYPE, null)
+        val storedAppApiKey = instance.getString(Config.KEY_APP_API_KEY, null)
+        val storedID = instance.getString(Config.KEY_ID, null)
         if ((storedID == null) || (storedEmail == null) || (storedAppApiKey==null) || (storedUserType==null)) {
             return null
         } else {
@@ -40,6 +40,4 @@ object SharedPref {
         editor.commit()
 
     }
-
-
 }

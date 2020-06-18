@@ -16,7 +16,8 @@ import com.example.opulexpropertymanagement.databinding.ItemPropertyBinding
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.ReasonForLogin
 import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
-import com.example.tmcommonkotlin.logz
+import com.example.opulexpropertymanagement.view_models.PropertiesVM
+import com.example.opulexpropertymanagement.view_models.UserVM
 import kotlinx.android.synthetic.main.frag_properties.*
 
 class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {

@@ -1,9 +1,7 @@
 package com.example.opulexpropertymanagement.ui
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -13,12 +11,10 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.repo.SharedPref
-import com.example.tmcommonkotlin.logz
+import com.example.opulexpropertymanagement.view_models.UserVM
 import kotlinx.android.synthetic.main.activity_host.*
-import kotlinx.coroutines.Job
 
 class ActivityHost : AppCompatActivity(), ActivityHostInterface {
     lateinit var drawerToggle: ActionBarDrawerToggle

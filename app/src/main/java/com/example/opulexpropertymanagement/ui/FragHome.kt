@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragHomeBinding
 import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
-import com.example.tmcommonkotlin.logz
+import com.example.opulexpropertymanagement.view_models.UserVM
 
 class FragHome : OXFragment() {
     lateinit var mBinding: FragHomeBinding

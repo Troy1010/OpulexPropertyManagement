@@ -4,6 +4,7 @@ import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttempt
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
 import com.example.opulexpropertymanagement.repo.NetworkClient
+import com.example.opulexpropertymanagement.repo.SharedPref
 import com.example.tmcommonkotlin.*
 import io.reactivex.Flowable
 import io.reactivex.subjects.PublishSubject
@@ -15,6 +16,8 @@ import retrofit2.Response
 
 
 object Repo {
+    val sharedPref = SharedPref
+
     fun whipeDBAndAddUser(user: User) {
         dao.clear()
         dao.addUser(user)

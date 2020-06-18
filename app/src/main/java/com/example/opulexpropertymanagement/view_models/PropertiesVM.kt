@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.ui
+package com.example.opulexpropertymanagement.view_models
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
