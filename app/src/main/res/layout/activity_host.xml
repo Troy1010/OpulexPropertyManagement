@@ -7,7 +7,7 @@
     tools:openDrawer="start"
     android:background="@color/colorBackground">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            app:layout_constraintTop_toTopOf="parent"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/toolbar_main"
             style="@style/OpulexTheme.Toolbar"
@@ -27,14 +28,27 @@
             android:elevation="4dp"/>
 
         <fragment
+            app:layout_constraintTop_toBottomOf="@id/toolbar_main"
             android:id="@+id/fragNavHost"
             android:name="com.example.opulexpropertymanagement.ui.NavigationHost"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/navigation_graph" />
+            app:navGraph="@navigation/navigation_graph"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation_bar"/>
 
-    </LinearLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackgroundHighlight"
+            app:itemTextColor="@color/bottom_nav_color"
+            app:itemIconTint="@color/bottom_nav_color"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_navigation_menu"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/drawer_view"

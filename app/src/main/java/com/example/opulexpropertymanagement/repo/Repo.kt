@@ -1,23 +1,18 @@
 package com.example.opulexpropertymanagement.ui
 
-import com.example.opulexpropertymanagement.app.Config
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttempt
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
-import com.example.opulexpropertymanagement.repo.SharedPref
 import com.example.opulexpropertymanagement.repo.network.NetworkClient
 import com.example.tmcommonkotlin.*
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
-//AndroidSchedulers.mainThread()
 
 object Repo : IRepo {
-    //    override lateinit var userStateStream: Observable<UserState>
     override fun whipeDBAndAddUser(user: User) {
         dao.clear()
         dao.addUser(user)
@@ -32,14 +27,11 @@ object Repo : IRepo {
         }
     }
 
-    private val tryToLoginSubject by lazy { PublishSubject.create<User>() }
-    private val logoutSubject by lazy { PublishSubject.create<Unit>() }
-
-    private val tryToLoginSubject2 by lazy { PublishSubject.create<StreamableLoginAttempt>() }
+    private val tryToLoginSubject by lazy { PublishSubject.create<StreamableLoginAttempt>() }
     override lateinit var loginAttemptResponse: Flowable<StreamableLoginAttemptResponse>
 
     init {
-        loginAttemptResponse = tryToLoginSubject2
+        loginAttemptResponse = tryToLoginSubject
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .flatMap {
@@ -61,12 +53,9 @@ object Repo : IRepo {
             .logSubscribe()
     }
 
-    override fun tryLogin(user: User) {
-        tryToLoginSubject.onNext(user)
-    }
 
     override fun tryLogin(email: String, password: String) {
-        tryToLoginSubject2.onNext(
+        tryToLoginSubject.onNext(
             StreamableLoginAttempt(email, password)
         )
     }

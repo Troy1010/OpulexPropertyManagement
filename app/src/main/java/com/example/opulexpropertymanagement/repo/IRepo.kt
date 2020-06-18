@@ -5,7 +5,6 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 
 interface IRepo {
-    fun tryLogin(user: User)
     fun register(email:String, password:String)
     fun tryLogin(email:String, password:String)
     val loginAttemptResponse: Flowable<StreamableLoginAttemptResponse>
