@@ -5,10 +5,7 @@ import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAtt
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
 import com.example.opulexpropertymanagement.repo.NetworkClient
 import com.example.tmcommonkotlin.*
-import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -53,26 +50,27 @@ object Repo {
     }
 
     suspend fun register(email: String, password: String)= withContext(Dispatchers.IO) {
-//        val result = NetworkClient.register(email, email, password, UserType.Tenant.name)
-//            .await()
-//        result
+        val result = NetworkClient.register(email, email, password, UserType.Tenant.name)
+            .await()
+        result
     }
 
-    fun register2(email: String, password: String) {
-        val x = NetworkClient.register(email, email, password, UserType.Tenant.name)
-        x.enqueue(object: Callback<String> {
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                logz("ONFAILURE")
-            }
+//    fun register2(email: String, password: String) {
+//        val x = NetworkClient.register(email, email, password, UserType.Tenant.name)
+//        x.enqueue(object: Callback<String> {
+//            override fun onFailure(call: Call<String>, t: Throwable) {
+//                logz("ONFAILURE")
+//            }
+//
+//            override fun onResponse(call: Call<String>, response: Response<String>) {
+//                logz("ONRESPONSE. response:$response")
+//            }
+//        })
+//    }
 
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                logz("ONRESPONSE. response:$response")
-            }
-        })
-    }
-
-    fun tryLogin(email: String, password: String) {
-        TODO("Not yet implemented")
+    suspend fun tryLogin(email: String, password: String): User {
+        return NetworkClient.tryLogin(email, password)
+            .await()
     }
 
 

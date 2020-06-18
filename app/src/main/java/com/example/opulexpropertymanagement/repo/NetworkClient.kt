@@ -24,10 +24,10 @@ interface INetworkClient {
         @Query("landlord_email") landlord_email: String,
         @Query("password") password: String,
         @Query("account_for") userType: String
-    ): Call<String>
+    ): Deferred<ResponseBody>
 
     @GET("pro_mgt_login.php")
-    fun login(
+    fun tryLogin(
         @Query("email") email: String,
         @Query("password") password: String
     ): Deferred<User>

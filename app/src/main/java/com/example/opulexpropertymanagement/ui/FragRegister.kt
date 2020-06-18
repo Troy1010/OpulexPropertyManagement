@@ -36,13 +36,12 @@ class FragRegister : OXFragment(isToolbarEnabled = false) {
 //            navController.navigate(R.id.fragHome)
             val email = mBinding.textinputeditEmail.text.toString()
             val password = mBinding.textinputeditPassword.text.toString()
-//            myJob = CoroutineScope(Dispatchers.IO).launch {
-//                val result = Repo.register(email, password)
-//                withContext(Dispatchers.Main) {
-//                    logz ("result:$result")
-//                }
-//            }
-            Repo.register2(email, password)
+            myJob = CoroutineScope(Dispatchers.IO).launch {
+                val result = Repo.register(email, password)
+                withContext(Dispatchers.Main) {
+                    logz ("result:${result.string()}")
+                }
+            }
         }
         mBinding.textviewAlreadyRegisteredSignIn.setOnClickListener {
             navController.navigate(R.id.fragLogin)

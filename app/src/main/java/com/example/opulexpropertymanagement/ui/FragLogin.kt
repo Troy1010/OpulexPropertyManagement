@@ -20,6 +20,10 @@ import com.example.tmcommonkotlin.logz
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.frag_login.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 
 class FragLogin : OXFragment(isToolbarEnabled = false) {
@@ -29,6 +33,7 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
     val userVM: UserVM by activityViewModels()
     val compositeDisposable by lazy { CompositeDisposable() }
     val args by lazy { arguments?.let { FragLoginArgs.fromBundle(it) } }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +47,10 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
         mBinding.btnLoginSend.setOnClickListener {
             val email = mBinding.textinputeditEmail.text.toString()
             val password = mBinding.textinputeditPassword.text.toString()
+            val myJob = CoroutineScope(Dispatchers.IO).launch {
+                val x = Repo.tryLogin(email, password)
+                logz ("dd`user:$x")
+            }
 //            userVM.tryLogin(email, password)
         }
 //        compositeDisposable.add(
@@ -71,8 +80,9 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
                 "In order to see your properties, you must be logged in."
         }
     }
-
+    private var myJob: Job? = null
     override fun onDestroy() {
+        myJob?.cancel()
         compositeDisposable.dispose()
         super.onDestroy()
     }
