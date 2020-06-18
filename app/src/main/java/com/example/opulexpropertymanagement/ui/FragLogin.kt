@@ -40,29 +40,10 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
             navController.navigate(R.id.fragRegister)
         }
         mBinding.btnLoginSend.setOnClickListener {
-//            val email = mBinding.edittextEmail.text.toString()
-//            val password = mBinding.edittextPassword.text.toString()
-//            userVM.tryLogin(User(email, password))
             val email = mBinding.textinputeditEmail.text.toString()
             val password = mBinding.textinputeditPassword.text.toString()
             userVM.tryLogin(email, password)
         }
-//        userVM.user
-//            .observe(viewLifecycleOwner, Observer {user ->
-//                logz("FragLogin`new user:$user")
-//                if (user!=null) {
-//                    when (args?.ReasonForLoginInt) {
-//                        ReasonForLogin.Properties.ordinal -> {
-//                            logz("Navigate to fragProperties")
-//                            val directions = FragLoginDirections.actionGlobalFragProperties(true)
-//                            navController.navigate(directions)
-//                        }
-//                        else -> navController.navigate(R.id.fragHome)
-//                    }
-//                } else {
-//                    easyToast(requireActivity(), "Login Failed")
-//                }
-//            })
         compositeDisposable.add(
             userVM.loginAttemptResponse
                 .observeOn(AndroidSchedulers.mainThread())
@@ -79,22 +60,6 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
                     }
                 }
         )
-//        compositeDisposable.add(
-//            userVM.userStateStream
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .skip(1)
-//                .subscribe({
-//                    if (it.wantsLogin && !it.hasLogin) {
-//                        activity?.easyToast("Login failed")
-//                    } else if (it.wantsLogin && it.hasLogin) {
-//                        logz("Navigate!")
-//                        navController.navigate(R.id.action_fragLogin_to_fragHome)
-//                    }
-//                }, {
-//                    logz(it.message?:"")
-//                })
-//        )
         return mBinding.root
     }
 
