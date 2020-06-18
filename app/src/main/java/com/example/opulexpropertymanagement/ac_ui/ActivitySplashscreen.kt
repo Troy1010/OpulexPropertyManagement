@@ -1,12 +1,10 @@
-package com.example.opulexpropertymanagement.ui
+package com.example.opulexpropertymanagement.ac_ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.opulexpropertymanagement.R
-import com.example.tmcommonkotlin.logx
 import com.example.tmcommonkotlin.logz
 
 class ActivitySplashscreen : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.ui
+package com.example.opulexpropertymanagement.ac_ui
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

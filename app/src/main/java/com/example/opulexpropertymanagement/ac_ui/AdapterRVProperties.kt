@@ -1,13 +1,10 @@
-package com.example.opulexpropertymanagement.ui
+package com.example.opulexpropertymanagement.ac_ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.ItemPropertyBinding
-import com.example.opulexpropertymanagement.models.Property
 
 class AdapterRVProperties(
     var arvImplementer: ARVInterface,

@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/OpulexTheme">
-        <activity android:name=".ui.ActivityHost"/>
-        <activity android:name=".ui.ActivitySplashscreen">
+        <activity android:name=".ac_ui.ActivityHost"/>
+        <activity android:name=".ac_ui.ActivitySplashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

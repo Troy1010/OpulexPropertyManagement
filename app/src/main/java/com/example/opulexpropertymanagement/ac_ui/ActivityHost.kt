@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.ui
+package com.example.opulexpropertymanagement.ac_ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -12,8 +12,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.opulexpropertymanagement.R
-import com.example.opulexpropertymanagement.repo.SharedPref
-import com.example.opulexpropertymanagement.view_models.UserVM
+import com.example.opulexpropertymanagement.aa_repo.SharedPref
+import com.example.opulexpropertymanagement.ab_view_models.UserVM
 import kotlinx.android.synthetic.main.activity_host.*
 
 class ActivityHost : AppCompatActivity(), ActivityHostInterface {

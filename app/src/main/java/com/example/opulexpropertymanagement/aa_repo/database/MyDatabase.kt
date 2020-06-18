@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.ui
+package com.example.opulexpropertymanagement.ac_ui
 
 import androidx.room.Database
 import androidx.room.Room

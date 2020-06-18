@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.ui
+package com.example.opulexpropertymanagement.ac_ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,9 +13,9 @@ import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragLoginBinding
 import com.example.opulexpropertymanagement.models.ReasonForLogin
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttempt
-import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
-import com.example.opulexpropertymanagement.view_models.LoginVM
-import com.example.opulexpropertymanagement.view_models.UserVM
+import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
+import com.example.opulexpropertymanagement.ab_view_models.LoginVM
+import com.example.opulexpropertymanagement.ab_view_models.UserVM
 import com.example.tmcommonkotlin.easyToast
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.frag_login.*

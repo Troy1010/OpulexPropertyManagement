@@ -1,9 +1,9 @@
-package com.example.opulexpropertymanagement.view_models
+package com.example.opulexpropertymanagement.ab_view_models
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttempt
-import com.example.opulexpropertymanagement.ui.Repo
+import com.example.opulexpropertymanagement.ac_ui.Repo
 import com.example.tmcommonkotlin.Coroutines
 import kotlinx.coroutines.Job
 

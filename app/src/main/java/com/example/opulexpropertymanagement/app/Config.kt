@@ -1,7 +1,5 @@
 package com.example.opulexpropertymanagement.app
 
-import com.example.opulexpropertymanagement.ui.User
-
 object Config {
     const val BASE_URL = "https://rjtmobile.com/aamir/property-mgmt/"
     const val SHARED_PREF_FILE_NAME = "SharedPref"

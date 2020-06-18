@@ -1,10 +1,9 @@
-package com.example.opulexpropertymanagement.repo
+package com.example.opulexpropertymanagement.aa_repo
 
 import android.content.Context
 import com.example.opulexpropertymanagement.app.App
 import com.example.opulexpropertymanagement.app.Config
-import com.example.opulexpropertymanagement.models.UserType
-import com.example.opulexpropertymanagement.ui.User
+import com.example.opulexpropertymanagement.ac_ui.User
 
 
 object SharedPref {

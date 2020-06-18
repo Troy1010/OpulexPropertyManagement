@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.ui
+package com.example.opulexpropertymanagement.ac_ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.models.UserType
-import com.example.opulexpropertymanagement.ui.inheritables.OXFragment
-import com.example.opulexpropertymanagement.view_models.UserVM
+import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
+import com.example.opulexpropertymanagement.ab_view_models.UserVM
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_tenant_or_landlord.*
 

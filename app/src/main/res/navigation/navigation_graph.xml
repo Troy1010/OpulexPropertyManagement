@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/fragHome"
-        android:name="com.example.opulexpropertymanagement.ui.FragHome"
+        android:name="com.example.opulexpropertymanagement.ac_ui.FragHome"
         android:label="Home" >
         <action
             android:id="@+id/action_fragHome_to_fragProperties"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragLogin"
-        android:name="com.example.opulexpropertymanagement.ui.FragLogin"
+        android:name="com.example.opulexpropertymanagement.ac_ui.FragLogin"
         android:label="Login" >
         <argument
             android:name="ReasonForLoginInt"
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragRegister"
-        android:name="com.example.opulexpropertymanagement.ui.FragRegister"
+        android:name="com.example.opulexpropertymanagement.ac_ui.FragRegister"
         android:label="Register" >
         <action
             android:id="@+id/action_fragRegister_to_fragHome"
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragTenantOrLandlord"
-        android:name="com.example.opulexpropertymanagement.ui.FragTenantOrLandlord"
+        android:name="com.example.opulexpropertymanagement.ac_ui.FragTenantOrLandlord"
         android:label="Actions" >
         <action
             android:id="@+id/action_fragTenantOrLandlord_to_fragHome"
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragProperties"
-        android:name="com.example.opulexpropertymanagement.ui.FragProperties"
+        android:name="com.example.opulexpropertymanagement.ac_ui.FragProperties"
         android:label="Properties" >
         <action
             android:id="@+id/action_fragProperties_to_fragLogin"
@@ -74,6 +74,6 @@
         app:popUpTo="@id/navigation_graph" />
     <activity
         android:id="@+id/activitySplashscreen"
-        android:name="com.example.opulexpropertymanagement.ui.ActivitySplashscreen"
+        android:name="com.example.opulexpropertymanagement.ac_ui.ActivitySplashscreen"
         android:label="ActivitySplashscreen" />
 </navigation>
