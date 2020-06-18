@@ -2,17 +2,11 @@ package com.example.opulexpropertymanagement.ui
 
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttempt
-import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttemptResponse
 import com.example.opulexpropertymanagement.repo.NetworkClient
 import com.example.opulexpropertymanagement.repo.SharedPref
-import com.example.tmcommonkotlin.*
-import io.reactivex.Flowable
-import io.reactivex.subjects.PublishSubject
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 object Repo {
@@ -32,15 +26,21 @@ object Repo {
         }
     }
 
-    suspend fun register(email: String, password: String)= withContext(Dispatchers.IO) {
+    suspend fun register(email: String, password: String): Boolean {
         val result = NetworkClient.register(email, email, password, UserType.Tenant.name)
             .await()
-        result
+        return "success" in result.string()
     }
 
-    suspend fun tryLogin(email: String, password: String): User {
-        return NetworkClient.tryLogin(email, password)
-            .await()
+    suspend fun tryLogin(email: String, password: String): StreamableLoginAttempt {
+        val responseString = NetworkClient.tryLogin(email, password)
+            .await().string()
+        if ("success" in responseString) {
+            val user = Gson().fromJson(responseString, User::class.java)
+            return StreamableLoginAttempt.Success(user)
+        } else {
+            return StreamableLoginAttempt.Failure("Unknown error")
+        }
     }
 
 

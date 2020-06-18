@@ -30,7 +30,7 @@ interface INetworkClient {
     fun tryLogin(
         @Query("email") email: String,
         @Query("password") password: String
-    ): Deferred<User>
+    ): Deferred<ResponseBody>
 
 //    @GET("pro_mgt_add_pro.php")
 //    fun addProperty(

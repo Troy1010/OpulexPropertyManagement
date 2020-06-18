@@ -1,6 +1,8 @@
 package com.example.opulexpropertymanagement.models.streamable
 
-data class StreamableLoginAttempt(
-    val email : String,
-    val password: String
-)
+import com.example.opulexpropertymanagement.ui.User
+
+sealed class StreamableLoginAttempt {
+    class Failure(val msg:String) : StreamableLoginAttempt()
+    class Success(val user: User) : StreamableLoginAttempt()
+}

@@ -2,8 +2,10 @@ package com.example.opulexpropertymanagement.view_models
 
 import androidx.lifecycle.*
 import com.example.opulexpropertymanagement.models.UserType
+import com.example.opulexpropertymanagement.models.streamable.StreamableLoginAttempt
 import com.example.opulexpropertymanagement.ui.Repo
 import com.example.opulexpropertymanagement.ui.User
+import com.example.tmcommonkotlin.Coroutines
 import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.*
@@ -27,14 +29,12 @@ class UserVM : ViewModel() {
 //        user.value = SharedPref.getUserFromSharedPref()
     }
 
-    fun register(email:String, password:String) {
+    fun register(email: String, password: String) {
         jobs.add(
-            CoroutineScope(Dispatchers.IO).launch {
-                val result = Repo.register(email, password)
-                withContext(Dispatchers.Main) {
-                    registrationAttempt.value = "uccess" in result.string()
-                }
-            }
+            Coroutines.ioThenMain(
+                {Repo.register(email, password)},
+                {registrationAttempt.value = it}
+            )
         )
     }
 
