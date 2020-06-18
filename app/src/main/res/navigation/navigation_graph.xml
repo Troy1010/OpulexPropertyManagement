@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/fragProperties"
         android:name="com.example.opulexpropertymanagement.ui.FragProperties"
-        android:label="FragProperties" >
+        android:label="Properties" >
         <action
             android:id="@+id/action_fragProperties_to_fragLogin"
             app:destination="@id/fragLogin"

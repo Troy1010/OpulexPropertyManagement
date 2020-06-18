@@ -14,6 +14,7 @@ import io.reactivex.disposables.CompositeDisposable
 import org.reactivestreams.Publisher
 
 class UserVM : ViewModel(), IRepo by Repo {
+    val disposables by lazy { CompositeDisposable() }
     val user: LiveData<User?> = LiveDataReactiveStreams.fromPublisher(
         loginAttemptResponse
             .map {
@@ -24,11 +25,10 @@ class UserVM : ViewModel(), IRepo by Repo {
                 }
             }.toFlowable(BackpressureStrategy.DROP)
     )
-
-
-    val disposables by lazy { CompositeDisposable() }
-    val userStateStreamLiveData by lazy { MutableLiveData<UserState>() }
     val userType by lazy { MutableLiveData<UserType>() }
+
+
+    val userStateStreamLiveData by lazy { MutableLiveData<UserState>() }
     //    val user by lazy { MutableLiveData<User?>().apply { value = null } }
 
     init {
