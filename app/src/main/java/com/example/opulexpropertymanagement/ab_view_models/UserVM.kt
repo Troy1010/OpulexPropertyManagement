@@ -17,14 +17,7 @@ class UserVM : ViewModel() {
     val jobs = ArrayList<Job>()
 
     init {
-//        user.addSource(LiveDataReactiveStreams.fromPublisher(loginAttemptResponse)) {
-//            if (it is StreamableLoginAttemptResponse.Success) {
-//                user.value = it.user
-//            } else {
-//                user.value = null
-//            }
-//        }
-//        user.value = SharedPref.getUserFromSharedPref()
+        user.value = Repo.sharedPref.getUserFromSharedPref()
     }
 
     fun logout() {
