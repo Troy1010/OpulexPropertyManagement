@@ -13,7 +13,6 @@
     </style>
 
     <style name="OpulexTheme.ButtonSoft">
-        <item name="android:background">@drawable/button_soft_background</item>
         <item name="android:textColor">@color/colorVsLight</item>
     </style>
 
