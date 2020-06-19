@@ -1,13 +1,12 @@
 package com.example.opulexpropertymanagement.ac_ui
 
 import com.example.opulexpropertymanagement.models.UserType
-import com.example.opulexpropertymanagement.models.streamable.StreamableTryLogin
+import com.example.opulexpropertymanagement.models.streamable.TryLoginResult
 import com.example.opulexpropertymanagement.aa_repo.NetworkClient
 import com.example.opulexpropertymanagement.aa_repo.SharedPref
 import com.example.opulexpropertymanagement.models.Property
-import com.example.opulexpropertymanagement.models.streamable.StreamableAddProperty
-import com.example.opulexpropertymanagement.models.streamable.StreamableAttempt
-import com.example.opulexpropertymanagement.models.streamable.StreamableRegister
+import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
+import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.tmcommonkotlin.logSubscribe
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,18 +18,18 @@ object Repo {
     // SharedPref
     val sharedPref = SharedPref
     // Network
-    val streamAddProperty by lazy {PublishSubject.create<StreamableAddProperty>()}
-    val streamTryLogin by lazy {PublishSubject.create<StreamableTryLogin>()}
-    suspend fun register(email: String, password: String, userType: UserType): StreamableRegister {
+    val streamAddProperty by lazy {PublishSubject.create<AddPropertyResult>()}
+    val streamTryLogin by lazy {PublishSubject.create<TryLoginResult>()}
+    suspend fun register(email: String, password: String, userType: UserType): RegisterResult {
         val resultString = NetworkClient.register(email, email, password, userType.name)
             .await().string()
         if ("success" in resultString) {
             tryLogin(email, password)
-            return StreamableRegister.Success
+            return RegisterResult.Success
         } else if ("Email already exsist" in resultString) {
-            return StreamableRegister.Failure.EmailAlreadyExists
+            return RegisterResult.Failure.EmailAlreadyExists
         } else {
-            return StreamableRegister.Failure.Unknown
+            return RegisterResult.Failure.Unknown
         }
     }
 
@@ -40,9 +39,9 @@ object Repo {
                 val responseString = it.string()
                 if ("success" in responseString) {
                     val user = Gson().fromJson(responseString, User::class.java)
-                    StreamableTryLogin.Success(user)
+                    TryLoginResult.Success(user)
                 } else {
-                    StreamableTryLogin.Failure("Unknown error")
+                    TryLoginResult.Failure("Unknown error")
                 }
             }.subscribe(streamTryLogin)
     }
@@ -66,9 +65,9 @@ object Repo {
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map {
             val responseString = it.string()
             if ("Unsuccessful" in responseString) {
-                StreamableAddProperty.Failure
+                AddPropertyResult.Failure
             } else {
-                StreamableAddProperty.Success
+                AddPropertyResult.Success
             }
         }.subscribe(streamAddProperty)
     }

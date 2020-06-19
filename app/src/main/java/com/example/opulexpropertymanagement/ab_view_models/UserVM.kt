@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.ac_ui.Repo
 import com.example.opulexpropertymanagement.ac_ui.User
-import com.example.opulexpropertymanagement.models.streamable.StreamableTryLogin
 import com.example.opulexpropertymanagement.util.toLiveData
 import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
