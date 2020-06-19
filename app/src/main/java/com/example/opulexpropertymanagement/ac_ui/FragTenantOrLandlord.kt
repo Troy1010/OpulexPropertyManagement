@@ -13,7 +13,7 @@ import com.example.opulexpropertymanagement.ab_view_models.UserVM
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_tenant_or_landlord.*
 
-class FragTenantOrLandlord : OXFragment(isDrawerEnabled = false) {
+class FragTenantOrLandlord : OXFragment(isDrawerEnabled = false, isToolbarEnabled = false) {
     val navController by lazy { this.findNavController() }
     val userVM: UserVM by activityViewModels()
     override fun onCreateView(
