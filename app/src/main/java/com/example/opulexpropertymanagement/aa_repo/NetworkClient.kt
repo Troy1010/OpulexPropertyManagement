@@ -33,7 +33,7 @@ interface INetworkClient {
     fun tryLogin(
         @Query("email") email: String,
         @Query("password") password: String
-    ): Deferred<ResponseBody>
+    ): Observable<ResponseBody>
 
     //(3)  ` ForgotPassword
     @GET("pro_mgt_forgot_pass.php")

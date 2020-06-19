@@ -12,5 +12,9 @@
             android:id="@+id/menuitem_properties"
             android:icon="@drawable/ic_temp_properties"
             android:title="Properties" />
+        <item
+            android:id="@+id/menuitem_login"
+            android:icon="@drawable/ic_input_black_24dp"
+            android:title="Login" />
     </group>
 </menu>

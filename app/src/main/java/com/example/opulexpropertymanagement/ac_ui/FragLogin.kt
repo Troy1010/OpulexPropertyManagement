@@ -48,7 +48,7 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
             val password = mBinding.textinputeditPassword.text.toString()
             loginVM.tryLogin(email, password)
         }
-        loginVM.loginAttempt.observe(viewLifecycleOwner, Observer {
+        loginVM.liveDataTryLogin.observe(viewLifecycleOwner, Observer {
             if (it is LoginAttempt.Success) {
                 if (args?.ReasonForLoginInt == ReasonForLogin.Properties.ordinal) {
                     navController.navigate(R.id.fragProperties)

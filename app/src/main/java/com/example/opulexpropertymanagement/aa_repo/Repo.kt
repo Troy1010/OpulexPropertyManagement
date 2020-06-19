@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import org.reactivestreams.Publisher
 
 
 object Repo {
@@ -18,32 +19,37 @@ object Repo {
     val sharedPref = SharedPref
     // Network
     val streamAddProperty by lazy {PublishSubject.create<StreamableAddProperty>()}
+    val streamTryLogin by lazy {PublishSubject.create<LoginAttempt>()}
+//    val streamTryLogin by lazy { Publisher<LoginAttempt>(function = {}) }
     suspend fun register(email: String, password: String, userType: UserType): LoginAttempt {
-        val result = NetworkClient.register(email, email, password, userType.name)
-            .await()
-        if ("success" in result.string()) {
-            return tryLogin(email, password)
-        } else {
-            return LoginAttempt.Failure("Registration failed")
-        }
+        return LoginAttempt.Failure("Registration failed")
+//        val result = NetworkClient.register(email, email, password, userType.name)
+//            .await()
+//        if ("success" in result.string()) {
+//            return tryLogin(email, password)
+//        } else {
+//            return LoginAttempt.Failure("Registration failed")
+//        }
     }
 
-    suspend fun tryLogin(email: String, password: String): LoginAttempt {
-        val responseString = NetworkClient.tryLogin(email, password)
-            .await().string()
-        if ("success" in responseString) {
-            val user = Gson().fromJson(responseString, User::class.java)
-            return LoginAttempt.Success(user)
-        } else {
-            return LoginAttempt.Failure("Unknown error")
-        }
+    fun tryLogin(email: String, password: String) {
+        NetworkClient.tryLogin(email, password)
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map {
+                val responseString = it.string()
+                if ("success" in responseString) {
+                    val user = Gson().fromJson(responseString, User::class.java)
+                    LoginAttempt.Success(user)
+                } else {
+                    LoginAttempt.Failure("Unknown error")
+                }
+            }.subscribe(streamTryLogin)
     }
     init {
         streamAddProperty.logSubscribe("mmm")
     }
 
     fun addProperty(property: Property, user: User) {
-        val d = NetworkClient.addProperty(
+        NetworkClient.addProperty(
             address = property.propertyaddress,
             city = property.propertycity,
             country = property.propertycountry,

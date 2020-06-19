@@ -36,6 +36,7 @@ class ActivityHost : AppCompatActivity(), ActivityHostInterface {
             when (menuItem.itemId) {
                 R.id.menuitem_properties -> navController.navigate(R.id.action_global_fragProperties)
                 R.id.menuitem_home -> navController.navigate(R.id.action_global_fragHome)
+                R.id.menuitem_login -> navController.navigate(R.id.fragLogin)
             }
             true
         }
