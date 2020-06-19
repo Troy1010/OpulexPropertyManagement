@@ -6,9 +6,11 @@ import com.example.opulexpropertymanagement.models.network_responses.ForgotPassw
 import com.example.opulexpropertymanagement.models.network_responses.TenantsResponse
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import io.reactivex.Observable
 import kotlinx.coroutines.Deferred
 import okhttp3.ResponseBody
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
@@ -53,7 +55,7 @@ interface INetworkClient {
         @Query("usertype") userType: String,
         @Query("latitude") latitude: String,
         @Query("longitude") longitude: String
-    ): Deferred<ResponseBody> // Unsuccessful vs Property
+    ): Observable<ResponseBody> // Unsuccessful vs Property
 
     //(5)  ` Property List
     @GET("pro_mgt_tenent_details.php")
@@ -92,6 +94,7 @@ val NetworkClient by lazy {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addConverterFactory(ScalarsConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .baseUrl(Config.BASE_URL)
         .build()
         .create(INetworkClient::class.java)
