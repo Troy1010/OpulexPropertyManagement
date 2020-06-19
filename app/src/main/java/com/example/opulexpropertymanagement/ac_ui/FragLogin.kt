@@ -54,11 +54,9 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
                 } else {
                     navController.navigate(R.id.fragHome)
                 }
-                userVM.user.value = it.user
             } else if (it is StreamableTryLogin.Failure) {
                 logv("Login Failed:${it.msg}")
                 easyToast(requireActivity(), "Login Failed")
-                userVM.user.value = null
             }
         })
         return mBinding.root

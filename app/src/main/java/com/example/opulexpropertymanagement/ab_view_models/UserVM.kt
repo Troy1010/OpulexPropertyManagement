@@ -19,9 +19,9 @@ class UserVM : ViewModel() {
 
     init {
         user.value = Repo.sharedPref.getUserFromSharedPref()
-//        user.addSource(Repo.streamTryLogin.toLiveData()) {
-//            user.value = it.user
-//        }
+        user.addSource(Repo.streamTryLogin.toLiveData()) {
+            user.value = it.user
+        }
     }
 
     fun logout() {
