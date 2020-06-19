@@ -6,11 +6,11 @@ import com.example.opulexpropertymanagement.ab_view_models.inheritables.IJobStop
 import com.example.opulexpropertymanagement.ab_view_models.inheritables.JobStopper
 import com.example.opulexpropertymanagement.ac_ui.Repo
 import com.example.opulexpropertymanagement.models.UserType
-import com.example.opulexpropertymanagement.models.streamable.LoginAttempt
+import com.example.opulexpropertymanagement.models.streamable.StreamableTryLogin
 import com.example.tmcommonkotlin.Coroutines
 
 class RegisterVM: ViewModel(), IJobStopper by JobStopper() {
-    val registrationAttempt by lazy { MutableLiveData<LoginAttempt>() }
+    val registrationAttempt by lazy { MutableLiveData<StreamableTryLogin>() }
     fun register(email: String, password: String, userType: UserType) {
         jobs.add(
             Coroutines.ioThenMain(

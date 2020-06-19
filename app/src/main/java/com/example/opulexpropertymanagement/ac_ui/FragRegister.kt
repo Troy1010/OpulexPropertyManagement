@@ -15,7 +15,7 @@ import com.example.opulexpropertymanagement.databinding.FragRegisterBinding
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.UserVM
 import com.example.opulexpropertymanagement.models.UserType
-import com.example.opulexpropertymanagement.models.streamable.LoginAttempt
+import com.example.opulexpropertymanagement.models.streamable.StreamableTryLogin
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logv
 
@@ -35,10 +35,10 @@ class FragRegister : OXFragment(isToolbarEnabled = false) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.frag_register, container, false)
         onCreateViewInit()
         registerVM.registrationAttempt.observe(viewLifecycleOwner, Observer {
-            if (it is LoginAttempt.Success) {
+            if (it is StreamableTryLogin.Success) {
                 navController.navigate(R.id.fragHome)
                 userVM.user.value = it.user
-            } else if (it is LoginAttempt.Failure) {
+            } else if (it is StreamableTryLogin.Failure) {
                 logv("RegistrationFailed`${it.msg}")
                 easyToast(requireActivity(), "Registration Failed")
                 userVM.user.value = null

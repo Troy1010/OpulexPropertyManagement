@@ -12,13 +12,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragLoginBinding
 import com.example.opulexpropertymanagement.models.ReasonForLogin
-import com.example.opulexpropertymanagement.models.streamable.LoginAttempt
+import com.example.opulexpropertymanagement.models.streamable.StreamableTryLogin
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.LoginVM
 import com.example.opulexpropertymanagement.ab_view_models.UserVM
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logv
-import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.frag_login.*
 import kotlinx.coroutines.Job
@@ -49,14 +48,14 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
             loginVM.tryLogin(email, password)
         }
         loginVM.liveDataTryLogin.observe(viewLifecycleOwner, Observer {
-            if (it is LoginAttempt.Success) {
+            if (it is StreamableTryLogin.Success) {
                 if (args?.ReasonForLoginInt == ReasonForLogin.Properties.ordinal) {
                     navController.navigate(R.id.fragProperties)
                 } else {
                     navController.navigate(R.id.fragHome)
                 }
                 userVM.user.value = it.user
-            } else if (it is LoginAttempt.Failure) {
+            } else if (it is StreamableTryLogin.Failure) {
                 logv("Login Failed:${it.msg}")
                 easyToast(requireActivity(), "Login Failed")
                 userVM.user.value = null

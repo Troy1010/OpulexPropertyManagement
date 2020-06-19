@@ -1,7 +1,7 @@
 package com.example.opulexpropertymanagement.ac_ui
 
 import com.example.opulexpropertymanagement.models.UserType
-import com.example.opulexpropertymanagement.models.streamable.LoginAttempt
+import com.example.opulexpropertymanagement.models.streamable.StreamableTryLogin
 import com.example.opulexpropertymanagement.aa_repo.NetworkClient
 import com.example.opulexpropertymanagement.aa_repo.SharedPref
 import com.example.opulexpropertymanagement.models.Property
@@ -11,7 +11,6 @@ import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import org.reactivestreams.Publisher
 
 
 object Repo {
@@ -19,10 +18,10 @@ object Repo {
     val sharedPref = SharedPref
     // Network
     val streamAddProperty by lazy {PublishSubject.create<StreamableAddProperty>()}
-    val streamTryLogin by lazy {PublishSubject.create<LoginAttempt>()}
+    val streamTryLogin by lazy {PublishSubject.create<StreamableTryLogin>()}
 //    val streamTryLogin by lazy { Publisher<LoginAttempt>(function = {}) }
-    suspend fun register(email: String, password: String, userType: UserType): LoginAttempt {
-        return LoginAttempt.Failure("Registration failed")
+    suspend fun register(email: String, password: String, userType: UserType): StreamableTryLogin {
+        return StreamableTryLogin.Failure("Registration failed")
 //        val result = NetworkClient.register(email, email, password, userType.name)
 //            .await()
 //        if ("success" in result.string()) {
@@ -38,9 +37,9 @@ object Repo {
                 val responseString = it.string()
                 if ("success" in responseString) {
                     val user = Gson().fromJson(responseString, User::class.java)
-                    LoginAttempt.Success(user)
+                    StreamableTryLogin.Success(user)
                 } else {
-                    LoginAttempt.Failure("Unknown error")
+                    StreamableTryLogin.Failure("Unknown error")
                 }
             }.subscribe(streamTryLogin)
     }

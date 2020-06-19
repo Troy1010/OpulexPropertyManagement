@@ -4,7 +4,8 @@ import androidx.lifecycle.*
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.ac_ui.Repo
 import com.example.opulexpropertymanagement.ac_ui.User
-import com.example.tmcommonkotlin.Coroutines
+import com.example.opulexpropertymanagement.models.streamable.StreamableTryLogin
+import com.example.opulexpropertymanagement.util.toLiveData
 import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.*
@@ -18,6 +19,9 @@ class UserVM : ViewModel() {
 
     init {
         user.value = Repo.sharedPref.getUserFromSharedPref()
+//        user.addSource(Repo.streamTryLogin.toLiveData()) {
+//            user.value = it.user
+//        }
     }
 
     fun logout() {
