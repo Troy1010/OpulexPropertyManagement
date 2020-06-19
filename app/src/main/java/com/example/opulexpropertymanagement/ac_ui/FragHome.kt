@@ -26,7 +26,6 @@ class FragHome : OXFragment() {
         mBinding = DataBindingUtil.inflate(
             inflater, R.layout.frag_home, container, false
         )
-        logz("FragHome`onCreateView`userVM.email:${userVM.user.value?.email}")
         mBinding.userVM = userVM
         mBinding.lifecycleOwner = this
         mBinding.btnGoToProperties.setOnClickListener {
