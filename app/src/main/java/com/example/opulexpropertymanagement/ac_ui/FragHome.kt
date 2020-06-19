@@ -32,7 +32,7 @@ class FragHome : OXFragment() {
         mBinding.btnGoToProperties.setOnClickListener {
 //            val directions = FragHomeDirections.actionFragHomeToActivitySplashscreen()
 //            navController.navigate(directions)
-            val directions = FragHomeDirections.actionFragHomeToFragProperties()
+            val directions = FragHomeDirections.actionGlobalFragProperties()
             navController.navigate(directions)
         }
         mBinding.btnGoToLogin.setOnClickListener {

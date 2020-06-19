@@ -8,10 +8,6 @@
         android:name="com.example.opulexpropertymanagement.ac_ui.FragHome"
         android:label="Home" >
         <action
-            android:id="@+id/action_fragHome_to_fragProperties"
-            app:destination="@id/fragProperties"
-            app:popUpToInclusive="false" />
-        <action
             android:id="@+id/action_fragHome_to_activitySplashscreen"
             app:destination="@id/activitySplashscreen" />
     </fragment>
@@ -59,10 +55,6 @@
             app:destination="@id/fragLogin"
             app:popUpTo="@id/fragHome"
             app:popUpToInclusive="false" />
-        <argument
-            android:name="ignoreNextRedirection"
-            app:argType="boolean"
-            android:defaultValue="false" />
     </fragment>
     <action
         android:id="@+id/action_global_fragProperties"

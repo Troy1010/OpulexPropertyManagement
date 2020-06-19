@@ -25,7 +25,6 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
     val propertiesVM: PropertiesVM by viewModels()
     val userVM: UserVM by activityViewModels()
     val navController by lazy { this.findNavController() }
-    val args by lazy { arguments?.let { FragPropertiesArgs.fromBundle(it) } }
 
     override fun onCreateView(
         inflater: LayoutInflater,
