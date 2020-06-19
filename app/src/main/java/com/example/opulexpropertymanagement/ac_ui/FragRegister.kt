@@ -15,9 +15,12 @@ import com.example.opulexpropertymanagement.databinding.FragRegisterBinding
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.UserVM
 import com.example.opulexpropertymanagement.models.UserType
+import com.example.opulexpropertymanagement.models.streamable.StreamableAttempt
+import com.example.opulexpropertymanagement.models.streamable.StreamableRegister
 import com.example.opulexpropertymanagement.models.streamable.StreamableTryLogin
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logv
+import java.util.stream.Stream
 
 
 class FragRegister : OXFragment(isToolbarEnabled = false) {
@@ -35,13 +38,18 @@ class FragRegister : OXFragment(isToolbarEnabled = false) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.frag_register, container, false)
         onCreateViewInit()
         registerVM.registrationAttempt.observe(viewLifecycleOwner, Observer {
-            if (it is StreamableTryLogin.Success) {
-                navController.navigate(R.id.fragHome)
-                userVM.user.value = it.user
-            } else if (it is StreamableTryLogin.Failure) {
-                logv("RegistrationFailed`${it.msg}")
-                easyToast(requireActivity(), "Registration Failed")
-                userVM.user.value = null
+            when (it) {
+                is StreamableRegister.Success -> {
+                    navController.navigate(R.id.fragHome)
+                }
+                is StreamableRegister.Failure -> {
+                    logv("RegistrationFailed`${it.msg}")
+                    if (it is StreamableRegister.Failure.EmailAlreadyExists) {
+                        easyToast(requireActivity(), "Email already exists")
+                    } else {
+                        easyToast(requireActivity(), "Registration Failed")
+                    }
+                }
             }
         })
         return mBinding.root

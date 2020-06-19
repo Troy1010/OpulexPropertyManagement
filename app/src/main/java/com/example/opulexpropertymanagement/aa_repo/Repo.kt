@@ -6,6 +6,8 @@ import com.example.opulexpropertymanagement.aa_repo.NetworkClient
 import com.example.opulexpropertymanagement.aa_repo.SharedPref
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.streamable.StreamableAddProperty
+import com.example.opulexpropertymanagement.models.streamable.StreamableAttempt
+import com.example.opulexpropertymanagement.models.streamable.StreamableRegister
 import com.example.tmcommonkotlin.logSubscribe
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,16 +21,17 @@ object Repo {
     // Network
     val streamAddProperty by lazy {PublishSubject.create<StreamableAddProperty>()}
     val streamTryLogin by lazy {PublishSubject.create<StreamableTryLogin>()}
-//    val streamTryLogin by lazy { Publisher<LoginAttempt>(function = {}) }
-    suspend fun register(email: String, password: String, userType: UserType): StreamableTryLogin {
-        return StreamableTryLogin.Failure("Registration failed")
-//        val result = NetworkClient.register(email, email, password, userType.name)
-//            .await()
-//        if ("success" in result.string()) {
-//            return tryLogin(email, password)
-//        } else {
-//            return LoginAttempt.Failure("Registration failed")
-//        }
+    suspend fun register(email: String, password: String, userType: UserType): StreamableRegister {
+        val resultString = NetworkClient.register(email, email, password, userType.name)
+            .await().string()
+        if ("success" in resultString) {
+            tryLogin(email, password)
+            return StreamableRegister.Success
+        } else if ("Email already exsist" in resultString) {
+            return StreamableRegister.Failure.EmailAlreadyExists
+        } else {
+            return StreamableRegister.Failure.Unknown
+        }
     }
 
     fun tryLogin(email: String, password: String) {
