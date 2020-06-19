@@ -2,21 +2,23 @@ package com.example.opulexpropertymanagement.ab_view_models
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.opulexpropertymanagement.ab_view_models.inheritables.IJobStopper
-import com.example.opulexpropertymanagement.ab_view_models.inheritables.JobStopper
+import androidx.lifecycle.viewModelScope
 import com.example.opulexpropertymanagement.ac_ui.Repo
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.tmcommonkotlin.Coroutines
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class RegisterVM: ViewModel(), IJobStopper by JobStopper() {
+class RegisterVM: ViewModel() {
     val registrationAttempt by lazy { MutableLiveData<RegisterResult>() }
     fun register(email: String, password: String, userType: UserType) {
-        jobs.add(
-            Coroutines.ioThenMain(
-                {Repo.register(email, password, userType)},
-                {registrationAttempt.value = it}
-            )
-        )
+        viewModelScope.launch {
+            val x = Repo.register(email, password, userType)
+            withContext(Dispatchers.Main) {
+                registrationAttempt.value = x
+            }
+        }
     }
 }

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
+    <data>
+        <variable
+            name="propertyAddVM"
+            type="com.example.opulexpropertymanagement.ab_view_models.PropertyAddVM" />
+    </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -10,31 +14,37 @@
         <include
             android:id="@+id/textinput_address"
             layout="@layout/includible_text_input"
+            app:inputValidationState="@{propertyAddVM.addressInputValidationState}"
             app:hintZ='@{"Address"}' />
 
         <include
             android:id="@+id/textinput_city"
             layout="@layout/includible_text_input"
+            app:inputValidationState="@{propertyAddVM.cityInputValidationState}"
             app:hintZ='@{"City"}' />
 
         <include
             android:id="@+id/textinput_state"
             layout="@layout/includible_text_input"
+            app:inputValidationState="@={propertyAddVM.stateInputValidationState}"
             app:hintZ='@{"State"}' />
 
         <include
             android:id="@+id/textinput_country"
             layout="@layout/includible_text_input"
+            app:inputValidationState="@={propertyAddVM.countryInputValidationState}"
             app:hintZ='@{"Country"}' />
 
         <include
             android:id="@+id/textinput_price"
             layout="@layout/includible_text_input"
+            app:inputValidationState="@={propertyAddVM.priceInputValidationState}"
             app:hintZ='@{"Price"}' />
 
         <include
             android:id="@+id/textinput_mortgage_info"
             layout="@layout/includible_text_input"
+            app:inputValidationState="@={propertyAddVM.mortgageInfoInputValidationState}"
             app:hintZ='@{"Morgage Info"}' />
 
         <Button

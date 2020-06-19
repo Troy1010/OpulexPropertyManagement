@@ -13,12 +13,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            app:errorEnabled="inputValidationState">
+            app:errorEnabled="@{inputValidationState.isErrorEnabled}"
+            app:errorText="@{inputValidationState.errorMsg}"
+            app:errorTextAppearance="@{inputValidationState.textAppearance}">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textinput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@={inputValidationState.text}"
                 android:hint="@{hintZ}" />
         </com.google.android.material.textfield.TextInputLayout>
 
