@@ -68,4 +68,8 @@
         android:id="@+id/activitySplashscreen"
         android:name="com.example.opulexpropertymanagement.ac_ui.ActivitySplashscreen"
         android:label="ActivitySplashscreen" />
+    <fragment
+        android:id="@+id/fragPropertyAdd"
+        android:name="com.example.opulexpropertymanagement.ac_ui.FragPropertyAdd"
+        android:label="FragPropertyAdd" />
 </navigation>

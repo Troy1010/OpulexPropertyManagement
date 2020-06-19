@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="inputValidationState" type="com.example.opulexpropertymanagement.models.view_model_intermediates.InputValidationState"/>
+        <variable name="hintZ" type="String" />
+    </data>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinputlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:errorEnabled="inputValidationState">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textinput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@{hintZ}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </FrameLayout>
+</layout>

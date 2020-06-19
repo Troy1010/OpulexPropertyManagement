@@ -52,7 +52,7 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
         recyclerview_1.layoutManager = LinearLayoutManager(requireActivity())
         recyclerview_1.adapter = AdapterRVProperties(this, R.layout.item_property)
         btn_add_property.setOnClickListener {
-            propertiesVM.addProperty(Property(propertyaddress = "aaaaaaaaaa"), userVM.user.value!!)
+            navController.navigate(R.id.fragPropertyAdd)
         }
     }
 

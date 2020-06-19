@@ -49,11 +49,7 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
         }
         loginVM.liveDataTryLogin.observe(viewLifecycleOwner, Observer {
             if (it is TryLoginResult.Success) {
-                if (args?.ReasonForLoginInt == ReasonForLogin.Properties.ordinal) {
-                    navController.navigate(R.id.fragProperties)
-                } else {
-                    navController.navigate(R.id.fragHome)
-                }
+                navController.navigate(R.id.fragHome)
             } else if (it is TryLoginResult.Failure) {
                 logv("Login Failed:${it.msg}")
                 easyToast(requireActivity(), "Login Failed")

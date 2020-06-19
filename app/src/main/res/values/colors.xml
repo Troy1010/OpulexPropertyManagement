@@ -14,4 +14,7 @@
     <color name="colorVsLight">#111</color>
     <color name="colorVsDark">#eee</color>
     <color name="colorVsDarkSoft">#999</color>
+    <color name="colorGood">#1cad41</color>
+    <color name="colorWarning">#b0aa00</color>
+    <color name="colorBad">#a81b1b</color>
 </resources>
