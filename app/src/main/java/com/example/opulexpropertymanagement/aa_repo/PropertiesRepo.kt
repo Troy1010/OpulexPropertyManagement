@@ -13,25 +13,8 @@ import com.example.tmcommonkotlin.logz
 
 class PropertiesRepo {
     //  Properties
-    val properties by lazy { MediatorLiveData<List<Property>>() }
     val streamRequestPropertiesResult by lazy { MutableLiveData<GetPropertiesResult>() }
     val streamAddPropertyResult by lazy { MutableLiveData<AddPropertyResult>() }
-    init {
-        properties.addSource(streamRequestPropertiesResult) {
-            if (it is GetPropertiesResult.Success) {
-                properties.value = it.properties
-            }
-        }
-        properties.addSource(streamAddPropertyResult) {
-            if (it is AddPropertyResult.Success) {
-                requestPropertiesByUser(it.user)
-            }
-        }
-        val user = GlobalVM.user.value
-        if (user != null) {
-            requestPropertiesByUser(user)
-        }
-    }
 
     fun requestPropertiesByUser(user: User) {
         Coroutines.ioThenMain({

@@ -21,19 +21,18 @@ object GlobalVM : ViewModel() {
         user.value = GlobalRepo.sharedPref.getUserFromSharedPref()
         user.addSource(repo.liveDataTryLogin) {
             user.value = it.user
-            val x = userType.value
-            if (x != null) {
-                user.value?.usertype = if (x == UserType.Landlord) "landlord" else "tenant"
-            }
+            user.value?.usertype = userType.value?.let { it.toNetworkRecognizedString }?:""
         }
-    }
-
-    fun switchToggled(view: View) {
-
     }
 
     fun logout() {
         user.value = null
+    }
+
+    // extras
+
+    fun switchToggled(view: View) {
+
     }
 
     fun whipeDBAndAddUser() {
