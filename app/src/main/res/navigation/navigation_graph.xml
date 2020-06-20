@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_graph"
-    app:startDestination="@id/fragTenantOrLandlord">
+    app:startDestination="@id/fragHome">
 
     <fragment
         android:id="@+id/fragHome"
@@ -10,6 +10,9 @@
         <action
             android:id="@+id/action_fragHome_to_activitySplashscreen"
             app:destination="@id/activitySplashscreen" />
+        <action
+            android:id="@+id/action_fragHome_to_fragTenantOrLandlord"
+            app:destination="@id/fragTenantOrLandlord" />
     </fragment>
     <fragment
         android:id="@+id/fragLogin"
@@ -71,9 +74,18 @@
     <activity
         android:id="@+id/activitySplashscreen"
         android:name="com.example.opulexpropertymanagement.ac_ui.ActivitySplashscreen"
-        android:label="ActivitySplashscreen" />
+        android:label=" " />
     <fragment
         android:id="@+id/fragPropertyAdd"
         android:name="com.example.opulexpropertymanagement.ac_ui.FragPropertyAdd"
-        android:label="FragPropertyAdd" />
+        android:label="Add Property" >
+        <action
+            android:id="@+id/action_fragPropertyAdd_to_fragLogin"
+            app:destination="@id/fragLogin"
+            app:popUpTo="@id/fragPropertyAdd" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragLogin"
+        app:destination="@id/fragLogin"
+        app:popUpTo="@id/fragHome" />
 </navigation>

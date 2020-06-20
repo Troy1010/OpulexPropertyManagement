@@ -57,7 +57,11 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
         loginVM.repo.liveDataTryLogin.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
             logz("TryLoginResult observed.")
             if (it is TryLoginResult.Success) {
-                navController.navigate(R.id.fragHome)
+                if (args?.ReasonForLoginInt == ReasonForLogin.TriedToAddProperty.ordinal) {
+                    navController.navigateUp()
+                } else {
+                    navController.navigate(R.id.fragHome)
+                }
             } else if (it is TryLoginResult.Failure) {
                 logv("Login Failed:${it.msg}")
                 easyToast(requireActivity(), "Login Failed")
@@ -72,6 +76,9 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
         if (args?.ReasonForLoginInt == ReasonForLogin.Properties.ordinal) {
             textview_reason_for_login.text =
                 "In order to see your properties, you must be logged in."
+        } else if (args?.ReasonForLoginInt == ReasonForLogin.TriedToAddProperty.ordinal) {
+            textview_reason_for_login.text =
+                "In order to add a property, you must be logged in."
         }
     }
     private var myJob: Job? = null

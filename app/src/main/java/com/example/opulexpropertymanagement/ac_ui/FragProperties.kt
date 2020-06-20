@@ -37,12 +37,6 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
         propertiesVM.properties.observe(viewLifecycleOwner, Observer {
             recyclerview_1.adapter?.notifyDataSetChanged()
         })
-        GlobalVM.user.observe(viewLifecycleOwner, Observer {
-            if (it==null) {
-                val directions = FragPropertiesDirections.actionFragPropertiesToFragLogin(ReasonForLoginInt = ReasonForLogin.Properties.ordinal)
-                navController.navigate(directions)
-            }
-        })
         return mBinding.root
     }
 

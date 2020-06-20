@@ -34,7 +34,7 @@ class ActivityHost : AppCompatActivity(), ActivityHostInterface {
             when (menuItem.itemId) {
                 R.id.menuitem_properties -> navController.navigate(R.id.action_global_fragProperties)
                 R.id.menuitem_home -> navController.navigate(R.id.action_global_fragHome)
-                R.id.menuitem_login -> navController.navigate(R.id.fragLogin)
+                R.id.menuitem_login -> navController.navigate(R.id.action_global_fragLogin)
             }
             true
         }
@@ -43,11 +43,14 @@ class ActivityHost : AppCompatActivity(), ActivityHostInterface {
             ActionBarDrawerToggle(this, drawer_layout, toolbar_main, R.string.open, R.string.closed)
         drawer_layout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
-        // Keep user hot, save user changes in SharedPref
+        // Keep user hot & save user changes in SharedPref
         GlobalVM.user.observe(this, Observer {
             GlobalVM.repo.sharedPref.saveUserInSharedPref(it)
         })
-
+        // If we don't have a user, start at TenantOrLandlord
+        if (GlobalVM.user.value == null) {
+            navController.navigate(R.id.action_fragHome_to_fragTenantOrLandlord)
+        }
     }
 
     override fun onBackPressed() {
