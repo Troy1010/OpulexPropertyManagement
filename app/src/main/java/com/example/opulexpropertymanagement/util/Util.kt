@@ -12,11 +12,11 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<TryLoginResult> {
-    return LiveDataReactiveStreams.fromPublisher(Repo.streamTryLogin.toFlowable(BackpressureStrategy.DROP))
+fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
+    return LiveDataReactiveStreams.fromPublisher(observable.toFlowable(BackpressureStrategy.DROP))
 }
 
-fun <T> PublishSubject<T>.toLiveData(): LiveData<TryLoginResult> {
+fun <T> PublishSubject<T>.toLiveData(): LiveData<T> {
     return convertRXToLiveData(this)
 }
 

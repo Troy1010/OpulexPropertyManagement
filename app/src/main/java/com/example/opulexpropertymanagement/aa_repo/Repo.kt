@@ -7,7 +7,9 @@ import com.example.opulexpropertymanagement.aa_repo.SharedPref
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.opulexpropertymanagement.models.streamable.RegisterResult
+import com.example.tmcommonkotlin.log
 import com.example.tmcommonkotlin.logSubscribe
+import com.example.tmcommonkotlin.logz
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -17,9 +19,10 @@ import io.reactivex.subjects.PublishSubject
 object Repo {
     // SharedPref
     val sharedPref = SharedPref
+
     // Network
-    val streamAddProperty by lazy {PublishSubject.create<AddPropertyResult>()}
-    val streamTryLogin by lazy {PublishSubject.create<TryLoginResult>()}
+    val streamAddProperty by lazy { PublishSubject.create<AddPropertyResult>() }
+    val streamTryLogin by lazy { PublishSubject.create<TryLoginResult>() }
     suspend fun register(email: String, password: String, userType: UserType): RegisterResult {
         val resultString = NetworkClient.register(email, email, password, userType.name)
             .await().string()
@@ -31,6 +34,10 @@ object Repo {
         } else {
             return RegisterResult.Failure.Unknown
         }
+    }
+
+    init {
+        streamAddProperty.logSubscribe()
     }
 
     fun tryLogin(email: String, password: String) {
@@ -45,12 +52,10 @@ object Repo {
                 }
             }.subscribe(streamTryLogin)
     }
-    init {
-        streamAddProperty.logSubscribe("mmm")
-    }
 
     fun addProperty(property: Property, user: User) {
-        NetworkClient.addProperty(
+        logz("add property..")
+        val x = NetworkClient.addProperty(
             address = property.propertyaddress,
             city = property.propertycity,
             country = property.propertycountry,
@@ -62,7 +67,10 @@ object Repo {
             state = property.propertystate,
             userid = user.id,
             userType = user.usertype
-        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map {
+        )
+        x.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).logSubscribe("eee")
+        x.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).log("kkk").map {
+            logz("Mapping..")
             val responseString = it.string()
             if ("Unsuccessful" in responseString) {
                 AddPropertyResult.Failure
@@ -71,6 +79,7 @@ object Repo {
             }
         }.subscribe(streamAddProperty)
     }
+
     // Database
     fun whipeDBAndAddUser(user: User) {
         dao.clear()

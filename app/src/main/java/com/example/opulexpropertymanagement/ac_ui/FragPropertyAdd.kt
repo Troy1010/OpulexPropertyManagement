@@ -5,23 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
-import com.example.opulexpropertymanagement.ab_view_models.LoginVM
+import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyAddVM
+import com.example.opulexpropertymanagement.ab_view_models.UserVM
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyAddBinding
-import com.example.opulexpropertymanagement.databinding.IncludibleTextInputBinding
+import com.example.opulexpropertymanagement.models.Property
+import com.example.opulexpropertymanagement.models.PropertyStatus
+import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.opulexpropertymanagement.models.view_model_intermediates.InputValidationState
-import com.example.opulexpropertymanagement.util.handleInputValidationResult
 import com.example.tmcommonkotlin.InputValidation
+import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
-import kotlinx.android.synthetic.main.frag_property_add.*
-import kotlinx.android.synthetic.main.includible_text_input.view.*
 
-class FragPropertyAdd: OXFragment() {
+class FragPropertyAdd : OXFragment() {
     lateinit var mBinding: FragPropertyAddBinding
     val propertyAddVM: PropertyAddVM by viewModels()
+    val propertiesVM: PropertiesVM by activityViewModels()
+    val userVM: UserVM by activityViewModels()
+    val navController by lazy { this.findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,12 +37,43 @@ class FragPropertyAdd: OXFragment() {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.frag_property_add, container, false)
         mBinding.lifecycleOwner = this
         mBinding.propertyAddVM = propertyAddVM
-        setupListeners()
+        setupOnFocusChangedListeners()
+        setupClickListeners()
+        setupObservers()
         return mBinding.root
     }
 
+    private fun setupObservers() {
+        propertyAddVM.addPropertyResponse.observe(viewLifecycleOwner, Observer {
+            if (it is AddPropertyResult.Success) {
+                navController.navigateUp()
+            } else {
+                easyToast(requireActivity(), "Add Property Failed")
+            }
+        })
+    }
 
-    private fun setupListeners() {
+    private fun setupClickListeners() {
+        mBinding.btnAdd.setOnClickListener {
+            logz("btnAdd clicked")
+            val user = userVM.user.value
+            if (user != null) {
+                propertiesVM.addProperty(Property(
+                    propertyaddress = mBinding.textinputAddress.textinput.text.toString(),
+                    propertycity = mBinding.textinputCity.textinput.text.toString(),
+                    propertycountry = mBinding.textinputCountry.textinput.text.toString(),
+                    propertymortageinfo = mBinding.textinputMortgageInfo.textinput.text.toString(),
+                    propertystate = mBinding.textinputState.textinput.text.toString(),
+                    propertypurchaseprice = mBinding.textinputPrice.textinput.text.toString(),
+                    propertystatus = PropertyStatus.Unavailable.name
+                ), user)} else {
+                easyToast(requireActivity(), "Login required")
+            }
+        }
+    }
+
+
+    private fun setupOnFocusChangedListeners() {
         mBinding.textinputAddress.textinput.setOnFocusChangeListener { _, hasFocus ->
             val inputValidationState = propertyAddVM.addressInputValidationState.value!!
             handleValidationResult(inputValidationState, InputValidation.asStreetAddress, hasFocus)
@@ -62,12 +100,15 @@ class FragPropertyAdd: OXFragment() {
         }
     }
 
-    fun handleValidationResult(inputValidationState: InputValidationState, validationLambda:(String)->InputValidation.Result, bSkip: Boolean) {
+    fun handleValidationResult(
+        inputValidationState: InputValidationState,
+        validationLambda: (String) -> InputValidation.Result,
+        bSkip: Boolean
+    ) {
         if (bSkip) {
             inputValidationState.isErrorEnabled.value = false
         } else {
-            val validationResult = validationLambda(inputValidationState.text.value?:"")
-            logz("validating:${inputValidationState.text.value?:""} validationResult:$validationResult")
+            val validationResult = validationLambda(inputValidationState.text.value ?: "")
             if (validationResult is InputValidation.Result.Success) {
                 inputValidationState.isErrorEnabled.value = false
                 inputValidationState.errorMsg.value = ""

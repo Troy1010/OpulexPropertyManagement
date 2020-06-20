@@ -1,10 +1,13 @@
 package com.example.opulexpropertymanagement.ab_view_models
 
 import androidx.lifecycle.*
+import com.example.opulexpropertymanagement.aa_repo.NetworkClient
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.ac_ui.Repo
 import com.example.opulexpropertymanagement.ac_ui.User
+import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.util.toLiveData
+import com.example.tmcommonkotlin.logx
 import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.*
@@ -43,4 +46,10 @@ class UserVM : ViewModel() {
         }
         disposables.dispose()
     }
+
+    fun doSomething() {
+        logz("doSomething`")
+        logz(NetworkClient.addProperty("","","","","","","","","","","").toString())
+    }
+
 }
