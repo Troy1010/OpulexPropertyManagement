@@ -10,6 +10,7 @@ import com.example.opulexpropertymanagement.aa_repo.SharedPref
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.opulexpropertymanagement.models.streamable.RegisterResult
+import com.example.tmcommonkotlin.Coroutines
 import com.example.tmcommonkotlin.log
 import com.example.tmcommonkotlin.logSubscribe
 import com.example.tmcommonkotlin.logz
@@ -20,26 +21,29 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
 
-
 object Repo {
     // SharedPref
     val sharedPref = SharedPref
 
     // Network
+    //  TryLogin
     val liveDataTryLogin by lazy { MutableLiveData<TryLoginResult>() } // Observed by multiple VMs
 
-    @SuppressLint("CheckResult") // This disposable comes from a one-and-done observable and can be forgotten
     fun tryLogin(email: String, password: String) {
-        NetworkClient.tryLogin(email, password)
-            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map {
-                val responseString = it.string()
+        Coroutines.ioThenMain(
+            {
+                val responseString = NetworkClient.tryLogin(email, password).await().string()
                 if ("success" in responseString) {
                     val user = Gson().fromJson(responseString, User::class.java)
                     TryLoginResult.Success(user)
                 } else {
                     TryLoginResult.Failure("Unknown error")
                 }
-            }.subscribe({ liveDataTryLogin.value = it }, { logz("ERROR`$it") })
+            },
+            {
+                liveDataTryLogin.value = it
+            }
+        )
     }
 
     suspend fun register(email: String, password: String, userType: UserType): RegisterResult {
