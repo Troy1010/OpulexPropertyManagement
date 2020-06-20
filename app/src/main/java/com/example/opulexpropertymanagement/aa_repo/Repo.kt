@@ -1,5 +1,7 @@
 package com.example.opulexpropertymanagement.ac_ui
 
+import android.annotation.SuppressLint
+import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.TryLoginResult
@@ -12,20 +14,23 @@ import com.example.tmcommonkotlin.log
 import com.example.tmcommonkotlin.logSubscribe
 import com.example.tmcommonkotlin.logz
 import com.google.gson.Gson
+import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
 
-// The streams in this repo are observed by multiple VMs
+
 object Repo {
     // SharedPref
     val sharedPref = SharedPref
 
     // Network
-    val liveDataTryLogin by lazy { MutableLiveData<TryLoginResult>() }
+    val liveDataTryLogin by lazy { MutableLiveData<TryLoginResult>() } // Observed by multiple VMs
+
+    @SuppressLint("CheckResult") // This disposable comes from a one-and-done observable and can be forgotten
     fun tryLogin(email: String, password: String) {
-        val d = NetworkClient.tryLogin(email, password)
+        NetworkClient.tryLogin(email, password)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map {
                 val responseString = it.string()
                 if ("success" in responseString) {
@@ -34,10 +39,9 @@ object Repo {
                 } else {
                     TryLoginResult.Failure("Unknown error")
                 }
-            }.subscribe({ liveDataTryLogin.value = it})
+            }.subscribe({ liveDataTryLogin.value = it }, { logz("ERROR`$it") })
     }
 
-    val streamAddProperty by lazy { PublishSubject.create<AddPropertyResult>() }
     suspend fun register(email: String, password: String, userType: UserType): RegisterResult {
         val resultString = NetworkClient.register(email, email, password, userType.name)
             .await().string()
@@ -51,10 +55,7 @@ object Repo {
         }
     }
 
-    init {
-        streamAddProperty.logSubscribe()
-    }
-
+    val streamAddProperty by lazy { PublishSubject.create<AddPropertyResult>() }
     fun addProperty(property: Property, user: User) {
         logz("add property..")
         val x = NetworkClient.addProperty(
