@@ -13,5 +13,5 @@ data class User(
     @PrimaryKey
     @SerializedName("userid")
     val id: String,
-    val usertype: String
+    var usertype: String
 )

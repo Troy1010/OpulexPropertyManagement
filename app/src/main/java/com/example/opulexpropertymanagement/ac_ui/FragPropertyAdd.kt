@@ -49,6 +49,7 @@ class FragPropertyAdd : OXFragment() {
             if (it is AddPropertyResult.Success) {
                 navController.navigateUp()
             } else {
+                logz("AddPropertyFailed`${it}")
                 easyToast(requireActivity(), "Add Property Failed")
             }
         })
@@ -58,7 +59,7 @@ class FragPropertyAdd : OXFragment() {
         mBinding.btnAdd.setOnClickListener {
             val user = userVM.user.value
             if (user != null) {
-                propertiesVM.addProperty(Property(
+                propertiesVM.repo.addProperty(Property(
                     propertyaddress = mBinding.textinputAddress.textinput.text.toString(),
                     propertycity = mBinding.textinputCity.textinput.text.toString(),
                     propertycountry = mBinding.textinputCountry.textinput.text.toString(),

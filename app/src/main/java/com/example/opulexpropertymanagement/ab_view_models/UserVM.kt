@@ -9,11 +9,15 @@ import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.*
 
+// this is intended to be an activity-level VM
 class UserVM : ViewModel() {
     val repo = Repo
     val disposables by lazy { CompositeDisposable() }
 
-    val user = MediatorLiveData<User?>()
+    companion object {
+        val user = MediatorLiveData<User?>() // Other fragment-level VMs require this
+    }
+    val user = UserVM.user
     val userType by lazy { MutableLiveData<UserType>() }
     val jobs = ArrayList<Job>()
 
@@ -21,6 +25,10 @@ class UserVM : ViewModel() {
         user.value = Repo.sharedPref.getUserFromSharedPref()
         user.addSource(repo.liveDataTryLogin) {
             user.value = it.user
+            val x = userType.value
+            if (x != null) {
+                user.value?.usertype = if (x == UserType.Landlord) "landlord" else "tenant"
+            }
         }
     }
 

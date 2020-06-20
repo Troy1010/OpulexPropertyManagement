@@ -58,10 +58,11 @@ interface INetworkClient {
     ): Deferred<ResponseBody> // Unsuccessful vs Property
 
     //(5)  ` Property List
-    @GET("pro_mgt_tenent_details.php")
+    @GET("property.php")
     fun getPropertiesForLandlord(
-        @Query("landlordid") landlordUserID: String
-    ): Deferred<List<Property>>
+        @Query("usertype") userType: String,
+        @Query("userID") userID: String
+    ): Deferred<ResponseBody>
 
     //(6)  ` Remove Property
     @GET("remove-property.php")

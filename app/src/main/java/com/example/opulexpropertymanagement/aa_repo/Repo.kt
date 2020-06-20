@@ -15,6 +15,7 @@ import com.example.tmcommonkotlin.log
 import com.example.tmcommonkotlin.logSubscribe
 import com.example.tmcommonkotlin.logz
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -62,6 +63,7 @@ object Repo {
     //  AddProperty
     val liveDataAddProperty by lazy { MutableLiveData<AddPropertyResult>() }
     fun addProperty(property: Property, user: User) {
+        logz("adding property using id:${user.id}")
         Coroutines.ioThenMain(
             {
                 val responseString =  NetworkClient.addProperty(
@@ -77,8 +79,13 @@ object Repo {
                     userid = user.id,
                     userType = user.usertype
                 ).await().string()
+                logz("addProperty`responseString:$responseString")
                 if ("Unsuccessful" in responseString) {
-                    AddPropertyResult.Failure
+                    AddPropertyResult.Failure.Unknown
+                } else if ("mismatch user id or user type" in responseString) {
+                    AddPropertyResult.Failure.MismatchedUserIDVsType
+                } else if ("user type should landlord" in responseString) {
+                    AddPropertyResult.Failure.UserTypeShouldBeLandlord
                 } else {
                     AddPropertyResult.Success
                 }
@@ -86,6 +93,27 @@ object Repo {
                 liveDataAddProperty.value = it
             }
         )
+    }
+
+    //  GetProperties
+    suspend fun getPropertiesByUser(user: User): List<Property> {
+//        logz("user.usertype:${user.usertype} user.id:${user.appapikey}")
+        logz("user:$user")
+        logz("userid:${user.id}")
+        val responseString = NetworkClient.getPropertiesForLandlord(user.usertype, user.id).await().string()
+        logz("getPropertiesByUser`responseString:$responseString")
+        val y =  try {
+            logz("beginning try..")
+            val type = object : TypeToken<List<Property>>() {}.type
+            val x = Gson().fromJson<List<Property>>(responseString, type)
+            x
+        } catch (e: com.google.gson.JsonSyntaxException) {
+            logz("going into catch..")
+            val x = Gson().fromJson(responseString, Property::class.java)
+            listOf(x)
+        }
+        logz("y:$y")
+        return y
     }
 
     // Database
