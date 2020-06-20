@@ -1,5 +1,6 @@
 package com.example.opulexpropertymanagement.ab_view_models
 
+import android.view.View
 import androidx.lifecycle.*
 import com.example.opulexpropertymanagement.aa_repo.NetworkClient
 import com.example.opulexpropertymanagement.models.UserType
@@ -30,6 +31,10 @@ class UserVM : ViewModel() {
                 user.value?.usertype = if (x == UserType.Landlord) "landlord" else "tenant"
             }
         }
+    }
+
+    fun switchToggled(view: View) {
+
     }
 
     fun logout() {

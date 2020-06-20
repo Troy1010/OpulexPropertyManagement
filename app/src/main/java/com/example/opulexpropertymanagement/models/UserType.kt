@@ -1,5 +1,5 @@
 package com.example.opulexpropertymanagement.models
 
-enum class UserType {
-    Tenant, Landlord
+enum class UserType(val toNetworkRecognizedString:String) {
+    Tenant("tenant"), Landlord("landlord")
 }

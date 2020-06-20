@@ -18,6 +18,7 @@ import com.example.opulexpropertymanagement.databinding.FragPropertyAddBinding
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.PropertyStatus
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
+import com.example.opulexpropertymanagement.models.streamable.GetPropertiesResult
 import com.example.opulexpropertymanagement.models.view_model_intermediates.InputValidationState
 import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.InputValidation

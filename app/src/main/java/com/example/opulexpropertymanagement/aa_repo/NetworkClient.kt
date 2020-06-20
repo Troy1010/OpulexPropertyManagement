@@ -3,6 +3,7 @@ package com.example.opulexpropertymanagement.aa_repo
 import com.example.opulexpropertymanagement.app.Config
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.network_responses.ForgotPasswordResponse
+import com.example.opulexpropertymanagement.models.network_responses.PropertiesResponse
 import com.example.opulexpropertymanagement.models.network_responses.TenantsResponse
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -60,9 +61,9 @@ interface INetworkClient {
     //(5)  ` Property List
     @GET("property.php")
     fun getPropertiesForLandlord(
-        @Query("usertype") userType: String,
-        @Query("userID") userID: String
-    ): Deferred<ResponseBody>
+        @Query("usertype") usertype: String,
+        @Query("userid") userid: String
+    ): Deferred<PropertiesResponse>
 
     //(6)  ` Remove Property
     @GET("remove-property.php")
@@ -84,7 +85,7 @@ interface INetworkClient {
 
     //(10) ` All Property Details for Tenants
     @GET("pro_mgt_property_all.php")
-    fun getAllPropertiesForTenants() : Deferred<List<Property>>
+    fun getAllProperties() : Deferred<List<Property>>
 
 }
 
