@@ -35,7 +35,7 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
             inflater, R.layout.frag_properties, container, false
         )
         mBinding.lifecycleOwner = this
-        propertiesVM.properties.observe(viewLifecycleOwner, Observer {
+        propertiesVM.repo.properties.observe(viewLifecycleOwner, Observer {
             recyclerview_1.adapter?.notifyDataSetChanged()
         })
         userVM.user.observe(viewLifecycleOwner, Observer {
@@ -57,10 +57,10 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
     }
 
     override fun getRecyclerDataSize(): Int {
-        return propertiesVM.properties.value?.size ?: 0
+        return propertiesVM.repo.properties.value?.size ?: 0
     }
 
     override fun bindRecyclerItemView(binding: ItemPropertyBinding, i: Int) {
-        binding.property = propertiesVM.properties.value?.get(i) ?: Property()
+        binding.property = propertiesVM.repo.properties.value?.get(i) ?: Property()
     }
 }

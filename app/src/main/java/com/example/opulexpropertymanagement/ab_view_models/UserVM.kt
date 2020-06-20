@@ -4,7 +4,7 @@ import android.view.View
 import androidx.lifecycle.*
 import com.example.opulexpropertymanagement.aa_repo.NetworkClient
 import com.example.opulexpropertymanagement.models.UserType
-import com.example.opulexpropertymanagement.ac_ui.Repo
+import com.example.opulexpropertymanagement.ac_ui.GlobalRepo
 import com.example.opulexpropertymanagement.ac_ui.User
 import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
@@ -12,7 +12,7 @@ import kotlinx.coroutines.*
 
 // this is intended to be an activity-level VM
 class UserVM : ViewModel() {
-    val repo = Repo
+    val repo = GlobalRepo
     val disposables by lazy { CompositeDisposable() }
 
     companion object {
@@ -23,7 +23,7 @@ class UserVM : ViewModel() {
     val jobs = ArrayList<Job>()
 
     init {
-        user.value = Repo.sharedPref.getUserFromSharedPref()
+        user.value = GlobalRepo.sharedPref.getUserFromSharedPref()
         user.addSource(repo.liveDataTryLogin) {
             user.value = it.user
             val x = userType.value
@@ -43,7 +43,7 @@ class UserVM : ViewModel() {
 
     fun whipeDBAndAddUser() {
         user.value?.apply {
-            Repo.whipeDBAndAddUser(this)
+            GlobalRepo.whipeDBAndAddUser(this)
         }
     }
 

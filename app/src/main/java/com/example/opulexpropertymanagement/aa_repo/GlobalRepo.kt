@@ -14,7 +14,7 @@ import com.example.tmcommonkotlin.logz
 import com.google.gson.Gson
 
 
-object Repo {
+object GlobalRepo {
     // SharedPref
     val sharedPref = SharedPref
 
@@ -51,59 +51,6 @@ object Repo {
             return RegisterResult.Failure.EmailAlreadyExists
         } else {
             return RegisterResult.Failure.Unknown
-        }
-    }
-
-    //  AddProperty
-    val liveDataAddProperty by lazy { MutableLiveData<AddPropertyResult>() }
-    fun addProperty(property: Property, user: User) {
-        logz("adding property using id:${user.id}")
-        Coroutines.ioThenMain(
-            {
-                val responseString =  NetworkClient.addProperty(
-                    address = property.propertyaddress,
-                    city = property.propertycity,
-                    country = property.propertycountry,
-                    latitude = "??",
-                    longitude = "??",
-                    mortage_info = property.propertymortageinfo,
-                    pro_status = property.propertystatus,
-                    purchase_price = property.propertypurchaseprice,
-                    state = property.propertystate,
-                    userid = user.id,
-                    userType = user.usertype
-                ).await().string()
-                logz("addProperty`responseString:$responseString")
-                if ("successfully added" in responseString) {
-                    AddPropertyResult.Success
-                } else if ("mismatch user id or user type" in responseString) {
-                    AddPropertyResult.Failure.MismatchedUserIDVsType
-                } else if ("user type should landlord" in responseString) {
-                    AddPropertyResult.Failure.UserTypeShouldBeLandlord
-                } else {
-                    AddPropertyResult.Failure.Unknown
-                }
-            }, {
-                liveDataAddProperty.value = it
-            }
-        )
-    }
-
-    //  GetProperties
-    suspend fun getPropertiesByUser(user: User): GetPropertiesResult {
-        if (user.usertype != UserType.Landlord.toNetworkRecognizedString) {
-            logz("WARNING:Attempted to getPropertiesByUser for a user that is not a landlord")
-            return GetPropertiesResult.Failure.UserNotALandlord
-        } else if (user.id == "") {
-            logz("WARNING:Attempted to getPropertiesByUser for a user without a userID")
-            return GetPropertiesResult.Failure.InvalidUserID
-        }
-        return try {
-            val x = NetworkClient.getPropertiesForLandlord(user.usertype, user.id).await()
-            GetPropertiesResult.Success(x.Properties)
-        } catch (e: Exception) {
-            logz("WARNING:Could not get properties")
-            GetPropertiesResult.Failure.Unknown
         }
     }
 
