@@ -1,14 +1,15 @@
 package com.example.opulexpropertymanagement.util
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import com.example.opulexpropertymanagement.R
-import com.example.opulexpropertymanagement.ac_ui.Repo
-import com.example.opulexpropertymanagement.models.streamable.TryLoginResult
 import com.example.tmcommonkotlin.InputValidation
+import com.example.tmcommonkotlin.logSubscribe
 import com.example.tmcommonkotlin.logz
 import com.google.android.material.textfield.TextInputLayout
 import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
@@ -18,6 +19,19 @@ fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
 
 fun <T> PublishSubject<T>.toLiveData(): LiveData<T> {
     return convertRXToLiveData(this)
+}
+
+
+
+// This is a silly hack to make LiveData act as a life-cycle aware non-replaying observable.
+// In the future, when a good life-cycle aware non-replaying observable exists, this will be unnecessary.
+fun <T> LiveData<T>.onlyNew(lifecycleOwner: LifecycleOwner): LiveData<T> {
+    if (this.value != null) {
+        var x = Flowable.fromPublisher(LiveDataReactiveStreams.toPublisher(lifecycleOwner, this))
+        x = x.skip(1)
+        return LiveDataReactiveStreams.fromPublisher(x)
+    }
+    return this
 }
 
 fun handleInputValidationResult(

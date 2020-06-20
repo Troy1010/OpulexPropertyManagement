@@ -13,6 +13,7 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.*
 
 class UserVM : ViewModel() {
+    val repo = Repo
     val disposables by lazy { CompositeDisposable() }
 
     val user = MediatorLiveData<User?>()
