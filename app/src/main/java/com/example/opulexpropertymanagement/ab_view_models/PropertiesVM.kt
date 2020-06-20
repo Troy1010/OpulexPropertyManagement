@@ -7,8 +7,10 @@ import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.opulexpropertymanagement.models.streamable.GetPropertiesResult
 
+// meant to live in activityViewModels()
+//  Both FragProperties and FragPropertyAdd need access to it..
 class PropertiesVM: ViewModel() {
-    val repo = PropertiesRepo()
+    val repo = PropertiesRepo
     val properties by lazy { MediatorLiveData<List<Property>>() }
     init {
         properties.addSource(repo.streamRequestPropertiesResult) {

@@ -5,8 +5,8 @@ import com.example.opulexpropertymanagement.app.App
 import com.example.opulexpropertymanagement.app.Config
 import com.example.opulexpropertymanagement.ac_ui.User
 
-
-class SharedPref {
+// GlobalVM needs access
+object SharedPref {
 
     val instance = App.getSharedPreferences(
         Config.SHARED_PREF_FILE_NAME,

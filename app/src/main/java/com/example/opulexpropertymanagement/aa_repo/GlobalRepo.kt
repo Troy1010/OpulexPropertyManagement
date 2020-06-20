@@ -16,7 +16,7 @@ import com.google.gson.Gson
 
 object GlobalRepo {
     // SharedPref
-    val sharedPref = SharedPref()
+    val sharedPref = SharedPref
 
     // Network
     //  TryLogin

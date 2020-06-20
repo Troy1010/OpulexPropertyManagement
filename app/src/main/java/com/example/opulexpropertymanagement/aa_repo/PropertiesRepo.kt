@@ -9,7 +9,8 @@ import com.example.opulexpropertymanagement.models.streamable.GetPropertiesResul
 import com.example.tmcommonkotlin.Coroutines
 import com.example.tmcommonkotlin.logz
 
-class PropertiesRepo {
+// both FragProperties and FragPropertyAdd need access
+object PropertiesRepo {
     //  Properties
     val streamRequestPropertiesResult by lazy { MutableLiveData<GetPropertiesResult>() }
     val streamAddPropertyResult by lazy { MutableLiveData<AddPropertyResult>() }
