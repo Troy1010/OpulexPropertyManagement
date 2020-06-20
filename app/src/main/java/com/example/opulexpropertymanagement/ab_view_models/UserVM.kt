@@ -5,9 +5,6 @@ import com.example.opulexpropertymanagement.aa_repo.NetworkClient
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.ac_ui.Repo
 import com.example.opulexpropertymanagement.ac_ui.User
-import com.example.opulexpropertymanagement.models.Property
-import com.example.opulexpropertymanagement.util.toLiveData
-import com.example.tmcommonkotlin.logx
 import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.*
@@ -22,7 +19,7 @@ class UserVM : ViewModel() {
 
     init {
         user.value = Repo.sharedPref.getUserFromSharedPref()
-        user.addSource(Repo.streamTryLogin.toLiveData()) {
+        user.addSource(repo.liveDataTryLogin) {
             user.value = it.user
         }
     }

@@ -1,5 +1,6 @@
 package com.example.opulexpropertymanagement.ac_ui
 
+import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.TryLoginResult
 import com.example.opulexpropertymanagement.aa_repo.NetworkClient
@@ -16,13 +17,27 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
 
+// The streams in this repo are observed by multiple VMs
 object Repo {
     // SharedPref
     val sharedPref = SharedPref
 
     // Network
+    val liveDataTryLogin by lazy { MutableLiveData<TryLoginResult>() }
+    fun tryLogin(email: String, password: String) {
+        val d = NetworkClient.tryLogin(email, password)
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map {
+                val responseString = it.string()
+                if ("success" in responseString) {
+                    val user = Gson().fromJson(responseString, User::class.java)
+                    TryLoginResult.Success(user)
+                } else {
+                    TryLoginResult.Failure("Unknown error")
+                }
+            }.subscribe({ liveDataTryLogin.value = it})
+    }
+
     val streamAddProperty by lazy { PublishSubject.create<AddPropertyResult>() }
-    val streamTryLogin by lazy { PublishSubject.create<TryLoginResult>() }
     suspend fun register(email: String, password: String, userType: UserType): RegisterResult {
         val resultString = NetworkClient.register(email, email, password, userType.name)
             .await().string()
@@ -38,19 +53,6 @@ object Repo {
 
     init {
         streamAddProperty.logSubscribe()
-    }
-
-    fun tryLogin(email: String, password: String) {
-        NetworkClient.tryLogin(email, password)
-            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map {
-                val responseString = it.string()
-                if ("success" in responseString) {
-                    val user = Gson().fromJson(responseString, User::class.java)
-                    TryLoginResult.Success(user)
-                } else {
-                    TryLoginResult.Failure("Unknown error")
-                }
-            }.subscribe(streamTryLogin)
     }
 
     fun addProperty(property: Property, user: User) {
