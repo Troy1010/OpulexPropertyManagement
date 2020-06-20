@@ -11,16 +11,11 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.*
 
 // this is intended to be an activity-level VM
-class GlobalVM : ViewModel() {
+object GlobalVM : ViewModel() {
     val repo = GlobalRepo
-    val disposables by lazy { CompositeDisposable() }
 
-    companion object {
-        val user = MediatorLiveData<User?>() // Other fragment-level VMs require this
-    }
-    val user = GlobalVM.user
+    val user = MediatorLiveData<User?>() // Other fragment-level VMs require this
     val userType by lazy { MutableLiveData<UserType>() }
-    val jobs = ArrayList<Job>()
 
     init {
         user.value = GlobalRepo.sharedPref.getUserFromSharedPref()
@@ -49,13 +44,6 @@ class GlobalVM : ViewModel() {
 
     fun printSomething() {
         logz("${user.value?.email}")
-    }
-
-    fun finalize() {
-        for (job in jobs) {
-            job.cancel()
-        }
-        disposables.dispose()
     }
 
     fun doSomething() {
