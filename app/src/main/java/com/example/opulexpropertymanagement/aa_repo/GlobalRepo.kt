@@ -16,7 +16,7 @@ import com.google.gson.Gson
 
 object GlobalRepo {
     // SharedPref
-    val sharedPref = SharedPref
+    val sharedPref = SharedPref()
 
     // Network
     //  TryLogin
@@ -38,20 +38,6 @@ object GlobalRepo {
                 liveDataTryLogin.value = it
             }
         )
-    }
-
-    suspend fun register(email: String, password: String, userType: UserType): RegisterResult {
-        logz("userType.toNetworkRecognizedString:${userType.toNetworkRecognizedString}")
-        val resultString = NetworkClient.register(email, email, password, userType.toNetworkRecognizedString)
-            .await().string()
-        if ("success" in resultString) {
-            tryLogin(email, password)
-            return RegisterResult.Success
-        } else if ("Email already exsist" in resultString) {
-            return RegisterResult.Failure.EmailAlreadyExists
-        } else {
-            return RegisterResult.Failure.Unknown
-        }
     }
 
     // Database

@@ -15,8 +15,6 @@ import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 class FragHome : OXFragment() {
     lateinit var mBinding: FragHomeBinding
     val navController by lazy { this.findNavController() }
-    val globalVM: GlobalVM by activityViewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,7 +23,7 @@ class FragHome : OXFragment() {
         mBinding = DataBindingUtil.inflate(
             inflater, R.layout.frag_home, container, false
         )
-        mBinding.userVM = globalVM
+        mBinding.userVM = GlobalVM
         mBinding.lifecycleOwner = this
         mBinding.btnGoToProperties.setOnClickListener {
             navController.navigate(R.id.action_global_fragProperties)
@@ -34,10 +32,10 @@ class FragHome : OXFragment() {
             navController.navigate(R.id.fragLogin)
         }
         mBinding.btnLogout.setOnClickListener {
-            globalVM.logout()
+            GlobalVM.logout()
         }
         mBinding.btnPrintSomething.setOnClickListener {
-            globalVM.printSomething()
+            GlobalVM.printSomething()
         }
         return mBinding.root
     }

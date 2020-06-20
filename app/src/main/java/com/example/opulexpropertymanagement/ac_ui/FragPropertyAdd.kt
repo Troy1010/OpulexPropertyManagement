@@ -19,6 +19,7 @@ import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.PropertyStatus
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.opulexpropertymanagement.models.view_model_intermediates.InputValidationState
+import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.InputValidation
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
@@ -26,8 +27,7 @@ import com.example.tmcommonkotlin.logz
 class FragPropertyAdd : OXFragment() {
     lateinit var mBinding: FragPropertyAddBinding
     val propertyAddVM: PropertyAddVM by viewModels()
-    val propertiesVM: PropertiesVM by activityViewModels()
-    val globalVM: GlobalVM by activityViewModels()
+    val propertiesVM: PropertiesVM by viewModels()
     val navController by lazy { this.findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +44,7 @@ class FragPropertyAdd : OXFragment() {
     }
 
     private fun setupObservers() {
-        propertyAddVM.repo.liveDataAddProperty.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
+        propertiesVM.repo.streamAddPropertyResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
             if (it is AddPropertyResult.Success) {
                 navController.navigateUp()
             } else {
@@ -56,9 +56,9 @@ class FragPropertyAdd : OXFragment() {
 
     private fun setupClickListeners() {
         mBinding.btnAdd.setOnClickListener {
-            val user = globalVM.user.value
+            val user = GlobalVM.user.value
             if (user != null) {
-                GlobalRepo.addProperty(Property(
+                propertiesVM.repo.addProperty(Property(
                     propertyaddress = mBinding.textinputAddress.textinput.text.toString(),
                     propertycity = mBinding.textinputCity.textinput.text.toString(),
                     propertycountry = mBinding.textinputCountry.textinput.text.toString(),

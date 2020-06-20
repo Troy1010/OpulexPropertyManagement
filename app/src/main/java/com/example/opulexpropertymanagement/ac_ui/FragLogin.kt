@@ -29,7 +29,6 @@ class FragLogin : OXFragment(isToolbarEnabled = false) {
 
     lateinit var mBinding: FragLoginBinding
     val navController by lazy { this.findNavController() }
-    val globalVM: GlobalVM by activityViewModels()
     val loginVM: LoginVM by viewModels()
     val compositeDisposable by lazy { CompositeDisposable() }
     val args by lazy { arguments?.let { FragLoginArgs.fromBundle(it) } }

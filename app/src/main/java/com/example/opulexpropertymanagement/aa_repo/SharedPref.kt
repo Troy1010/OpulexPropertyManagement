@@ -6,7 +6,7 @@ import com.example.opulexpropertymanagement.app.Config
 import com.example.opulexpropertymanagement.ac_ui.User
 
 
-object SharedPref {
+class SharedPref {
 
     val instance = App.getSharedPreferences(
         Config.SHARED_PREF_FILE_NAME,

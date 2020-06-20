@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.frag_properties.*
 class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
     lateinit var mBinding: FragPropertiesBinding
     val propertiesVM: PropertiesVM by viewModels()
-    val globalVM: GlobalVM by activityViewModels()
     val navController by lazy { this.findNavController() }
 
     override fun onCreateView(
@@ -35,10 +34,10 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
             inflater, R.layout.frag_properties, container, false
         )
         mBinding.lifecycleOwner = this
-        propertiesVM.repo.properties.observe(viewLifecycleOwner, Observer {
+        propertiesVM.properties.observe(viewLifecycleOwner, Observer {
             recyclerview_1.adapter?.notifyDataSetChanged()
         })
-        globalVM.user.observe(viewLifecycleOwner, Observer {
+        GlobalVM.user.observe(viewLifecycleOwner, Observer {
             if (it==null) {
                 val directions = FragPropertiesDirections.actionFragPropertiesToFragLogin(ReasonForLoginInt = ReasonForLogin.Properties.ordinal)
                 navController.navigate(directions)
@@ -57,10 +56,10 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
     }
 
     override fun getRecyclerDataSize(): Int {
-        return propertiesVM.repo.properties.value?.size ?: 0
+        return propertiesVM.properties.value?.size ?: 0
     }
 
     override fun bindRecyclerItemView(binding: ItemPropertyBinding, i: Int) {
-        binding.property = propertiesVM.repo.properties.value?.get(i) ?: Property()
+        binding.property = propertiesVM.properties.value?.get(i) ?: Property()
     }
 }

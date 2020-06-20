@@ -12,7 +12,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.opulexpropertymanagement.R
-import com.example.opulexpropertymanagement.aa_repo.SharedPref
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import kotlinx.android.synthetic.main.activity_host.*
 
@@ -20,7 +19,6 @@ class ActivityHost : AppCompatActivity(), ActivityHostInterface {
     lateinit var drawerToggle: ActionBarDrawerToggle
     override val toolbar: Toolbar? by lazy { toolbar_main }
     val navController by lazy { findNavController(R.id.fragNavHost) }
-    val globalVM: GlobalVM by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +44,8 @@ class ActivityHost : AppCompatActivity(), ActivityHostInterface {
         drawer_layout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
         // Keep user hot, save user changes in SharedPref
-        globalVM.user.observe(this, Observer {
-            SharedPref.saveUserInSharedPref(it)
+        GlobalVM.user.observe(this, Observer {
+            GlobalVM.repo.sharedPref.saveUserInSharedPref(it)
         })
 
     }

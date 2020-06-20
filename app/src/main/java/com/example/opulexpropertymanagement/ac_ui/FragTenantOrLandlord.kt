@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.frag_tenant_or_landlord.*
 
 class FragTenantOrLandlord : OXFragment(isDrawerEnabled = false, isToolbarEnabled = false) {
     val navController by lazy { this.findNavController() }
-    val globalVM: GlobalVM by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,10 +28,10 @@ class FragTenantOrLandlord : OXFragment(isDrawerEnabled = false, isToolbarEnable
         super.onStart()
         cardview_tenant.setOnClickListener {
             logz("tenant")
-            globalVM.userType.value = UserType.Tenant
+            GlobalVM.userType.value = UserType.Tenant
         }
         cardview_landlord.setOnClickListener {
-            globalVM.userType.value = UserType.Landlord
+            GlobalVM.userType.value = UserType.Landlord
             val directions = FragTenantOrLandlordDirections.actionGlobalFragProperties()
             navController.navigate(directions)
         }
