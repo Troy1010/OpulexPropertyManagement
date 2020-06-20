@@ -59,32 +59,33 @@ object Repo {
         }
     }
 
-    val streamAddProperty by lazy { PublishSubject.create<AddPropertyResult>() }
+    //  AddProperty
+    val liveDataAddProperty by lazy { MutableLiveData<AddPropertyResult>() }
     fun addProperty(property: Property, user: User) {
-        logz("add property..")
-        val x = NetworkClient.addProperty(
-            address = property.propertyaddress,
-            city = property.propertycity,
-            country = property.propertycountry,
-            latitude = "??",
-            longitude = "??",
-            mortage_info = property.propertymortageinfo,
-            pro_status = property.propertystatus,
-            purchase_price = property.propertypurchaseprice,
-            state = property.propertystate,
-            userid = user.id,
-            userType = user.usertype
-        )
-        x.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).logSubscribe("eee")
-        x.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).log("kkk").map {
-            logz("Mapping..")
-            val responseString = it.string()
-            if ("Unsuccessful" in responseString) {
-                AddPropertyResult.Failure
-            } else {
-                AddPropertyResult.Success
+        Coroutines.ioThenMain(
+            {
+                val responseString =  NetworkClient.addProperty(
+                    address = property.propertyaddress,
+                    city = property.propertycity,
+                    country = property.propertycountry,
+                    latitude = "??",
+                    longitude = "??",
+                    mortage_info = property.propertymortageinfo,
+                    pro_status = property.propertystatus,
+                    purchase_price = property.propertypurchaseprice,
+                    state = property.propertystate,
+                    userid = user.id,
+                    userType = user.usertype
+                ).await().string()
+                if ("Unsuccessful" in responseString) {
+                    AddPropertyResult.Failure
+                } else {
+                    AddPropertyResult.Success
+                }
+            }, {
+                liveDataAddProperty.value = it
             }
-        }.subscribe(streamAddProperty)
+        )
     }
 
     // Database

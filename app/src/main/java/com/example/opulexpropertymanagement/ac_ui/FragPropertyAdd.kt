@@ -19,6 +19,7 @@ import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.PropertyStatus
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.opulexpropertymanagement.models.view_model_intermediates.InputValidationState
+import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.InputValidation
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
@@ -44,7 +45,7 @@ class FragPropertyAdd : OXFragment() {
     }
 
     private fun setupObservers() {
-        propertyAddVM.addPropertyResponse.observe(viewLifecycleOwner, Observer {
+        propertyAddVM.repo.liveDataAddProperty.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
             if (it is AddPropertyResult.Success) {
                 navController.navigateUp()
             } else {
@@ -55,7 +56,6 @@ class FragPropertyAdd : OXFragment() {
 
     private fun setupClickListeners() {
         mBinding.btnAdd.setOnClickListener {
-            logz("btnAdd clicked")
             val user = userVM.user.value
             if (user != null) {
                 propertiesVM.addProperty(Property(

@@ -14,5 +14,5 @@ class PropertyAddVM: ViewModel() {
     val priceInputValidationState by lazy { MutableLiveData<InputValidationState>().apply { value = InputValidationState() } }
     val stateInputValidationState by lazy { MutableLiveData<InputValidationState>().apply { value = InputValidationState() } }
 
-    val addPropertyResponse by lazy { Repo.streamAddProperty.toLiveData() }
+    val repo = Repo
 }

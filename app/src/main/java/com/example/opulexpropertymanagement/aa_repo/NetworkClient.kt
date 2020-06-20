@@ -55,7 +55,7 @@ interface INetworkClient {
         @Query("usertype") userType: String,
         @Query("latitude") latitude: String,
         @Query("longitude") longitude: String
-    ): Observable<ResponseBody> // Unsuccessful vs Property
+    ): Deferred<ResponseBody> // Unsuccessful vs Property
 
     //(5)  ` Property List
     @GET("pro_mgt_tenent_details.php")
