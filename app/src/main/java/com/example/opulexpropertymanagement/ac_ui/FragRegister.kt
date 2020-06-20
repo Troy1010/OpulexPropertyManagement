@@ -13,7 +13,7 @@ import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.RegisterVM
 import com.example.opulexpropertymanagement.databinding.FragRegisterBinding
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
-import com.example.opulexpropertymanagement.ab_view_models.UserVM
+import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.tmcommonkotlin.easyToast
@@ -24,7 +24,7 @@ class FragRegister : OXFragment(isToolbarEnabled = false) {
 
     lateinit var mBinding: FragRegisterBinding
     val navController by lazy {this.findNavController()}
-    val userVM: UserVM by activityViewModels()
+    val globalVM: GlobalVM by activityViewModels()
     val registerVM: RegisterVM by viewModels()
 
     override fun onCreateView(
@@ -56,7 +56,7 @@ class FragRegister : OXFragment(isToolbarEnabled = false) {
         mBinding.btnRegisterSend.setOnClickListener {
             val email = mBinding.textinputeditEmail.text.toString()
             val password = mBinding.textinputeditPassword.text.toString()
-            registerVM.register(email, password, userVM.userType.value?:UserType.Landlord)
+            registerVM.register(email, password, globalVM.userType.value?:UserType.Landlord)
         }
         mBinding.textviewAlreadyRegisteredSignIn.setOnClickListener {
             navController.navigate(R.id.fragLogin)

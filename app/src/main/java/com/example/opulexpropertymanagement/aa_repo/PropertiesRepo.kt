@@ -2,8 +2,7 @@ package com.example.opulexpropertymanagement.aa_repo
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.opulexpropertymanagement.ab_view_models.UserVM
-import com.example.opulexpropertymanagement.ac_ui.GlobalRepo
+import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.ac_ui.User
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.UserType
@@ -28,7 +27,7 @@ class PropertiesRepo {
                 requestPropertiesByUser(it.user)
             }
         }
-        val user = UserVM.user.value
+        val user = GlobalVM.user.value
         if (user != null) {
             requestPropertiesByUser(user)
         }

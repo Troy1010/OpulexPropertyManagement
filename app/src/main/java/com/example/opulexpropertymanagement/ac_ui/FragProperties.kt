@@ -17,13 +17,13 @@ import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.ReasonForLogin
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
-import com.example.opulexpropertymanagement.ab_view_models.UserVM
+import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import kotlinx.android.synthetic.main.frag_properties.*
 
 class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
     lateinit var mBinding: FragPropertiesBinding
     val propertiesVM: PropertiesVM by viewModels()
-    val userVM: UserVM by activityViewModels()
+    val globalVM: GlobalVM by activityViewModels()
     val navController by lazy { this.findNavController() }
 
     override fun onCreateView(
@@ -38,7 +38,7 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
         propertiesVM.repo.properties.observe(viewLifecycleOwner, Observer {
             recyclerview_1.adapter?.notifyDataSetChanged()
         })
-        userVM.user.observe(viewLifecycleOwner, Observer {
+        globalVM.user.observe(viewLifecycleOwner, Observer {
             if (it==null) {
                 val directions = FragPropertiesDirections.actionFragPropertiesToFragLogin(ReasonForLoginInt = ReasonForLogin.Properties.ordinal)
                 navController.navigate(directions)

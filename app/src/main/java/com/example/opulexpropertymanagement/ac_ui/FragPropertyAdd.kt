@@ -12,15 +12,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyAddVM
-import com.example.opulexpropertymanagement.ab_view_models.UserVM
+import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyAddBinding
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.PropertyStatus
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
-import com.example.opulexpropertymanagement.models.streamable.GetPropertiesResult
 import com.example.opulexpropertymanagement.models.view_model_intermediates.InputValidationState
-import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.InputValidation
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
@@ -29,7 +27,7 @@ class FragPropertyAdd : OXFragment() {
     lateinit var mBinding: FragPropertyAddBinding
     val propertyAddVM: PropertyAddVM by viewModels()
     val propertiesVM: PropertiesVM by activityViewModels()
-    val userVM: UserVM by activityViewModels()
+    val globalVM: GlobalVM by activityViewModels()
     val navController by lazy { this.findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +56,7 @@ class FragPropertyAdd : OXFragment() {
 
     private fun setupClickListeners() {
         mBinding.btnAdd.setOnClickListener {
-            val user = userVM.user.value
+            val user = globalVM.user.value
             if (user != null) {
                 GlobalRepo.addProperty(Property(
                     propertyaddress = mBinding.textinputAddress.textinput.text.toString(),

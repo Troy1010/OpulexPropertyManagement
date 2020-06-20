@@ -15,28 +15,21 @@ import com.example.opulexpropertymanagement.models.ReasonForLogin
 import com.example.opulexpropertymanagement.models.streamable.TryLoginResult
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.LoginVM
-import com.example.opulexpropertymanagement.ab_view_models.UserVM
+import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.easyToast
-import com.example.tmcommonkotlin.logSubscribe
 import com.example.tmcommonkotlin.logv
 import com.example.tmcommonkotlin.logz
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.frag_login.*
 import kotlinx.coroutines.Job
-import org.reactivestreams.Publisher
-import org.reactivestreams.Subscriber
 
 
 class FragLogin : OXFragment(isToolbarEnabled = false) {
 
     lateinit var mBinding: FragLoginBinding
     val navController by lazy { this.findNavController() }
-    val userVM: UserVM by activityViewModels()
+    val globalVM: GlobalVM by activityViewModels()
     val loginVM: LoginVM by viewModels()
     val compositeDisposable by lazy { CompositeDisposable() }
     val args by lazy { arguments?.let { FragLoginArgs.fromBundle(it) } }
