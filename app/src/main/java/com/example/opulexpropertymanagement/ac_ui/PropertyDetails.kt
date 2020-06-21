@@ -39,7 +39,7 @@ class PropertyDetails: OXFragment() {
     }
 
     private fun setupView() {
-        mBinding.imageview1.easyPicasso(property?.imageUrl.toString())
+        mBinding.imageview1.easyPicasso(property?.imageUrlTask)
     }
 
     private fun setupObservers() {

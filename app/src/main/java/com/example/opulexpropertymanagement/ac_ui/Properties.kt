@@ -1,14 +1,12 @@
 package com.example.opulexpropertymanagement.ac_ui
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
@@ -21,8 +19,6 @@ import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ac_ui.extras.AdapterRVProperties
 import com.example.opulexpropertymanagement.util.easyPicasso
-import com.example.tmcommonkotlin.logz
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frag_properties.*
 import kotlinx.android.synthetic.main.item_property.view.*
 
@@ -69,9 +65,7 @@ class Properties: OXFragment(), AdapterRVProperties.ARVInterface {
     override fun bindRecyclerItemView(binding: ItemPropertyBinding, i: Int) {
         val property = propertiesVM.properties.value?.get(i) ?: Property()
         binding.property = property
-        property.imageUrl?.addOnSuccessListener {url ->
-            binding.root.imageview_1.easyPicasso(url.toString())
-        }
+        binding.root.imageview_1.easyPicasso(property.imageUrlTask)
         binding.root.setOnClickListener {
             PropertiesStoreOwner = this
             val directions = PropertiesDirections.actionFragPropertiesToFragPropertyDetails(property)

@@ -25,7 +25,7 @@ data class Property(
 ) : Parcelable {
     val singleLineAddress
         get() = "$streetAddress, $city, $state"
-    val imageUrl
+    val imageUrlTask
         get() = fbUserStorageTable?.child(id)?.downloadUrl
     val status
         get() = PropertyStatusHelper.fromIDToName(statusID)
