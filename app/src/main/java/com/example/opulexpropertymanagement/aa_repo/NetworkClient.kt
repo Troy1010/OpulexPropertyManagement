@@ -4,7 +4,9 @@ import com.example.opulexpropertymanagement.app.Config
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.network_responses.ForgotPasswordResponse
 import com.example.opulexpropertymanagement.models.network_responses.PropertiesResponse
+import com.example.opulexpropertymanagement.models.network_responses.Tenant
 import com.example.opulexpropertymanagement.models.network_responses.TenantsResponse
+import com.example.tmcommonkotlin.Coroutines
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import io.reactivex.Observable
@@ -78,7 +80,7 @@ interface INetworkClient {
     //(8)   Contact Tenants // Doesn’t work!!!
 
     //(9)  ` Tenants Details by landlordid
-    @GET("http://rjtmobile.com/aamir/property-mgmt/pro_mgt_tenent_details.php?landlordid=32")
+    @GET("pro_mgt_tenent_details.php")
     fun getTenantsByLandlord(
         @Query("landlordid") landlordid: String
     ): Deferred<TenantsResponse>
