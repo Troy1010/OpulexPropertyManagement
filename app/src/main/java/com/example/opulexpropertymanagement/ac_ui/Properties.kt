@@ -67,13 +67,16 @@ class Properties: OXFragment(), AdapterRVProperties.ARVInterface {
     override fun bindRecyclerItemView(binding: ItemPropertyBinding, i: Int) {
         val property = propertiesVM.properties.value?.get(i) ?: Property()
         binding.property = property
+        property.imageUrl?.addOnSuccessListener {url ->
+            binding.root.imageview_1.easyPicasso(url.toString())
+        }
         binding.root.setOnClickListener {
             PropertiesStoreOwner = this
             val directions = PropertiesDirections.actionFragPropertiesToFragPropertyDetails(property)
             navController.navigate(directions)
         }
-        property.imageUrl?.addOnSuccessListener {url ->
-            binding.root.imageview_1.easyPicasso(url.toString())
+        binding.root.btn_trash.setOnClickListener {
+            propertiesVM.repo.removeProperty(property.id)
         }
     }
 }

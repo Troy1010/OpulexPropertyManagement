@@ -8,12 +8,13 @@ import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.opulexpropertymanagement.models.streamable.GetPropertiesResult
+import com.example.opulexpropertymanagement.models.streamable.RemovePropertyResult
 import com.example.tmcommonkotlin.Coroutines
 import com.example.tmcommonkotlin.logz
 
 // both FragProperties and FragPropertyAdd need access
 object PropertiesRepo {
-    //  Properties
+    //  requestProperties
     val streamRequestPropertiesResult by lazy { MutableLiveData<GetPropertiesResult>() }
 
     fun requestPropertiesByUser(user: User) {
@@ -37,6 +38,7 @@ object PropertiesRepo {
         })
     }
 
+    // addProperty
     val streamAddPropertyResult by lazy { MutableLiveData<AddPropertyResult>() }
     fun addProperty(property: Property, user: User, propertyImageUri: Uri) {
         logz("adding property using id:${user.id}")
@@ -82,6 +84,23 @@ object PropertiesRepo {
                             logz("FAILED:$it")
                         }
                 }
+            }
+        )
+    }
+
+    // removeProperty
+    val streamRemovePropertyResult by lazy { MutableLiveData<RemovePropertyResult>() }
+    fun removeProperty(propertyID: String) {
+        Coroutines.ioThenMain(
+            {
+                val responseBody = NetworkClient.removeProperty(propertyID).await()
+                if ("succesfully" in responseBody.string()) {
+                    RemovePropertyResult.Success
+                } else {
+                    RemovePropertyResult.Failure.Unknown
+                }
+            },{
+                streamRemovePropertyResult.value = it
             }
         )
     }
