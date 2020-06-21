@@ -26,8 +26,15 @@
             android:text="@{userVM.user.email}"
             tools:text="EMAIL"
             android:textSize="42sp"
-            app:layout_constraintBottom_toTopOf="@id/btn_do_something"
+            app:layout_constraintBottom_toTopOf="@id/btn_do_something_two"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:text="Do Something Two"
+            android:id="@+id/btn_do_something_two"
+            app:layout_constraintBottom_toTopOf="@id/btn_do_something"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:onClick="@{() -> userVM.doSomething()}"
