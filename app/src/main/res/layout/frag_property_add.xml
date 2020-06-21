@@ -39,12 +39,6 @@
             app:inputValidationState="@={propertyAddVM.priceInputValidationState}"
             app:hintZ='@{"Price"}' />
 
-        <include
-            android:id="@+id/textinput_mortgage_info"
-            layout="@layout/includible_text_input"
-            app:inputValidationState="@={propertyAddVM.mortgageInfoInputValidationState}"
-            app:hintZ='@{"Morgage Info"}' />
-
         <Button
             android:id="@+id/btn_add"
             style="@style/OpulexTheme.ButtonSoft"

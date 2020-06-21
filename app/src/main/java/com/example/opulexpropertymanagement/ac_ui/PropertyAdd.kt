@@ -69,7 +69,7 @@ class PropertyAdd : OXFragment() {
                     streetAddress = mBinding.textinputAddress.textinput.text.toString(),
                     city = mBinding.textinputCity.textinput.text.toString(),
                     country = mBinding.textinputCountry.textinput.text.toString(),
-                    mortgageInfo = mBinding.textinputMortgageInfo.textinput.text.toString(),
+                    mortgageInfo = "",
                     state = mBinding.textinputState.textinput.text.toString(),
                     purchasePrice = mBinding.textinputPrice.textinput.text.toString(),
                     status = PropertyStatus.Unavailable.name
