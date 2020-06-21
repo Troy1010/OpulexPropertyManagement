@@ -4,7 +4,7 @@ import com.example.opulexpropertymanagement.ac_ui.User
 import com.example.opulexpropertymanagement.models.Property
 
 sealed class RemovePropertyResult {
-    object Success: RemovePropertyResult()
+    data class Success(val propertyID:String): RemovePropertyResult()
     sealed class Failure: RemovePropertyResult() {
         object Unknown: Failure()
     }

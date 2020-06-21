@@ -31,6 +31,12 @@ class PropertiesVM: ViewModel() {
                 repo.requestPropertiesByUser(user)
             }
         }
+//        properties.addSource(repo.streamRemovePropertyResult) {
+//            val user = GlobalVM.user.value
+//            if ((it is RemovePropertyResult.Success) && (user!=null)) {
+//                repo.requestPropertiesByUser(user)
+//            }
+//        }
         GlobalVM.user.value?.let { repo.requestPropertiesByUser(it) }
     }
 }

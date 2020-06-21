@@ -58,8 +58,9 @@ object PropertiesRepo {
                     userType = user.usertype
                 ).await().string()
                 if ("successfully added" in responseString) {
+                    // then, get our product id (because the api doesn't return it for us, unfortunately)
                     val findPropertiesResult = NetworkClient.getPropertiesForLandlord(user.usertype, user.id).await()
-                    val propertyJustAdded = findPropertiesResult.Properties.find { it.singleLineAddress == property.singleLineAddress }
+                    val propertyJustAdded = findPropertiesResult.Properties.findLast { it.singleLineAddress == property.singleLineAddress }
                     if (propertyJustAdded==null) {
                         AddPropertyResult.Failure.DidNotReceiveProjectID
                     } else {
@@ -72,17 +73,18 @@ object PropertiesRepo {
                 } else {
                     AddPropertyResult.Failure.Unknown
                 }
-            }, {
-                streamAddPropertyResult.value = it
-                // update firebase with image
-                if (it is AddPropertyResult.Success) {
-                    fbUserStorageTable?.child(it.property.id)?.putFile(propertyImageUri)
+            }, { result ->
+                // finally, upload the image to firebase, then publish to streamAddPropertyResult
+                if (result is AddPropertyResult.Success) {
+                    fbUserStorageTable?.child(result.property.id)?.putFile(propertyImageUri)
                         ?.addOnSuccessListener {
-                            logz("Success!")
+                            streamAddPropertyResult.value = result
                         }
                         ?.addOnFailureListener {
-                            logz("FAILED:$it")
+                            streamAddPropertyResult.value = AddPropertyResult.Failure.FailedUploadingImageToFirebase
                         }
+                } else {
+                    streamAddPropertyResult.value = result
                 }
             }
         )
@@ -95,12 +97,23 @@ object PropertiesRepo {
             {
                 val responseBody = NetworkClient.removeProperty(propertyID).await()
                 if ("succesfully" in responseBody.string()) {
-                    RemovePropertyResult.Success
+                    RemovePropertyResult.Success(propertyID)
                 } else {
                     RemovePropertyResult.Failure.Unknown
                 }
-            },{
-                streamRemovePropertyResult.value = it
+            },{ result ->
+                // finally, remove the image from firebase, then publish delete success
+                if (result is RemovePropertyResult.Success) {
+                    fbUserStorageTable?.child(result.propertyID)?.delete()
+                        ?.addOnSuccessListener {
+                            logz("Successfully deleted image from firebase. result.propertyID:${result.propertyID}")
+                            streamRemovePropertyResult.value = result
+                        }
+                        ?.addOnFailureListener {
+                            logz("Failed to delete image from firebase. result.propertyID:${result.propertyID}")
+                            streamRemovePropertyResult.value = result
+                        }
+                }
             }
         )
     }

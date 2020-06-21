@@ -13,14 +13,17 @@ import com.example.opulexpropertymanagement.ab_view_models.PropertyDetailsVM
 import com.example.opulexpropertymanagement.ac_ui.extras.PropertyDetailsVMFactory
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyDetailsBinding
+import com.example.opulexpropertymanagement.util.easyPicasso
 
 
 class PropertyDetails: OXFragment() {
     lateinit var mBinding: FragPropertyDetailsBinding
     val args by lazy { arguments?.let { PropertyDetailsArgs.fromBundle(it) } }
     val propertiesVM: PropertiesVM by viewModels({ PropertiesStoreOwner!! })
-    val propertyDetailsVM: PropertyDetailsVM by viewModels({ this }) { PropertyDetailsVMFactory(propertiesVM.properties, propertiesVM.properties.value?.indexOf(args?.property)?:0 ) }
+    val propertyIndex by lazy { propertiesVM.properties.value?.indexOf(args?.property)?:0 }
+    val propertyDetailsVM: PropertyDetailsVM by viewModels({ this }) { PropertyDetailsVMFactory(propertiesVM.properties, propertyIndex) }
     val navController by lazy { this.findNavController() }
+    val property by lazy { propertiesVM.properties.value?.get(propertyIndex) }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +34,12 @@ class PropertyDetails: OXFragment() {
         mBinding.propertyDetailsVM = propertyDetailsVM
         setupClickListeners()
         setupObservers()
+        setupView()
         return mBinding.root
+    }
+
+    private fun setupView() {
+        mBinding.imageview1.easyPicasso(property?.imageUrl.toString())
     }
 
     private fun setupObservers() {

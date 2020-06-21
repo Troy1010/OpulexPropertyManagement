@@ -9,6 +9,7 @@ sealed class AddPropertyResult {
         object MismatchedUserIDVsType: Failure()
         object UserTypeShouldBeLandlord: Failure()
         object DidNotReceiveProjectID: Failure()
+        object FailedUploadingImageToFirebase: Failure()
         object Unknown: Failure()
     }
 }
