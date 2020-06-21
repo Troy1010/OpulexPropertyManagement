@@ -1,5 +1,7 @@
 package com.example.opulexpropertymanagement.ac_ui
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -76,7 +78,14 @@ class Properties: OXFragment(), AdapterRVProperties.ARVInterface {
             navController.navigate(directions)
         }
         binding.root.btn_trash.setOnClickListener {
-            propertiesVM.repo.removeProperty(property.id)
+            AlertDialog.Builder(activity)
+                .setTitle("Delete Property")
+                .setMessage("Are you sure you want to delete this property?\nThis action cannot be undone.")
+                .setPositiveButton("Delete") { _, _ ->
+                    propertiesVM.repo.removeProperty(property.id)
+                }
+                .setNegativeButton("Cancel") { _, _ -> }
+                .create().show()
         }
     }
 }
