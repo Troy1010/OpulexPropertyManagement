@@ -93,10 +93,6 @@ class PropertyAdd : OXFragment() {
             val inputValidationState = propertyAddVM.countryInputValidationState.value!!
             handleValidationResult(inputValidationState, InputValidation.asRequired, hasFocus)
         }
-        mBinding.textinputMortgageInfo.textinput.setOnFocusChangeListener { _, hasFocus ->
-            val inputValidationState = propertyAddVM.mortgageInfoInputValidationState.value!!
-            handleValidationResult(inputValidationState, InputValidation.asRequired, hasFocus)
-        }
         mBinding.textinputPrice.textinput.setOnFocusChangeListener { _, hasFocus ->
             val inputValidationState = propertyAddVM.priceInputValidationState.value!!
             handleValidationResult(inputValidationState, InputValidation.asMoney, hasFocus)

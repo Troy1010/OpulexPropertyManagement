@@ -38,6 +38,11 @@
             layout="@layout/includible_text_input"
             app:inputValidationState="@={propertyAddVM.priceInputValidationState}"
             app:hintZ='@{"Price"}' />
+        <ImageView
+            android:src="@{propertyAddVM.image, default=@drawable/ic_add_box_black_24dp}"
+            android:id="@+id/imageview_1"
+            android:layout_width="200dp"
+            android:layout_height="200dp"/>
 
         <Button
             android:id="@+id/btn_add"
