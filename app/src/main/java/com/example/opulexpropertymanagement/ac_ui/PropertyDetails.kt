@@ -7,20 +7,25 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyAddVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyDetailsVM
+import com.example.opulexpropertymanagement.ac_ui.extras.PropertyDetailsVMFactory
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyDetailsBinding
+import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.ReasonForLogin
 
 
 class PropertyDetails: OXFragment() {
     lateinit var mBinding: FragPropertyDetailsBinding
-    val propertyDetailsVM: PropertyDetailsVM by viewModels()
+    val args by lazy { arguments?.let { PropertyDetailsArgs.fromBundle(it) } }
+    val propertiesVM: PropertiesVM by viewModels({ PropertiesStoreOwner!! })
+    val propertyDetailsVM: PropertyDetailsVM by viewModels({ this }) { PropertyDetailsVMFactory(propertiesVM.properties, propertiesVM.properties.value?.indexOf(args?.property)?:0 ) }
     val navController by lazy { this.findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater,
