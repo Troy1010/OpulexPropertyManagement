@@ -66,13 +66,13 @@ class PropertyAdd : OXFragment() {
             val user = GlobalVM.user.value
             if (user != null) {
                 propertiesVM.repo.addProperty(Property(
-                    propertyaddress = mBinding.textinputAddress.textinput.text.toString(),
-                    propertycity = mBinding.textinputCity.textinput.text.toString(),
-                    propertycountry = mBinding.textinputCountry.textinput.text.toString(),
-                    propertymortageinfo = mBinding.textinputMortgageInfo.textinput.text.toString(),
-                    propertystate = mBinding.textinputState.textinput.text.toString(),
-                    propertypurchaseprice = mBinding.textinputPrice.textinput.text.toString(),
-                    propertystatus = PropertyStatus.Unavailable.name
+                    streetAddress = mBinding.textinputAddress.textinput.text.toString(),
+                    city = mBinding.textinputCity.textinput.text.toString(),
+                    country = mBinding.textinputCountry.textinput.text.toString(),
+                    mortgageInfo = mBinding.textinputMortgageInfo.textinput.text.toString(),
+                    state = mBinding.textinputState.textinput.text.toString(),
+                    purchasePrice = mBinding.textinputPrice.textinput.text.toString(),
+                    status = PropertyStatus.Unavailable.name
                 ), user)} else {
                 easyToast(requireActivity(), "Login required")
             }

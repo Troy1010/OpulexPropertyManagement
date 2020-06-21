@@ -41,15 +41,15 @@ object PropertiesRepo {
         Coroutines.ioThenMain(
             {
                 val responseString =  NetworkClient.addProperty(
-                    address = property.propertyaddress,
-                    city = property.propertycity,
-                    country = property.propertycountry,
+                    address = property.streetAddress,
+                    city = property.city,
+                    country = property.country,
                     latitude = "??",
                     longitude = "??",
-                    mortage_info = property.propertymortageinfo,
-                    pro_status = property.propertystatus,
-                    purchase_price = property.propertypurchaseprice,
-                    state = property.propertystate,
+                    mortage_info = property.mortgageInfo,
+                    pro_status = property.status,
+                    purchase_price = property.purchasePrice,
+                    state = property.state,
                     userid = user.id,
                     userType = user.usertype
                 ).await().string()
