@@ -15,7 +15,7 @@ import com.example.tmcommonkotlin.logz
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_sheet.*
 
-class BottomDialog(val action:(intent: Intent?)->Unit) : BottomSheetDialogFragment() {
+class BottomDialogForPhoto(val action:(intent: Intent?)->Unit) : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,7 +27,7 @@ class BottomDialog(val action:(intent: Intent?)->Unit) : BottomSheetDialogFragme
     fun closeMyself() {
         val activityZ = requireActivity()
         for (fragment in activityZ.supportFragmentManager.fragments) {
-            if (fragment is BottomDialog) {
+            if (fragment is BottomDialogForPhoto) {
                 activityZ.supportFragmentManager.beginTransaction().remove(fragment).commit()
             }
         }
@@ -37,14 +37,13 @@ class BottomDialog(val action:(intent: Intent?)->Unit) : BottomSheetDialogFragme
         super.onStart()
         btn_camera.setOnClickListener {
             logz("btn_camera")
-//            (activity as ActivityHostInterface).easyPhoto(Config.CODE_CAMERA_REQUEST)
             (activity as TMActivity).tryPermissionAction(
                 permissions = arrayOf(
                     Manifest.permission.CAMERA
                 ),
                 code = Config.CODE_CAMERA,
                 startAction = {
-                    startActivityForResult(
+                    activity?.startActivityForResult(
                         Intent(MediaStore.ACTION_IMAGE_CAPTURE),
                         Config.CODE_CAMERA
                     )

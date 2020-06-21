@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -13,7 +12,7 @@ import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyAddVM
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
-import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialog
+import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyAddBinding
 import com.example.opulexpropertymanagement.models.Property
@@ -80,7 +79,10 @@ class PropertyAdd : OXFragment() {
         }
         mBinding.imageview1.setOnClickListener {
             logz("clicked the image")
-            val addPhotoBottomDialogFragment = BottomDialog {logz("it:$it")}
+            val addPhotoBottomDialogFragment = BottomDialogForPhoto {
+                logz("got it:$it")
+                it?.data?.let{ propertyAddVM.image.value = it }
+            }
             addPhotoBottomDialogFragment.show(
                 requireActivity().supportFragmentManager,
                 "bottom_sheet"
