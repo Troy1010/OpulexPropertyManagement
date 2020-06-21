@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -15,9 +14,7 @@ import com.example.grocerygo.activities_and_frags.Inheritables.TMActivity
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.ac_ui.GlobalRepo
-import com.example.opulexpropertymanagement.app.Config
-import com.example.opulexpropertymanagement.app.fbTable
-import com.example.opulexpropertymanagement.app.firebaseDB
+import com.example.opulexpropertymanagement.app.*
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.activity_host.*
 
@@ -54,7 +51,8 @@ class ActivityHost : TMActivity(),
         GlobalVM.user.observe(this, Observer {
             GlobalRepo.sharedPref.saveUserInSharedPref(it)
             logz("syncing fbTable")
-            it?.let { fbTable = firebaseDB.getReference(it.appapikey) }
+            it?.let { fbUserDBTable = firebaseDB.getReference(it.appapikey) }
+            it?.let { fbUserStorageTable = firebaseStorage.getReference(it.appapikey) }
         })
         // If we don't have a user, start at TenantOrLandlord
         if (GlobalVM.user.value == null) {

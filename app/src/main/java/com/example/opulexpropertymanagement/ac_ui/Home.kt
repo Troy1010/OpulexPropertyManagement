@@ -9,12 +9,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
-import com.example.opulexpropertymanagement.app.fbTable
+import com.example.opulexpropertymanagement.app.fbUserDBTable
+import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.example.opulexpropertymanagement.databinding.FragHomeBinding
 import com.example.tmcommonkotlin.logz
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
@@ -41,7 +41,7 @@ class Home : OXFragment() {
             GlobalVM.logout()
         }
         mBinding.btnPrintSomething.setOnClickListener {
-            fbTable?.addValueEventListener(object : ValueEventListener {
+            fbUserDBTable?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 logz("onCancelled")
             }
@@ -56,7 +56,8 @@ class Home : OXFragment() {
         }
         mBinding.btnDoSomethingTwo.setOnClickListener {
             logz("DoSomethingTwo")
-            fbTable?.child("PropertyPictures")?.setValue(arrayListOf(1,2,3,4))
+            fbUserDBTable?.child("PropertyPictures")?.setValue(arrayListOf(1,2,3,4))
+            
         }
         return mBinding.root
     }
