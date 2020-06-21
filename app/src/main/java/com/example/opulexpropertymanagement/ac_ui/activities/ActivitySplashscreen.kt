@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.ac_ui
+package com.example.opulexpropertymanagement.ac_ui.activities
 
 import android.content.Intent
 import android.os.Bundle

@@ -2,7 +2,7 @@ package com.example.opulexpropertymanagement.ac_ui.inheritables
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.opulexpropertymanagement.ac_ui.ActivityHostInterface
+import com.example.opulexpropertymanagement.ac_ui.activities.ActivityHostInterface
 
 open class OXFragment(val isDrawerEnabled: Boolean = true, val isToolbarEnabled: Boolean = true): Fragment() {
 

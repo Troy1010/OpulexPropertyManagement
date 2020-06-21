@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.ac_ui
+package com.example.opulexpropertymanagement.ac_ui.activities
 
 import androidx.appcompat.widget.Toolbar
 

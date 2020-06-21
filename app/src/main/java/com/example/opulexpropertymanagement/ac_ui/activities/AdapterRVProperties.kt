@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.ac_ui
+package com.example.opulexpropertymanagement.ac_ui.activities
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ class AdapterRVProperties(
 ) : RecyclerView.Adapter<AdapterRVProperties.ViewHolder>() {
     inner class ViewHolder(val binding: ItemPropertyBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterRVProperties.ViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
@@ -26,7 +26,7 @@ class AdapterRVProperties(
         return arvImplementer.getRecyclerDataSize()
     }
 
-    override fun onBindViewHolder(holder: AdapterRVProperties.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         arvImplementer.bindRecyclerItemView(holder.binding, position)
     }
 

@@ -25,7 +25,7 @@ import com.example.tmcommonkotlin.InputValidation
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
 
-class FragPropertyAdd : OXFragment() {
+class PropertyAdd : OXFragment() {
     lateinit var mBinding: FragPropertyAddBinding
     val propertyAddVM: PropertyAddVM by viewModels()
     val propertiesVM: PropertiesVM by viewModels()

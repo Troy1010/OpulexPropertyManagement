@@ -21,7 +21,7 @@ import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logv
 
 
-class FragRegister : OXFragment(isToolbarEnabled = false) {
+class Register : OXFragment(isToolbarEnabled = false) {
 
     lateinit var mBinding: FragRegisterBinding
     val navController by lazy {this.findNavController()}

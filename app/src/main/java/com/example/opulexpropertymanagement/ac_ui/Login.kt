@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.frag_login.*
 import kotlinx.coroutines.Job
 
 
-class FragLogin : OXFragment(isToolbarEnabled = false) {
+class Login : OXFragment(isToolbarEnabled = false) {
 
     lateinit var mBinding: FragLoginBinding
     val navController by lazy { this.findNavController() }

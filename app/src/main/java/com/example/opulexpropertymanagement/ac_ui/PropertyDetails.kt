@@ -18,7 +18,7 @@ import com.example.opulexpropertymanagement.databinding.FragPropertyDetailsBindi
 import com.example.opulexpropertymanagement.models.ReasonForLogin
 
 
-class FragPropertyDetails: OXFragment() {
+class PropertyDetails: OXFragment() {
     lateinit var mBinding: FragPropertyDetailsBinding
     val propertyDetailsVM: PropertyDetailsVM by viewModels()
     val navController by lazy { this.findNavController() }

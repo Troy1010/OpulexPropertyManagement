@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -14,13 +13,12 @@ import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.databinding.FragPropertiesBinding
 import com.example.opulexpropertymanagement.databinding.ItemPropertyBinding
 import com.example.opulexpropertymanagement.models.Property
-import com.example.opulexpropertymanagement.models.ReasonForLogin
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
-import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
+import com.example.opulexpropertymanagement.ac_ui.activities.AdapterRVProperties
 import kotlinx.android.synthetic.main.frag_properties.*
 
-class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
+class Properties: OXFragment(), AdapterRVProperties.ARVInterface {
     lateinit var mBinding: FragPropertiesBinding
     val propertiesVM: PropertiesVM by viewModels()
     val navController by lazy { this.findNavController() }
@@ -43,7 +41,11 @@ class FragProperties: OXFragment(), AdapterRVProperties.ARVInterface {
     override fun onStart() {
         super.onStart()
         recyclerview_1.layoutManager = LinearLayoutManager(requireActivity())
-        recyclerview_1.adapter = AdapterRVProperties(this, R.layout.item_property)
+        recyclerview_1.adapter =
+            AdapterRVProperties(
+                this,
+                R.layout.item_property
+            )
         btn_add_property.setOnClickListener {
             navController.navigate(R.id.action_fragProperties_to_fragPropertyAdd)
         }

@@ -12,7 +12,7 @@ import com.example.opulexpropertymanagement.databinding.FragHomeBinding
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 
-class FragHome : OXFragment() {
+class Home : OXFragment() {
     lateinit var mBinding: FragHomeBinding
     val navController by lazy { this.findNavController() }
     override fun onCreateView(

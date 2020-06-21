@@ -1,9 +1,8 @@
-package com.example.opulexpropertymanagement.ac_ui
+package com.example.opulexpropertymanagement.ac_ui.activities
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -13,9 +12,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
+import com.example.opulexpropertymanagement.ac_ui.GlobalRepo
 import kotlinx.android.synthetic.main.activity_host.*
 
-class ActivityHost : AppCompatActivity(), ActivityHostInterface {
+class ActivityHost : AppCompatActivity(),
+    ActivityHostInterface {
     lateinit var drawerToggle: ActionBarDrawerToggle
     override val toolbar: Toolbar? by lazy { toolbar_main }
     val navController by lazy { findNavController(R.id.fragNavHost) }
@@ -45,7 +46,7 @@ class ActivityHost : AppCompatActivity(), ActivityHostInterface {
         drawerToggle.syncState()
         // Keep user hot & save user changes in SharedPref
         GlobalVM.user.observe(this, Observer {
-            GlobalVM.repo.sharedPref.saveUserInSharedPref(it)
+            GlobalRepo.sharedPref.saveUserInSharedPref(it)
         })
         // If we don't have a user, start at TenantOrLandlord
         if (GlobalVM.user.value == null) {
