@@ -53,7 +53,6 @@ object PropertiesRepo {
                     userid = user.id,
                     userType = user.usertype
                 ).await().string()
-                logz("addProperty`responseString:$responseString")
                 if ("successfully added" in responseString) {
                     AddPropertyResult.Success(user)
                 } else if ("mismatch user id or user type" in responseString) {
