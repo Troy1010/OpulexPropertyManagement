@@ -14,17 +14,19 @@ class RegisterRepo {
     val streamTryRegisterResult by lazy { MutableLiveData<RegisterResult>() }
 
     fun tryRegister(email: String, password: String, userType: UserType) {
-        Coroutines.ioThenMain( {
-        val resultString = NetworkClient.register(email, email, password, userType.toNetworkRecognizedString)
-            .await().string()
-        if ("success" in resultString) {
-            GlobalRepo.tryLogin(email, password)
-            RegisterResult.Success
-        } else if ("Email already exsist" in resultString) {
-            RegisterResult.Failure.EmailAlreadyExists
-        } else {
-            RegisterResult.Failure.Unknown
-        }}, {
+        Coroutines.ioThenMain({
+            val resultString =
+                NetworkClient.register(email, email, password, userType.toNetworkRecognizedString)
+                    .await().string()
+            if ("success" in resultString) {
+                GlobalRepo.tryLogin(email, password)
+                RegisterResult.Success
+            } else if ("Email already exsist" in resultString) {
+                RegisterResult.Failure.EmailAlreadyExists
+            } else {
+                RegisterResult.Failure.Unknown
+            }
+        }, {
             streamTryRegisterResult.value = it
         })
     }
