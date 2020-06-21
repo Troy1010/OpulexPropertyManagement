@@ -15,7 +15,7 @@ import com.example.opulexpropertymanagement.databinding.ItemPropertyBinding
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
-import com.example.opulexpropertymanagement.ac_ui.activities.AdapterRVProperties
+import com.example.opulexpropertymanagement.ac_ui.extras.AdapterRVProperties
 import kotlinx.android.synthetic.main.frag_properties.*
 
 class Properties: OXFragment(), AdapterRVProperties.ARVInterface {
@@ -56,6 +56,11 @@ class Properties: OXFragment(), AdapterRVProperties.ARVInterface {
     }
 
     override fun bindRecyclerItemView(binding: ItemPropertyBinding, i: Int) {
-        binding.property = propertiesVM.properties.value?.get(i) ?: Property()
+        val property = propertiesVM.properties.value?.get(i) ?: Property()
+        binding.property = property
+        binding.root.setOnClickListener {
+            val directions = PropertiesDirections.actionFragPropertiesToFragPropertyDetails(property)
+            navController.navigate(directions)
+        }
     }
 }

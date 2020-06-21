@@ -1,5 +1,9 @@
 package com.example.opulexpropertymanagement.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Property(
     val id: String ="",
     val propertyaddress: String ="",
@@ -9,4 +13,4 @@ data class Property(
     val propertypurchaseprice: String ="",
     val propertystate: String ="",
     val propertystatus: String = ""
-)
+) : Parcelable
