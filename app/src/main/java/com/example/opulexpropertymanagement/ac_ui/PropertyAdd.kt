@@ -17,6 +17,7 @@ import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyAddBinding
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.PropertyStatus
+import com.example.opulexpropertymanagement.models.PropertyStatusHelper
 import com.example.opulexpropertymanagement.models.ReasonForLogin
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.opulexpropertymanagement.models.view_model_intermediates.InputValidationState
@@ -73,9 +74,11 @@ class PropertyAdd : OXFragment() {
                     mortgageInfo = "",
                     state = mBinding.textinputState.textinput.text.toString(),
                     purchasePrice = mBinding.textinputPrice.textinput.text.toString(),
-                    status = PropertyStatus.Unavailable.name
-                ), user, image)} else {
+                    statusID = PropertyStatus.Unavailable.id // TODO
+                ), user, image)} else if (user == null) {
                 easyToast(requireActivity(), "Login required")
+            } else if (image == null) {
+                easyToast(requireActivity(), "Image required")
             }
         }
         mBinding.imageview1.setOnClickListener {

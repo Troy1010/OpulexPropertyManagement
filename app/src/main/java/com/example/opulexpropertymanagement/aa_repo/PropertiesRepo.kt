@@ -41,7 +41,6 @@ object PropertiesRepo {
     // addProperty
     val streamAddPropertyResult by lazy { MutableLiveData<AddPropertyResult>() }
     fun addProperty(property: Property, user: User, propertyImageUri: Uri) {
-        logz("adding property using id:${user.id}")
         Coroutines.ioThenMain(
             {
                 val responseString =  NetworkClient.addProperty(
@@ -51,7 +50,7 @@ object PropertiesRepo {
                     latitude = "??",
                     longitude = "??",
                     mortage_info = property.mortgageInfo,
-                    pro_status = property.status,
+                    pro_status = property.statusID,
                     purchase_price = property.purchasePrice,
                     state = property.state,
                     userid = user.id,

@@ -21,10 +21,12 @@ data class Property(
     @SerializedName("propertystate")
     val state: String ="",
     @SerializedName("propertystatus")
-    val status: String = ""
+    val statusID: String = ""
 ) : Parcelable {
     val singleLineAddress
         get() = "$streetAddress, $city, $state"
     val imageUrl
         get() = fbUserStorageTable?.child(id)?.downloadUrl
+    val status
+        get() = PropertyStatusHelper.fromIDToName(statusID)
 }

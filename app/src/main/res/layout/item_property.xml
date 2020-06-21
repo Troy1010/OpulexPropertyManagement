@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="property"
             type="com.example.opulexpropertymanagement.models.Property" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             style="@style/OpulexTheme.CardViewLight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -23,33 +26,67 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/imageview_1"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_margin="4dp"
-                    android:scaleType="centerCrop"
-                    tools:src="@drawable/sample_house"
+
+                <FrameLayout
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:id="@+id/frame_for_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardview_for_image"
+                        style="@style/OpulexTheme.CardViewLight"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:adjustViewBounds="true"
+                            android:id="@+id/imageview_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerInside"
+                            tools:src="@drawable/sample_house" />
+                    </androidx.cardview.widget.CardView>
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/btn_trash"
+                    android:padding="4dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_basic_trash"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textview_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    app:layout_constraintStart_toEndOf="@id/imageview_1"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="5dp"
                     android:text="@{property.singleLineAddress}"
+                    app:layout_constraintStart_toEndOf="@id/frame_for_image"
+                    app:layout_constraintEnd_toStartOf="@id/btn_trash"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="ADDRESS" />
-                <ImageView
-                    android:onClick=""
-                    android:id="@+id/btn_trash"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textview_address"
-                    android:src="@drawable/ic_basic_trash"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"/>
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="btn_trash, textview_address"/>
+
+                <TextView
+                    android:id="@+id/textview_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@{property.status}"
+                    app:layout_constraintStart_toEndOf="@id/frame_for_image"
+                    app:layout_constraintEnd_toStartOf="@id/btn_trash"
+                    app:layout_constraintTop_toBottomOf="@id/barrier_1"
+                    tools:text="STATUS" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
