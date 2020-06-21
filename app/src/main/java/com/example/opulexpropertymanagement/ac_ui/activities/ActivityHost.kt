@@ -13,6 +13,9 @@ import androidx.navigation.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.ac_ui.GlobalRepo
+import com.example.opulexpropertymanagement.app.fbTable
+import com.example.opulexpropertymanagement.app.firebaseDB
+import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.activity_host.*
 
 class ActivityHost : AppCompatActivity(),
@@ -44,9 +47,11 @@ class ActivityHost : AppCompatActivity(),
             ActionBarDrawerToggle(this, drawer_layout, toolbar_main, R.string.open, R.string.closed)
         drawer_layout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
-        // Keep user hot & save user changes in SharedPref
+        // Keep user hot & save user changes in SharedPref & sync to correct fbTable
         GlobalVM.user.observe(this, Observer {
             GlobalRepo.sharedPref.saveUserInSharedPref(it)
+            logz("syncing fbTable")
+            it?.let { fbTable = firebaseDB.getReference(it.appapikey) }
         })
         // If we don't have a user, start at TenantOrLandlord
         if (GlobalVM.user.value == null) {

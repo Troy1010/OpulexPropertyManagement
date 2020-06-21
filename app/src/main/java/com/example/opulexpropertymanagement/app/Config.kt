@@ -11,4 +11,7 @@ object Config {
     const val KEY_ID = "ID"
     const val KEY_APP_API_KEY = "API_KEY"
     const val KEY_USER_TYPE = "USER_TYPE"
+
+    // Firebase
+    const val KEY_PROPERTY_PICTURES = "PropertyPictures"
 }
