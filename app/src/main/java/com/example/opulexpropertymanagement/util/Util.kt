@@ -1,5 +1,7 @@
 package com.example.opulexpropertymanagement.util
 
+import android.content.Context
+import android.os.Environment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
@@ -12,6 +14,10 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
     return LiveDataReactiveStreams.fromPublisher(observable.toFlowable(BackpressureStrategy.DROP))
@@ -19,6 +25,18 @@ fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
 
 fun <T> PublishSubject<T>.toLiveData(): LiveData<T> {
     return convertRXToLiveData(this)
+}
+
+@Throws(IOException::class)
+fun Context.createImageFile(): File {
+    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+    val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+    val x = File.createTempFile(
+        "JPEG_${timeStamp}_", /* prefix */
+        ".jpg", /* suffix */
+        storageDir /* directory */
+    )
+    return x
 }
 
 

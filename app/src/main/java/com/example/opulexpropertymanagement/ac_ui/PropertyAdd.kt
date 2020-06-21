@@ -78,10 +78,8 @@ class PropertyAdd : OXFragment() {
             }
         }
         mBinding.imageview1.setOnClickListener {
-            logz("clicked the image")
-            val addPhotoBottomDialogFragment = BottomDialogForPhoto {
-                logz("got it:$it")
-                it?.data?.let{ propertyAddVM.image.value = it }
+            val addPhotoBottomDialogFragment = BottomDialogForPhoto(requireActivity()) { uri, _ ->
+                it?.let{ propertyAddVM.image.value = uri }
             }
             addPhotoBottomDialogFragment.show(
                 requireActivity().supportFragmentManager,
