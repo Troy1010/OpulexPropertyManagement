@@ -3,14 +3,12 @@ package com.example.opulexpropertymanagement.aa_repo
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.ac_ui.User
-import com.example.opulexpropertymanagement.app.fbTable
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.opulexpropertymanagement.models.streamable.GetPropertiesResult
 import com.example.tmcommonkotlin.Coroutines
 import com.example.tmcommonkotlin.logz
-import java.io.File
 
 // both FragProperties and FragPropertyAdd need access
 object PropertiesRepo {
