@@ -31,7 +31,7 @@ class Login : OXFragment(isToolbarEnabled = false) {
     val navController by lazy { this.findNavController() }
     val loginVM: LoginVM by viewModels()
     val compositeDisposable by lazy { CompositeDisposable() }
-    val args by lazy { arguments?.let { FragLoginArgs.fromBundle(it) } }
+    val args by lazy { arguments?.let { LoginArgs.fromBundle(it) } }
 
 
     override fun onCreateView(

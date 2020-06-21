@@ -32,8 +32,7 @@ class TenantOrLandlord : OXFragment(isDrawerEnabled = false, isToolbarEnabled = 
         }
         cardview_landlord.setOnClickListener {
             GlobalVM.userType.value = UserType.Landlord
-            val directions = FragTenantOrLandlordDirections.actionGlobalFragProperties()
-            navController.navigate(directions)
+            navController.navigate(R.id.action_global_fragProperties)
         }
     }
 }

@@ -43,7 +43,7 @@ class PropertyAdd : OXFragment() {
         setupObservers()
         GlobalVM.user.observe(viewLifecycleOwner, Observer { user ->
             if (user==null) {
-                val directions = FragPropertyAddDirections.actionFragPropertyAddToFragLogin(ReasonForLoginInt = ReasonForLogin.TriedToAddProperty.ordinal)
+                val directions = PropertyAddDirections.actionFragPropertyAddToFragLogin(ReasonForLoginInt = ReasonForLogin.TriedToAddProperty.ordinal)
                 navController.navigate(directions)
             }
         })
