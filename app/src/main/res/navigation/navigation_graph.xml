@@ -8,9 +8,6 @@
         android:name="com.example.opulexpropertymanagement.ac_ui.FragHome"
         android:label="Home" >
         <action
-            android:id="@+id/action_fragHome_to_activitySplashscreen"
-            app:destination="@id/activitySplashscreen" />
-        <action
             android:id="@+id/action_fragHome_to_fragTenantOrLandlord"
             app:destination="@id/fragTenantOrLandlord" />
     </fragment>
@@ -25,17 +22,11 @@
         <action
             android:id="@+id/action_fragLogin_to_fragRegister"
             app:destination="@id/fragRegister" />
-        <action
-            android:id="@+id/action_fragLogin_to_fragHome"
-            app:destination="@id/fragHome" />
     </fragment>
     <fragment
         android:id="@+id/fragRegister"
         android:name="com.example.opulexpropertymanagement.ac_ui.FragRegister"
         android:label="Register" >
-        <action
-            android:id="@+id/action_fragRegister_to_fragHome"
-            app:destination="@id/fragHome" />
         <action
             android:id="@+id/action_fragRegister_to_fragLogin"
             app:destination="@id/fragLogin" />
@@ -54,11 +45,6 @@
         android:name="com.example.opulexpropertymanagement.ac_ui.FragProperties"
         android:label="Properties" >
         <action
-            android:id="@+id/action_fragProperties_to_fragLogin"
-            app:destination="@id/fragLogin"
-            app:popUpTo="@id/fragHome"
-            app:popUpToInclusive="false" />
-        <action
             android:id="@+id/action_fragProperties_to_fragPropertyAdd"
             app:destination="@id/fragPropertyAdd"
             app:popUpTo="@id/fragProperties" />
@@ -71,10 +57,6 @@
         android:id="@+id/action_global_fragHome"
         app:destination="@id/fragHome"
         app:popUpTo="@id/navigation_graph" />
-    <activity
-        android:id="@+id/activitySplashscreen"
-        android:name="com.example.opulexpropertymanagement.ac_ui.ActivitySplashscreen"
-        android:label=" " />
     <fragment
         android:id="@+id/fragPropertyAdd"
         android:name="com.example.opulexpropertymanagement.ac_ui.FragPropertyAdd"
@@ -83,9 +65,17 @@
             android:id="@+id/action_fragPropertyAdd_to_fragLogin"
             app:destination="@id/fragLogin"
             app:popUpTo="@id/fragPropertyAdd" />
+        <action
+            android:id="@+id/action_fragPropertyAdd_to_fragPropertyDetails"
+            app:destination="@id/fragPropertyDetails"
+            app:popUpTo="@id/fragPropertyAdd" />
     </fragment>
     <action
         android:id="@+id/action_global_fragLogin"
         app:destination="@id/fragLogin"
         app:popUpTo="@id/fragHome" />
+    <fragment
+        android:id="@+id/fragPropertyDetails"
+        android:name="com.example.opulexpropertymanagement.ac_ui.FragPropertyDetails"
+        android:label="FragPropertyDetails" />
 </navigation>
