@@ -64,7 +64,8 @@ class PropertyAdd : OXFragment() {
     private fun setupClickListeners() {
         mBinding.btnAdd.setOnClickListener {
             val user = GlobalVM.user.value
-            if (user != null) {
+            val image = propertyAddVM.image.value
+            if ((user != null) && (image != null)) {
                 propertiesVM.repo.addProperty(Property(
                     streetAddress = mBinding.textinputAddress.textinput.text.toString(),
                     city = mBinding.textinputCity.textinput.text.toString(),
@@ -73,7 +74,7 @@ class PropertyAdd : OXFragment() {
                     state = mBinding.textinputState.textinput.text.toString(),
                     purchasePrice = mBinding.textinputPrice.textinput.text.toString(),
                     status = PropertyStatus.Unavailable.name
-                ), user)} else {
+                ), user, image)} else {
                 easyToast(requireActivity(), "Login required")
             }
         }

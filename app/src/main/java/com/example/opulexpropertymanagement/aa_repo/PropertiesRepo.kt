@@ -1,13 +1,16 @@
 package com.example.opulexpropertymanagement.aa_repo
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.ac_ui.User
+import com.example.opulexpropertymanagement.app.fbTable
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.opulexpropertymanagement.models.streamable.GetPropertiesResult
 import com.example.tmcommonkotlin.Coroutines
 import com.example.tmcommonkotlin.logz
+import java.io.File
 
 // both FragProperties and FragPropertyAdd need access
 object PropertiesRepo {
@@ -36,7 +39,7 @@ object PropertiesRepo {
         })
     }
 
-    fun addProperty(property: Property, user: User) {
+    fun addProperty(property: Property, user: User, propertyImageUri: Uri) {
         logz("adding property using id:${user.id}")
         Coroutines.ioThenMain(
             {
@@ -64,6 +67,14 @@ object PropertiesRepo {
                 }
             }, {
                 streamAddPropertyResult.value = it
+                // use that new property's id to add image to fb
+                if (it is AddPropertyResult.Success) {
+//                    val r1: StorageRe = fbTable?.child(property.streetAddress)
+//                    val r2 = fbTable?.child("images/${property.streetAddress}")
+//
+//                    val file = propertyImageUri.getPath()?.let{ File(it) }
+//                    r1?.setValue(file)
+                }
             }
         )
     }
