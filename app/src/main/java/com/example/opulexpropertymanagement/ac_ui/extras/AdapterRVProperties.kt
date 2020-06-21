@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.ac_ui.activities
+package com.example.opulexpropertymanagement.ac_ui.extras
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
