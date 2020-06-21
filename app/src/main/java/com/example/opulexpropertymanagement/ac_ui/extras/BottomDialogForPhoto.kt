@@ -25,10 +25,11 @@ class BottomDialogForPhoto(val action:(intent: Intent?)->Unit) : BottomSheetDial
     }
 
     fun closeMyself() {
-        val activityZ = requireActivity()
-        for (fragment in activityZ.supportFragmentManager.fragments) {
-            if (fragment is BottomDialogForPhoto) {
-                activityZ.supportFragmentManager.beginTransaction().remove(fragment).commit()
+        activity?.let { activity ->
+            for (fragment in activity.supportFragmentManager.fragments) {
+                if (fragment is BottomDialogForPhoto) {
+                    activity.supportFragmentManager.beginTransaction().remove(fragment).commit()
+                }
             }
         }
     }
