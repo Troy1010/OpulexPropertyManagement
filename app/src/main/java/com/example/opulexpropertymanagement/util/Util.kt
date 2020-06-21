@@ -1,6 +1,7 @@
 package com.example.opulexpropertymanagement.util
 
 import android.content.Context
+import android.net.Uri
 import android.os.Environment
 import android.widget.ImageView
 import androidx.lifecycle.LifecycleOwner
@@ -10,6 +11,7 @@ import com.example.opulexpropertymanagement.R
 import com.example.tmcommonkotlin.InputValidation
 import com.example.tmcommonkotlin.logSubscribe
 import com.example.tmcommonkotlin.logz
+import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
@@ -46,6 +48,12 @@ fun ImageView.easyPicasso(endpoint:String) {
         .placeholder(R.drawable.image_not_found_yet)
         .error(R.drawable.image_not_available)
         .into(this)
+}
+
+fun ImageView.easyPicasso(uriTask:Task<Uri>?) {
+    uriTask?.addOnSuccessListener { url ->
+        this.easyPicasso(url.toString())
+    }
 }
 
 
