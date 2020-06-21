@@ -2,6 +2,7 @@ package com.example.opulexpropertymanagement.util
 
 import android.content.Context
 import android.os.Environment
+import android.widget.ImageView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
@@ -37,6 +38,14 @@ fun Context.createImageFile(): File {
         storageDir /* directory */
     )
     return x
+}
+
+fun ImageView.easyPicasso(endpoint:String) {
+    com.squareup.picasso.Picasso.get()
+        .load(endpoint)
+        .placeholder(R.drawable.image_not_found_yet)
+        .error(R.drawable.image_not_available)
+        .into(this)
 }
 
 
