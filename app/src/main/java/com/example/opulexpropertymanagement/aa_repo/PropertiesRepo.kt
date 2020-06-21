@@ -3,6 +3,7 @@ package com.example.opulexpropertymanagement.aa_repo
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.ac_ui.User
+import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
@@ -14,7 +15,6 @@ import com.example.tmcommonkotlin.logz
 object PropertiesRepo {
     //  Properties
     val streamRequestPropertiesResult by lazy { MutableLiveData<GetPropertiesResult>() }
-    val streamAddPropertyResult by lazy { MutableLiveData<AddPropertyResult>() }
 
     fun requestPropertiesByUser(user: User) {
         Coroutines.ioThenMain({
@@ -37,6 +37,7 @@ object PropertiesRepo {
         })
     }
 
+    val streamAddPropertyResult by lazy { MutableLiveData<AddPropertyResult>() }
     fun addProperty(property: Property, user: User, propertyImageUri: Uri) {
         logz("adding property using id:${user.id}")
         Coroutines.ioThenMain(
@@ -55,7 +56,13 @@ object PropertiesRepo {
                     userType = user.usertype
                 ).await().string()
                 if ("successfully added" in responseString) {
-                    AddPropertyResult.Success(user)
+                    val findPropertiesResult = NetworkClient.getPropertiesForLandlord(user.usertype, user.id).await()
+                    val propertyJustAdded = findPropertiesResult.Properties.find { it.singleLineAddress == property.singleLineAddress }
+                    if (propertyJustAdded==null) {
+                        AddPropertyResult.Failure.DidNotReceiveProjectID
+                    } else {
+                        AddPropertyResult.Success(user, propertyJustAdded)
+                    }
                 } else if ("mismatch user id or user type" in responseString) {
                     AddPropertyResult.Failure.MismatchedUserIDVsType
                 } else if ("user type should landlord" in responseString) {
@@ -65,13 +72,15 @@ object PropertiesRepo {
                 }
             }, {
                 streamAddPropertyResult.value = it
-                // use that new property's id to add image to fb
+                // update firebase with image
                 if (it is AddPropertyResult.Success) {
-//                    val r1: StorageRe = fbTable?.child(property.streetAddress)
-//                    val r2 = fbTable?.child("images/${property.streetAddress}")
-//
-//                    val file = propertyImageUri.getPath()?.let{ File(it) }
-//                    r1?.setValue(file)
+                    fbUserStorageTable?.child(it.property.id)?.putFile(propertyImageUri)
+                        ?.addOnSuccessListener {
+                            logz("Success!")
+                        }
+                        ?.addOnFailureListener {
+                            logz("FAILED:$it")
+                        }
                 }
             }
         )

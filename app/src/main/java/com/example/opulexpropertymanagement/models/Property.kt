@@ -1,6 +1,7 @@
 package com.example.opulexpropertymanagement.models
 
 import android.os.Parcelable
+import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -24,4 +25,6 @@ data class Property(
 ) : Parcelable {
     val singleLineAddress
         get() = "$streetAddress, $city, $state"
+    val imageUrl
+        get() = fbUserStorageTable?.child(id)?.downloadUrl
 }

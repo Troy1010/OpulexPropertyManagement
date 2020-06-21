@@ -57,7 +57,7 @@ class Home : OXFragment() {
         mBinding.btnDoSomethingTwo.setOnClickListener {
             logz("DoSomethingTwo")
             fbUserDBTable?.child("PropertyPictures")?.setValue(arrayListOf(1,2,3,4))
-            
+
         }
         return mBinding.root
     }

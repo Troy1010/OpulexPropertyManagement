@@ -1,12 +1,14 @@
 package com.example.opulexpropertymanagement.models.streamable
 
 import com.example.opulexpropertymanagement.ac_ui.User
+import com.example.opulexpropertymanagement.models.Property
 
 sealed class AddPropertyResult {
-    class Success(val user: User): AddPropertyResult()
+    class Success(val user: User, val property: Property): AddPropertyResult()
     sealed class Failure: AddPropertyResult() {
         object MismatchedUserIDVsType: Failure()
         object UserTypeShouldBeLandlord: Failure()
+        object DidNotReceiveProjectID: Failure()
         object Unknown: Failure()
     }
 }

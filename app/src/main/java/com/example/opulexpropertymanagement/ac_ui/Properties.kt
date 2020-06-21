@@ -18,9 +18,11 @@ import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ac_ui.extras.AdapterRVProperties
+import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.tmcommonkotlin.logz
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frag_properties.*
+import kotlinx.android.synthetic.main.item_property.view.*
 
 // This is a silly hack to share a fragment-scoped ViewModel.
 // I prefer not to make an activityViewModel() because it's essentially a memory leak.
@@ -69,6 +71,9 @@ class Properties: OXFragment(), AdapterRVProperties.ARVInterface {
             PropertiesStoreOwner = this
             val directions = PropertiesDirections.actionFragPropertiesToFragPropertyDetails(property)
             navController.navigate(directions)
+        }
+        property.imageUrl?.addOnSuccessListener {url ->
+            binding.root.imageview_1.easyPicasso(url.toString())
         }
     }
 }
