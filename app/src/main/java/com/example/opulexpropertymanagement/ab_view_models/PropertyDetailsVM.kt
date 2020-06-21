@@ -6,7 +6,10 @@ import com.example.opulexpropertymanagement.aa_repo.PropertiesRepo
 import com.example.opulexpropertymanagement.models.Property
 import com.example.tmcommonkotlin.logz
 
-class PropertyDetailsVM(properties: MutableLiveData<List<Property>>, i:Int): ViewModel() {
+class PropertyDetailsVM(val properties: MutableLiveData<List<Property>>, val i:Int): ViewModel() {
+
+    val property = properties.value?.get(i)
+
     init {
 //        properties.value!!
         logz("properties.value:${properties.value}")
