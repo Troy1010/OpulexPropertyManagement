@@ -14,4 +14,8 @@ object Config {
 
     // Firebase
     const val KEY_PROPERTY_PICTURES = "PropertyPictures"
+
+    // zz
+    const val CODE_CAMERA = 87135
+    const val CODE_PICK_IMAGE = 59351
 }

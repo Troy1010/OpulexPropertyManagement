@@ -14,11 +14,14 @@ import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyAddVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyDetailsVM
+import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialog
 import com.example.opulexpropertymanagement.ac_ui.extras.PropertyDetailsVMFactory
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyDetailsBinding
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.ReasonForLogin
+import com.example.tmcommonkotlin.logz
+import kotlinx.android.synthetic.main.frag_property_add.*
 
 
 class PropertyDetails: OXFragment() {
@@ -45,6 +48,5 @@ class PropertyDetails: OXFragment() {
     }
 
     private fun setupClickListeners() {
-
     }
 }

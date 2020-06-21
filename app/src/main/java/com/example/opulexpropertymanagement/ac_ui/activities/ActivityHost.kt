@@ -1,5 +1,6 @@
 package com.example.opulexpropertymanagement.ac_ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -10,15 +11,17 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.example.grocerygo.activities_and_frags.Inheritables.TMActivity
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.ac_ui.GlobalRepo
+import com.example.opulexpropertymanagement.app.Config
 import com.example.opulexpropertymanagement.app.fbTable
 import com.example.opulexpropertymanagement.app.firebaseDB
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.activity_host.*
 
-class ActivityHost : AppCompatActivity(),
+class ActivityHost : TMActivity(),
     ActivityHostInterface {
     lateinit var drawerToggle: ActionBarDrawerToggle
     override val toolbar: Toolbar? by lazy { toolbar_main }
@@ -88,5 +91,14 @@ class ActivityHost : AppCompatActivity(),
         } else {
             toolbar_main.visibility = View.GONE
         }
+    }
+
+    // image
+
+    override val pickImage = {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_OPEN_DOCUMENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), Config.CODE_PICK_IMAGE)
     }
 }

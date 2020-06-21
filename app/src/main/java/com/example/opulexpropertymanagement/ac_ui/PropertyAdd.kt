@@ -13,6 +13,7 @@ import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyAddVM
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
+import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialog
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyAddBinding
 import com.example.opulexpropertymanagement.models.Property
@@ -76,6 +77,14 @@ class PropertyAdd : OXFragment() {
                 ), user)} else {
                 easyToast(requireActivity(), "Login required")
             }
+        }
+        mBinding.imageview1.setOnClickListener {
+            logz("clicked the image")
+            val addPhotoBottomDialogFragment = BottomDialog {logz("it:$it")}
+            addPhotoBottomDialogFragment.show(
+                requireActivity().supportFragmentManager,
+                "bottom_sheet"
+            )
         }
     }
 
