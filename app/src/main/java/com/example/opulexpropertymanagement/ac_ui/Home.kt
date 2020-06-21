@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
+import com.example.opulexpropertymanagement.app.propertyFBTable
 import com.example.opulexpropertymanagement.databinding.FragHomeBinding
 import com.google.firebase.database.FirebaseDatabase
 
@@ -39,11 +40,7 @@ class Home : OXFragment() {
             GlobalVM.printSomething()
         }
         mBinding.btnDoSomethingTwo.setOnClickListener {
-            // Write a message to the database
-            val database = FirebaseDatabase.getInstance()
-            val myRef = database.getReference("message")
-
-            myRef.setValue("Hello, World!")
+            propertyFBTable.setValue("Hello, World!")
         }
         return mBinding.root
     }
