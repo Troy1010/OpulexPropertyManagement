@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "957681912621",
+    "firebase_url": "https://opulexpropertymanagement.firebaseio.com",
+    "project_id": "opulexpropertymanagement",
+    "storage_bucket": "opulexpropertymanagement.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957681912621:android:673acf8a56581a14afa1a4",
+        "android_client_info": {
+          "package_name": "com.example.opulexpropertymanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957681912621-uujj08p98tnh2khk1l90anr8s61p3r1g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.opulexpropertymanagement",
+            "certificate_hash": "489648cf2f8ac9d2638a129fb2877ea164cb1c20"
+          }
+        },
+        {
+          "client_id": "957681912621-gtq389iercrkc1nj8ik07vvcqf6gs765.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCskFTVUDzeLJL94qnjwz3mfX7EFqFFM1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957681912621-gtq389iercrkc1nj8ik07vvcqf6gs765.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
