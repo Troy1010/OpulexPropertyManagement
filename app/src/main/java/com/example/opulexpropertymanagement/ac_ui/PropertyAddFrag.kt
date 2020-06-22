@@ -42,16 +42,16 @@ class PropertyAddFrag : OXFragment() {
         setupOnFocusChangedListeners()
         setupClickListeners()
         setupObservers()
+        return mBinding.root
+    }
+
+    private fun setupObservers() {
         GlobalVM.user.observe(viewLifecycleOwner, Observer { user ->
             if (user==null) {
                 val directions = PropertyAddFragDirections.actionFragPropertyAddToFragLogin(ReasonForLoginInt = ReasonForLogin.TriedToAddProperty.ordinal)
                 navController.navigate(directions)
             }
         })
-        return mBinding.root
-    }
-
-    private fun setupObservers() {
         propertiesVM.repo.streamAddPropertyResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
             if (it is AddPropertyResult.Success) {
                 navController.navigateUp()
