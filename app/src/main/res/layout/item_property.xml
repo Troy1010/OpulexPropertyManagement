@@ -36,6 +36,8 @@
 
                 <ImageView
                     android:id="@+id/btn_trash"
+                    android:tint="@color/colorAccent"
+                    android:paddingTop="7dp"
                     android:padding="4dp"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
