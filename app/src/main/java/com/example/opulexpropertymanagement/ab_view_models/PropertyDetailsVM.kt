@@ -16,10 +16,9 @@ class PropertyDetailsVM(val properties: MutableLiveData<List<Property>>, i:Int):
     val tenant by lazy{ MediatorLiveData<Tenant>() }
 
     init {
+        logz("GlobalVM.user.value?.id:${GlobalVM.user.value?.id}")
+        logz("property?.id:${property?.id}")
         propertyDetailsRepo.getTenantByLandlordAndPropertyID(GlobalVM.user.value?.id, property?.id)
         tenant.addSource(propertyDetailsRepo.streamGetTenantByLandlordAndPropertyResult) { tenant.value = it }
-//        properties.value!!
-        logz("properties.value:${properties.value}")
-        logz("asdf:${properties.value?.get(i)}")
     }
 }
