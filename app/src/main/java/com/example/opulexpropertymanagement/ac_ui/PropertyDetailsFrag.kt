@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
@@ -44,7 +45,6 @@ class PropertyDetailsFrag: OXFragment() {
 
     private fun setupView() {
         mBinding.root.includible_property_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
-        mBinding.root.includible_tenant.imageview_1.easyPicasso(propertyDetailsVM.tenant.value?.imageUrlTask)
         mBinding.root.includible_tenant.setOnClickListener {
             val directions = PropertyDetailsFragDirections.actionFragPropertyDetailsToTenantAddFrag(propertyDetailsVM.property!!)
             navController.navigate(directions)
@@ -67,7 +67,9 @@ class PropertyDetailsFrag: OXFragment() {
     }
 
     private fun setupObservers() {
-
+        propertyDetailsVM.tenant.observe(viewLifecycleOwner, Observer {
+            mBinding.includibleTenant.imageview1.easyPicasso(propertyDetailsVM.tenant.value?.imageUrlTask)
+        })
     }
 
     private fun setupClickListeners() {
