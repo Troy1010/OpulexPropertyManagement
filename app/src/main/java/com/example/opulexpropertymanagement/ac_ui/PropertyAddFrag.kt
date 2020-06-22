@@ -63,6 +63,15 @@ class PropertyAddFrag : OXFragment() {
     }
 
     private fun setupClickListeners() {
+        mBinding.imageview1.setOnClickListener {
+            val addPhotoBottomDialogFragment = BottomDialogForPhoto(requireActivity()) { uri, _ ->
+                propertyAddVM.image.value = uri
+            }
+            addPhotoBottomDialogFragment.show(
+                requireActivity().supportFragmentManager,
+                "bottom_sheet"
+            )
+        }
         mBinding.btnAdd.setOnClickListener {
             val user = GlobalVM.user.value
             val image = propertyAddVM.image.value
@@ -80,15 +89,6 @@ class PropertyAddFrag : OXFragment() {
             } else if (image == null) {
                 easyToast(requireActivity(), "Image required")
             }
-        }
-        mBinding.imageview1.setOnClickListener {
-            val addPhotoBottomDialogFragment = BottomDialogForPhoto(requireActivity()) { uri, _ ->
-                it?.let{ propertyAddVM.image.value = uri }
-            }
-            addPhotoBottomDialogFragment.show(
-                requireActivity().supportFragmentManager,
-                "bottom_sheet"
-            )
         }
     }
 
