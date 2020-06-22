@@ -39,6 +39,8 @@ class BottomDialogForPhoto(val contextZ: Context, val title:String?=null, val ac
         val v = inflater.inflate(R.layout.bottom_sheet, container, false)
         if (title==null) {
             v.textview_title.visibility=View.GONE
+        } else {
+            v.textview_title.text = title
         }
         return v
     }
