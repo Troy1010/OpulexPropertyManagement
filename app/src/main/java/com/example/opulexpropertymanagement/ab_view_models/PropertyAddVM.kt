@@ -8,6 +8,7 @@ import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ac_ui.GlobalRepo
 import com.example.opulexpropertymanagement.app.App
 import com.example.opulexpropertymanagement.models.view_model_intermediates.InputValidationState
+import com.example.opulexpropertymanagement.util.getDrawableUri
 import java.io.File
 
 class PropertyAddVM: ViewModel() {
@@ -18,14 +19,5 @@ class PropertyAddVM: ViewModel() {
     val priceInputValidationState by lazy { MutableLiveData<InputValidationState>().apply { value = InputValidationState() } }
     val stateInputValidationState by lazy { MutableLiveData<InputValidationState>().apply { value = InputValidationState() } }
 
-    val resources = App.getResources();
-    val defaultImageUri = Uri.Builder()
-        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-        .authority(resources.getResourcePackageName(R.drawable.ic_add_box_black_24dp))
-        .appendPath(resources.getResourceTypeName(R.drawable.ic_add_box_black_24dp))
-        .appendPath(resources.getResourceEntryName(R.drawable.ic_add_box_black_24dp))
-        .build()
-    val image by lazy { MutableLiveData<Uri>().apply { value = defaultImageUri } }
-
-    val repo = GlobalRepo
+    val image by lazy { MutableLiveData<Uri>().apply { value = getDrawableUri(R.drawable.ic_add_box_black_24dp) } }
 }

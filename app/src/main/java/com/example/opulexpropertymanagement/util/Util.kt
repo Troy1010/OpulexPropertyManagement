@@ -1,5 +1,6 @@
 package com.example.opulexpropertymanagement.util
 
+import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
@@ -8,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import com.example.opulexpropertymanagement.R
+import com.example.opulexpropertymanagement.app.App
 import com.example.tmcommonkotlin.InputValidation
 import com.example.tmcommonkotlin.logSubscribe
 import com.example.tmcommonkotlin.logz
@@ -40,6 +42,16 @@ fun Context.createImageFile(): File {
         storageDir /* directory */
     )
     return x
+}
+
+fun getDrawableUri(drawableID:Int): Uri? {
+    val resources = App.getResources();
+    return Uri.Builder()
+        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+        .authority(resources.getResourcePackageName(drawableID))
+        .appendPath(resources.getResourceTypeName(drawableID))
+        .appendPath(resources.getResourceEntryName(drawableID))
+        .build()
 }
 
 fun ImageView.easyPicasso(endpoint:String) {
