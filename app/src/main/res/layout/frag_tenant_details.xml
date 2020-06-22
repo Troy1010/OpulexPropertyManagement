@@ -142,6 +142,7 @@
                 app:constraint_referenced_ids="textview_full_address_title, textview_full_address" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@color/colorBackgroundHighlight"
