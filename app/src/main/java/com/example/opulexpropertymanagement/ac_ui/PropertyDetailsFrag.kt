@@ -18,9 +18,9 @@ import kotlinx.android.synthetic.main.includible_rounded_image.view.*
 import kotlinx.android.synthetic.main.item_property.view.*
 
 
-class PropertyDetails: OXFragment() {
+class PropertyDetailsFrag: OXFragment() {
     lateinit var mBinding: FragPropertyDetailsBinding
-    val args by lazy { arguments?.let { PropertyDetailsArgs.fromBundle(it) } }
+    val args by lazy { arguments?.let { PropertyDetailsFragArgs.fromBundle(it) } }
     val propertiesVM: PropertiesVM by viewModels({ PropertiesStoreOwner!! })
     val propertyIndex by lazy { propertiesVM.properties.value?.indexOf(args?.property)?:0 }
     val propertyDetailsVM: PropertyDetailsVM by viewModels({ this }) { PropertyDetailsVMFactory(propertiesVM.properties, propertyIndex) }

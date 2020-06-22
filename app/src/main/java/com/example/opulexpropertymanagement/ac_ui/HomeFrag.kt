@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
 
-class Home : OXFragment() {
+class HomeFrag : OXFragment() {
     lateinit var mBinding: FragHomeBinding
     val navController by lazy { this.findNavController() }
     override fun onCreateView(

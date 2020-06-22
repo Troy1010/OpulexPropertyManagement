@@ -26,7 +26,7 @@ import com.example.tmcommonkotlin.InputValidation
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
 
-class PropertyAdd : OXFragment() {
+class PropertyAddFrag : OXFragment() {
     lateinit var mBinding: FragPropertyAddBinding
     val propertyAddVM: PropertyAddVM by viewModels()
     val propertiesVM: PropertiesVM by viewModels()
@@ -44,7 +44,7 @@ class PropertyAdd : OXFragment() {
         setupObservers()
         GlobalVM.user.observe(viewLifecycleOwner, Observer { user ->
             if (user==null) {
-                val directions = PropertyAddDirections.actionFragPropertyAddToFragLogin(ReasonForLoginInt = ReasonForLogin.TriedToAddProperty.ordinal)
+                val directions = PropertyAddFragDirections.actionFragPropertyAddToFragLogin(ReasonForLoginInt = ReasonForLogin.TriedToAddProperty.ordinal)
                 navController.navigate(directions)
             }
         })

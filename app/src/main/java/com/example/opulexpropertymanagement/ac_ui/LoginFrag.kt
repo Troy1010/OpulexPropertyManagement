@@ -25,13 +25,13 @@ import kotlinx.android.synthetic.main.frag_login.*
 import kotlinx.coroutines.Job
 
 
-class Login : OXFragment(isToolbarEnabled = false) {
+class LoginFrag : OXFragment(isToolbarEnabled = false) {
 
     lateinit var mBinding: FragLoginBinding
     val navController by lazy { this.findNavController() }
     val loginVM: LoginVM by viewModels()
     val compositeDisposable by lazy { CompositeDisposable() }
-    val args by lazy { arguments?.let { LoginArgs.fromBundle(it) } }
+    val args by lazy { arguments?.let { LoginFragArgs.fromBundle(it) } }
 
 
     override fun onCreateView(

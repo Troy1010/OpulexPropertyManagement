@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.item_property.view.*
 // This is a silly hack to share a fragment-scoped ViewModel.
 // I prefer not to make an activityViewModel() because it's essentially a memory leak.
 var PropertiesStoreOwner: ViewModelStoreOwner? = null
-class Properties: OXFragment(), AdapterRVProperties.ARVInterface {
+class PropertiesFrag: OXFragment(), AdapterRVProperties.ARVInterface {
     lateinit var mBinding: FragPropertiesBinding
     val propertiesVM: PropertiesVM by viewModels()
     val navController by lazy { this.findNavController() }
@@ -69,7 +69,7 @@ class Properties: OXFragment(), AdapterRVProperties.ARVInterface {
         binding.root.includible_rounded_image.imageview_1.easyPicasso(property.imageUrlTask)
         binding.root.setOnClickListener {
             PropertiesStoreOwner = this
-            val directions = PropertiesDirections.actionFragPropertiesToFragPropertyDetails(property)
+            val directions = PropertiesFragDirections.actionFragPropertiesToFragPropertyDetails(property)
             navController.navigate(directions)
         }
         binding.root.btn_trash.setOnClickListener {

@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/fragHome"
-        android:name="com.example.opulexpropertymanagement.ac_ui.Home"
+        android:name="com.example.opulexpropertymanagement.ac_ui.HomeFrag"
         android:label="Home" >
         <action
             android:id="@+id/action_fragHome_to_fragTenantOrLandlord"
@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragLogin"
-        android:name="com.example.opulexpropertymanagement.ac_ui.Login"
+        android:name="com.example.opulexpropertymanagement.ac_ui.LoginFrag"
         android:label="Login" >
         <argument
             android:name="ReasonForLoginInt"
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragRegister"
-        android:name="com.example.opulexpropertymanagement.ac_ui.Register"
+        android:name="com.example.opulexpropertymanagement.ac_ui.RegisterFrag"
         android:label="Register" >
         <action
             android:id="@+id/action_fragRegister_to_fragLogin"
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragTenantOrLandlord"
-        android:name="com.example.opulexpropertymanagement.ac_ui.TenantOrLandlord"
+        android:name="com.example.opulexpropertymanagement.ac_ui.TenantOrLandlordFrag"
         android:label="Actions" >
         <action
             android:id="@+id/action_fragTenantOrLandlord_to_fragHome"
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragProperties"
-        android:name="com.example.opulexpropertymanagement.ac_ui.Properties"
+        android:name="com.example.opulexpropertymanagement.ac_ui.PropertiesFrag"
         android:label="Properties" >
         <action
             android:id="@+id/action_fragProperties_to_fragPropertyAdd"
@@ -63,7 +63,7 @@
         app:popUpTo="@id/navigation_graph" />
     <fragment
         android:id="@+id/fragPropertyAdd"
-        android:name="com.example.opulexpropertymanagement.ac_ui.PropertyAdd"
+        android:name="com.example.opulexpropertymanagement.ac_ui.PropertyAddFrag"
         android:label="Add Property" >
         <action
             android:id="@+id/action_fragPropertyAdd_to_fragLogin"
@@ -76,7 +76,7 @@
         app:popUpTo="@id/fragHome" />
     <fragment
         android:id="@+id/fragPropertyDetails"
-        android:name="com.example.opulexpropertymanagement.ac_ui.PropertyDetails"
+        android:name="com.example.opulexpropertymanagement.ac_ui.PropertyDetailsFrag"
         android:label="Property Details" >
         <argument
             android:name="property"
