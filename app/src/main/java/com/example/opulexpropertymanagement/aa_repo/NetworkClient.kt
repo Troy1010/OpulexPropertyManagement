@@ -73,8 +73,15 @@ interface INetworkClient {
     ): Deferred<ResponseBody> //succes
 
     //(7)   Add Tenants
-//    GET("http://rjtmobile.com/aamir/property-mgmt/pro_mgt_add_tenants.php?name=aam HYPERLINK \"http://rjtmobile.com/aamir/property-mgmt/pro_mgt_add_tenants.php?name=aam&email=aah@aah.com&address=complte\"& HYPERLINK \"http://rjtmobile.com/aamir/property-mgmt/pro_mgt_add_tenants.php?name=aam&email=aah@aah.com&address=complte\"email=aah@aah.com HYPERLINK \"http://rjtmobile.com/aamir/property-mgmt/pro_mgt_add_tenants.php?name=aam&email=aah@aah.com&address=complte\"& HYPERLINK \"http://rjtmobile.com/aamir/property-mgmt/pro_mgt_add_tenants.php?name=aam&email=aah@aah.com&address=complte\"address=complte address&mobile=9876543210&propertyid=1&landlordid=3")
-//    fun addTenant()
+    @GET("pro_mgt_add_tenants.php")
+    fun addTenants(
+        @Query("name") name: String,
+        @Query("email") email: String,
+        @Query("address") address: String,
+        @Query("mobile") mobile: String,
+        @Query("propertyid") propertyid: String,
+        @Query("landlordid") landlordid: String
+    ): Deferred<ResponseBody> // what is this..?
 
     //(8)   Contact Tenants // Doesn’t work!!!
 

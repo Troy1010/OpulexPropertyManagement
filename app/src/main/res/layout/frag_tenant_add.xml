@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="propertyAddVM" type="com.example.opulexpropertymanagement.ab_view_models.PropertyAddVM" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <include
+            android:id="@+id/textinput_address"
+            layout="@layout/includible_text_input"
+            app:inputValidationState="@{propertyAddVM.addressInputValidationState}"
+            app:hintZ='@{"Address"}' />
+
+        <include
+            android:id="@+id/textinput_city"
+            layout="@layout/includible_text_input"
+            app:inputValidationState="@{propertyAddVM.cityInputValidationState}"
+            app:hintZ='@{"City"}' />
+
+        <include
+            android:id="@+id/textinput_state"
+            layout="@layout/includible_text_input"
+            app:inputValidationState="@={propertyAddVM.stateInputValidationState}"
+            app:hintZ='@{"State"}' />
+
+        <include
+            android:id="@+id/textinput_country"
+            layout="@layout/includible_text_input"
+            app:inputValidationState="@={propertyAddVM.countryInputValidationState}"
+            app:hintZ='@{"Country"}' />
+
+        <include
+            android:id="@+id/textinput_price"
+            layout="@layout/includible_text_input"
+            app:inputValidationState="@={propertyAddVM.priceInputValidationState}"
+            app:hintZ='@{"Price"}' />
+        <ImageView
+            android:src="@{propertyAddVM.image, default=@drawable/ic_add_box_black_24dp}"
+            android:id="@+id/imageview_1"
+            android:layout_width="200dp"
+            android:layout_height="200dp"/>
+
+        <Button
+            android:id="@+id/btn_add"
+            style="@style/OpulexTheme.ButtonSoft"
+            android:text="Add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>
