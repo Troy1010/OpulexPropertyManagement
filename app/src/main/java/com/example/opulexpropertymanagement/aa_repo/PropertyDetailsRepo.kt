@@ -5,7 +5,7 @@ import com.example.opulexpropertymanagement.aa_repo.network.NetworkClient
 import com.example.opulexpropertymanagement.models.Tenant
 import com.example.tmcommonkotlin.Coroutines
 
-class PropertyDetailsRepo {
+object PropertyDetailsRepo {
 
     val streamGetTenantByLandlordAndPropertyResult by lazy { MutableLiveData<Tenant>() }
     fun getTenantByLandlordAndPropertyID(landlordID: String?, propertyID: String?) {
