@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.aa_repo.network.NetworkClient
 import com.example.opulexpropertymanagement.ac_ui.User
+import com.example.opulexpropertymanagement.app.FBKEY_PROPERTY
 import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.UserType
@@ -108,7 +109,7 @@ object PropertiesRepo {
             },{ result ->
                 // finally, remove the image from firebase, then publish delete success
                 if (result is RemovePropertyResult.Success) {
-                    fbUserStorageTable?.child(result.propertyID)?.delete()
+                    fbUserStorageTable?.child(FBKEY_PROPERTY)?.child(result.propertyID)?.delete()
                         ?.addOnSuccessListener {
                             logz("Successfully deleted image from firebase. result.propertyID:${result.propertyID}")
                             streamRemovePropertyResult.value = result
