@@ -147,7 +147,7 @@
                 android:layout_height="0dp"
                 android:background="@color/colorBackgroundHighlight"
                 android:orientation="horizontal"
-                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintVertical_bias="0.85"
                 app:layout_constrainedHeight="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHeight_max="150dp"

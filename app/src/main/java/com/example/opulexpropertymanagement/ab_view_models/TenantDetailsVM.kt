@@ -9,6 +9,7 @@ import com.example.opulexpropertymanagement.aa_repo.PropertyDetailsRepo
 import com.example.opulexpropertymanagement.aa_repo.TenantsRepo
 import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.models.Tenant
+import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
 import com.example.tmcommonkotlin.logz
 
 class TenantDetailsVM: ViewModel() {
@@ -20,17 +21,20 @@ class TenantDetailsVM: ViewModel() {
 
     init {
         tenant.addSource(propertyDetailsRepo.streamGetTenantByLandlordAndPropertyResult) { tenant.value = it }
-        val tenantID = tenant.value?.id
-        if (tenantID != null) {
-            documentsRepo.getDocuments(tenantID)
-        } else {
-            logz("tenantID was null")
-        }
         documents.addSource(documentsRepo.streamGetDocumentsResponse) {
+            logz("Updating documents..")
             documents.value = it
         }
         documents.addSource(tenant) {
             documentsRepo.getDocuments(it.id)
+        }
+        documents.addSource(documentsRepo.removeDocumentResult) {
+            documentsRepo.getDocuments(it.document.tenantID)
+        }
+        documents.addSource(documentsRepo.addDocumentResult) {
+            if (it is AddDocumentResult.Success) {
+                documentsRepo.getDocuments(it.document.tenantID)
+            }
         }
     }
 }

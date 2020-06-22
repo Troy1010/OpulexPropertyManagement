@@ -7,6 +7,7 @@ import com.example.opulexpropertymanagement.app.fbUserDBTable
 import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
+import com.example.opulexpropertymanagement.models.streamable.RemoveDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.TryLoginResult
 import com.example.opulexpropertymanagement.util.createUniqueID
 import com.example.tmcommonkotlin.logz
@@ -22,7 +23,7 @@ class DocumentsRepo {
         logz("addDocument`Open")
         val newDocumentRef = fbUserDBTable?.child(tenantID)?.child(FBKEY_DOCUMENT)?.push()!!
         val newDocumentID = newDocumentRef.key!!
-        newDocumentRef.setValue(newDocumentID) // Apparently, an object is not generated if its value is null
+        newDocumentRef.setValue(title)
         val newDocument = Document(newDocumentID, tenantID, title)
         fbUserStorageTable?.child(FBKEY_DOCUMENT)?.child(tenantID)?.child(newDocumentID)?.putFile(uri)
             ?.addOnSuccessListener {
@@ -35,8 +36,27 @@ class DocumentsRepo {
             }
     }
 
+    // removeDocument
+    val removeDocumentResult by lazy { MutableLiveData<RemoveDocumentResult>() }
+    fun removeDocument(document: Document) {
+        fbUserDBTable?.child(document.tenantID)?.child(FBKEY_DOCUMENT)?.child(document.id)?.removeValue()
+            ?.addOnSuccessListener {
+                fbUserStorageTable?.child(FBKEY_DOCUMENT)?.child(document.tenantID)?.child(document.id)?.delete()
+                    ?.addOnSuccessListener {
+                        logz("Successfully removed document")
+                        removeDocumentResult.value = RemoveDocumentResult.Success(document)
+                    }
+                    ?.addOnFailureListener {
+                        removeDocumentResult.value = RemoveDocumentResult.Failure(document)
+                    }
+            }
+            ?.addOnFailureListener {
+                removeDocumentResult.value = RemoveDocumentResult.Failure(document)
+            }
+    }
+
     // getDocuments
-    val streamGetDocumentsResponse by lazy { MutableLiveData<List<Document>>() } // TODO
+    val streamGetDocumentsResponse by lazy { MutableLiveData<List<Document>>() }
     fun getDocuments(tenantID: String) {
         logz("getDocuments`Open")
         fbUserDBTable?.child(tenantID)?.child(FBKEY_DOCUMENT)

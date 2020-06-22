@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.opulexpropertymanagement.R
@@ -22,7 +23,9 @@ import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.tmcommonkotlin.TMRecyclerViewAdapter
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.item_document.view.*
-
+// This is a silly hack to share a fragment-scoped ViewModel.
+// I prefer not to make an activityViewModel() because it's essentially a memory leak.
+var TenantDetailsStoreOwner: ViewModelStoreOwner? = null
 class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     lateinit var mBinding: FragTenantDetailsBinding
     val tenantDetailsVM: TenantDetailsVM by viewModels()
@@ -58,7 +61,7 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
             mBinding.includibleTenantImage.imageview1.easyPicasso(tenantDetailsVM.tenant.value?.imageUrlTask)
         })
         tenantDetailsVM.documents.observe(viewLifecycleOwner, Observer {
-            logz("gdfgs`observed:$it")
+            mBinding.recyclerview1.adapter?.notifyDataSetChanged()
         })
     }
 
@@ -76,6 +79,7 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
         binding.document = document
         binding.root.imageview_document.easyPicasso(document.imageUrlTask)
         binding.root.setOnClickListener {
+            TenantDetailsStoreOwner = this
             val directions = TenantDetailsFragDirections.actionTenantDetailsFragToDocumentDetailsFrag(document)
             navController.navigate(directions)
         }

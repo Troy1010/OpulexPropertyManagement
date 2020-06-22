@@ -5,9 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp">
+    <ImageView
+        android:id="@+id/btn_delete_document"
+        android:layout_gravity="end"
+        android:tint="@color/colorAccent"
+        android:src="@drawable/ic_basic_trash"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
     <TextView
         android:id="@+id/textview_document_title"
-        android:layout_marginVertical="40dp"
+        android:layout_marginBottom="40dp"
         tools:text="DOCUMENT TITLE"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
