@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_graph"
-    app:startDestination="@id/fragHome">
+    app:startDestination="@id/fragProperties">
 
     <fragment
         android:id="@+id/fragHome"
@@ -39,6 +39,10 @@
             android:id="@+id/action_fragTenantOrLandlord_to_fragHome"
             app:destination="@id/fragHome"
             app:popUpTo="@id/fragTenantOrLandlord" />
+        <action
+            android:id="@+id/action_fragTenantOrLandlord_to_fragProperties"
+            app:destination="@id/fragProperties"
+            app:popUpTo="@id/fragTenantOrLandlord" />
     </fragment>
     <fragment
         android:id="@+id/fragProperties"
@@ -52,6 +56,9 @@
             android:id="@+id/action_fragProperties_to_fragPropertyDetails"
             app:destination="@id/fragPropertyDetails"
             app:popUpTo="@id/fragProperties" />
+        <action
+            android:id="@+id/action_fragProperties_to_fragTenantOrLandlord"
+            app:destination="@id/fragTenantOrLandlord" />
     </fragment>
     <action
         android:id="@+id/action_global_fragProperties"

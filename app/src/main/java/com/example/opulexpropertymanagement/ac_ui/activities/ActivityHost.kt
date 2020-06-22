@@ -57,7 +57,7 @@ class ActivityHost : TMActivity(),
         })
         // If we don't have a user, start at TenantOrLandlord
         if (GlobalVM.user.value == null) {
-            navController.navigate(R.id.action_fragHome_to_fragTenantOrLandlord)
+            navController.navigate(R.id.action_fragProperties_to_fragTenantOrLandlord)
         }
     }
 
