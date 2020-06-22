@@ -65,6 +65,10 @@ fun ImageView.easyPicasso(uriTask:Task<Uri>?) {
     uriTask?.addOnSuccessListener { url ->
         this.easyPicasso(url.toString())
     }
+    if (uriTask==null) {
+        val x = getDrawableUri(R.drawable.image_not_found_yet)
+        this.setImageURI(x)
+    }
 }
 
 @Throws(Exception::class)

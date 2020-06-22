@@ -52,8 +52,8 @@ class ActivityHost : TMActivity(),
         GlobalVM.user.observe(this, Observer {
             GlobalRepo.sharedPref.saveUserInSharedPref(it)
             logz("syncing fbTable")
-            it?.let { fbUserDBTable = firebaseDB.getReference(it.appapikey) }
-            it?.let { fbUserStorageTable = firebaseStorage.getReference(it.appapikey) }
+            it?.let { fbUserDBTable = firebaseDB.getReference(it.id) }
+            it?.let { fbUserStorageTable = firebaseStorage.getReference(it.id) }
         })
         // If we don't have a user, start at TenantOrLandlord
         if (GlobalVM.user.value == null) {

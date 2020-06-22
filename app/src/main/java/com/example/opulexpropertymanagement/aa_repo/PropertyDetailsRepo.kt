@@ -13,7 +13,7 @@ object PropertyDetailsRepo {
             return
         Coroutines.ioThenMain(
             { NetworkClient.getTenantsByLandlord(landlordID).await().Tenants.find { tenant -> tenant.propertyid == propertyID } },
-            { it?.let {streamGetTenantByLandlordAndPropertyResult.value = it} }
+            { streamGetTenantByLandlordAndPropertyResult.value = it }
         )
     }
 }

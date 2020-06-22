@@ -8,6 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
+import com.example.opulexpropertymanagement.aa_repo.PropertyDetailsRepo
+import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyDetailsVM
 import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto
@@ -18,6 +20,7 @@ import com.example.opulexpropertymanagement.models.streamable.RemoveTenantResult
 import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.easyToast
+import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_property_details.view.*
 import kotlinx.android.synthetic.main.includible_rounded_image.view.imageview_1
 
@@ -42,6 +45,13 @@ class PropertyDetailsFrag: OXFragment() {
         setupObservers()
         setupView()
         return mBinding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        PropertyDetailsRepo.getTenantByLandlordAndPropertyID(GlobalVM.user.value?.id,
+            propertiesVM.properties.value?.get(propertyIndex)?.id
+        )
     }
 
     private fun setupView() {
@@ -81,6 +91,7 @@ class PropertyDetailsFrag: OXFragment() {
 
     private fun setupObservers() {
         propertyDetailsVM.tenant.observe(viewLifecycleOwner, Observer {
+            logz("observing new tenant:$it")
             mBinding.includibleTenant.imageview1.easyPicasso(propertyDetailsVM.tenant.value?.imageUrlTask)
         })
         propertyDetailsVM.tenantsRepo.streamRemoveTenantResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
