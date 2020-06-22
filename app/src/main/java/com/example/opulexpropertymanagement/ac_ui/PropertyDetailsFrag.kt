@@ -45,6 +45,15 @@ class PropertyDetailsFrag: OXFragment() {
 
     private fun setupView() {
         mBinding.root.includible_property_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
+    }
+
+    private fun setupObservers() {
+        propertyDetailsVM.tenant.observe(viewLifecycleOwner, Observer {
+            mBinding.includibleTenant.imageview1.easyPicasso(propertyDetailsVM.tenant.value?.imageUrlTask)
+        })
+    }
+
+    private fun setupClickListeners() {
         mBinding.root.includible_tenant.setOnClickListener {
             val directions = PropertyDetailsFragDirections.actionFragPropertyDetailsToTenantAddFrag(propertyDetailsVM.property!!)
             navController.navigate(directions)
@@ -64,14 +73,5 @@ class PropertyDetailsFrag: OXFragment() {
             )
             true
         }
-    }
-
-    private fun setupObservers() {
-        propertyDetailsVM.tenant.observe(viewLifecycleOwner, Observer {
-            mBinding.includibleTenant.imageview1.easyPicasso(propertyDetailsVM.tenant.value?.imageUrlTask)
-        })
-    }
-
-    private fun setupClickListeners() {
     }
 }
