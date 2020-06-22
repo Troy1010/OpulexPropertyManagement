@@ -40,10 +40,14 @@ class PropertiesFrag: OXFragment(), AdapterRVProperties.ARVInterface {
             inflater, R.layout.frag_properties, container, false
         )
         mBinding.lifecycleOwner = this
+        setupObservers()
+        return mBinding.root
+    }
+
+    private fun setupObservers() {
         propertiesVM.properties.observe(viewLifecycleOwner, Observer {
             recyclerview_1.adapter?.notifyDataSetChanged()
         })
-        return mBinding.root
     }
 
     override fun onStart() {

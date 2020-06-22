@@ -11,7 +11,6 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.app.App
 import com.example.tmcommonkotlin.InputValidation
-import com.example.tmcommonkotlin.logSubscribe
 import com.example.tmcommonkotlin.logz
 import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
@@ -64,8 +63,14 @@ fun ImageView.easyPicasso(endpoint:String) {
 
 fun ImageView.easyPicasso(uriTask:Task<Uri>?) {
     uriTask?.addOnSuccessListener { url ->
+        logz("easyPicassoURL:$url")
         this.easyPicasso(url.toString())
     }
+}
+
+@Throws(Exception::class)
+fun createUniqueID(): String? {
+    return UUID.randomUUID().toString().replace("-", "").toUpperCase()
 }
 
 

@@ -2,9 +2,6 @@
 
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable
-            name="properties"
-            type="java.util.List&lt;com.example.opulexpropertymanagement.models.Property&gt;" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
