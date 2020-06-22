@@ -57,8 +57,10 @@ class PropertyDetailsFrag: OXFragment() {
             mBinding.includibleTenant.imageview1.easyPicasso(propertyDetailsVM.tenant.value?.imageUrlTask)
         })
         propertyDetailsVM.tenantsRepo.streamRemoveTenantResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
-            if (it is RemoveTenantResult.Failure.ApiDoesNotSupportRemovingTenants) {
-                easyToast(requireActivity(),"Api does not support tenant removal")
+            when (it) {
+                is RemoveTenantResult.Failure.ApiDoesNotSupportRemovingTenants -> {
+                    easyToast(requireActivity(), "Api does not support tenant removal")
+                }
             }
         })
     }
