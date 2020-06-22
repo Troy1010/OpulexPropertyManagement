@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="propertyAddVM" type="com.example.opulexpropertymanagement.ab_view_models.PropertyAddVM" />
+        <variable name="tenantAddVM" type="com.example.opulexpropertymanagement.ab_view_models.TenantAddVM" />
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,36 +11,25 @@
         android:padding="16dp">
 
         <include
-            android:id="@+id/textinput_address"
+            android:id="@+id/textinput_name"
             layout="@layout/includible_text_input"
-            app:inputValidationState="@{propertyAddVM.addressInputValidationState}"
-            app:hintZ='@{"Address"}' />
+            app:inputValidationState="@{tenantAddVM.nameInputValidationState}"
+            app:hintZ='@{"Name"}' />
 
         <include
             android:id="@+id/textinput_city"
             layout="@layout/includible_text_input"
-            app:inputValidationState="@{propertyAddVM.cityInputValidationState}"
-            app:hintZ='@{"City"}' />
+            app:inputValidationState="@{tenantAddVM.emailInputValidationState}"
+            app:hintZ='@{"Email"}' />
 
         <include
             android:id="@+id/textinput_state"
             layout="@layout/includible_text_input"
-            app:inputValidationState="@={propertyAddVM.stateInputValidationState}"
-            app:hintZ='@{"State"}' />
+            app:inputValidationState="@={tenantAddVM.phoneInputValidationState}"
+            app:hintZ='@{"Phone"}' />
 
-        <include
-            android:id="@+id/textinput_country"
-            layout="@layout/includible_text_input"
-            app:inputValidationState="@={propertyAddVM.countryInputValidationState}"
-            app:hintZ='@{"Country"}' />
-
-        <include
-            android:id="@+id/textinput_price"
-            layout="@layout/includible_text_input"
-            app:inputValidationState="@={propertyAddVM.priceInputValidationState}"
-            app:hintZ='@{"Price"}' />
         <ImageView
-            android:src="@{propertyAddVM.image, default=@drawable/ic_add_box_black_24dp}"
+            android:src="@{tenantAddVM.image, default=@drawable/ic_add_box_black_24dp}"
             android:id="@+id/imageview_1"
             android:layout_width="200dp"
             android:layout_height="200dp"/>
