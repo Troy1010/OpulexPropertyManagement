@@ -1,14 +1,9 @@
 package com.example.opulexpropertymanagement.ac_ui
 
 import androidx.lifecycle.MutableLiveData
-import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.TryLoginResult
-import com.example.opulexpropertymanagement.aa_repo.NetworkClient
+import com.example.opulexpropertymanagement.aa_repo.network.NetworkClient
 import com.example.opulexpropertymanagement.aa_repo.SharedPref
-import com.example.opulexpropertymanagement.models.Property
-import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
-import com.example.opulexpropertymanagement.models.streamable.GetPropertiesResult
-import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.tmcommonkotlin.Coroutines
 import com.example.tmcommonkotlin.logz
 import com.google.gson.Gson

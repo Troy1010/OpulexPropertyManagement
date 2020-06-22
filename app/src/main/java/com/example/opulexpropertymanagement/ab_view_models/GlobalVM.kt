@@ -2,13 +2,11 @@ package com.example.opulexpropertymanagement.ab_view_models
 
 import android.view.View
 import androidx.lifecycle.*
-import com.example.opulexpropertymanagement.aa_repo.NetworkClient
+import com.example.opulexpropertymanagement.aa_repo.network.NetworkClient
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.ac_ui.GlobalRepo
 import com.example.opulexpropertymanagement.ac_ui.User
 import com.example.tmcommonkotlin.logz
-import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.*
 
 // this is intended to be an activity-level VM
 object GlobalVM : ViewModel() {

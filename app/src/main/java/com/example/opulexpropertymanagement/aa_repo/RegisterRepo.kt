@@ -1,14 +1,11 @@
 package com.example.opulexpropertymanagement.aa_repo
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import com.example.opulexpropertymanagement.aa_repo.network.NetworkClient
 import com.example.opulexpropertymanagement.ac_ui.GlobalRepo
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.tmcommonkotlin.Coroutines
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class RegisterRepo {
     val streamTryRegisterResult by lazy { MutableLiveData<RegisterResult>() }

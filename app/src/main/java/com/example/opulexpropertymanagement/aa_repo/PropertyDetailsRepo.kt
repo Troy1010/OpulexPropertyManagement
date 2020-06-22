@@ -1,8 +1,8 @@
 package com.example.opulexpropertymanagement.aa_repo
 
 import androidx.lifecycle.MutableLiveData
+import com.example.opulexpropertymanagement.aa_repo.network.NetworkClient
 import com.example.opulexpropertymanagement.models.Tenant
-import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.tmcommonkotlin.Coroutines
 
 class PropertyDetailsRepo {
