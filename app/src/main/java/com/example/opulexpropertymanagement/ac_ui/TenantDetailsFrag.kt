@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa_repo.TenantsRepo
@@ -25,6 +26,7 @@ import kotlinx.android.synthetic.main.item_document.view.*
 class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     lateinit var mBinding: FragTenantDetailsBinding
     val tenantDetailsVM: TenantDetailsVM by viewModels()
+    val navController by lazy { this.findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -74,6 +76,8 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
         binding.document = document
         binding.root.imageview_document.easyPicasso(document.imageUrlTask)
         binding.root.setOnClickListener {
+            val directions = TenantDetailsFragDirections.actionTenantDetailsFragToDocumentDetailsFrag(document)
+            navController.navigate(directions)
         }
     }
 }

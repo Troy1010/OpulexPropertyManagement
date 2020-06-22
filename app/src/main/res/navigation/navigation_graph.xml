@@ -100,5 +100,18 @@
     <fragment
         android:id="@+id/tenantDetailsFrag"
         android:name="com.example.opulexpropertymanagement.ac_ui.TenantDetailsFrag"
-        android:label="TenantDetailsFrag" />
+        android:label="TenantDetailsFrag" >
+        <action
+            android:id="@+id/action_tenantDetailsFrag_to_documentDetailsFrag"
+            app:destination="@id/documentDetailsFrag"
+            app:popUpTo="@id/tenantDetailsFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/documentDetailsFrag"
+        android:name="com.example.opulexpropertymanagement.ac_ui.DocumentDetailsFrag"
+        android:label="DocumentDetailsFrag" >
+        <argument
+            android:name="document"
+            app:argType="com.example.opulexpropertymanagement.models.Document" />
+    </fragment>
 </navigation>
