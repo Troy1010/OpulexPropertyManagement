@@ -10,16 +10,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyDetailsVM
+import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto
 import com.example.opulexpropertymanagement.ac_ui.extras.PropertyDetailsVMFactory
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyDetailsBinding
 import com.example.opulexpropertymanagement.util.easyPicasso
+import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_property_details.view.*
-import kotlinx.android.synthetic.main.includible_grid_item.view.*
-import kotlinx.android.synthetic.main.includible_rounded_image.view.*
 import kotlinx.android.synthetic.main.includible_rounded_image.view.imageview_1
-import kotlinx.android.synthetic.main.item_property.view.*
-import kotlinx.android.synthetic.main.item_property.view.includible_rounded_image
 
 
 class PropertyDetailsFrag: OXFragment() {
@@ -45,10 +43,25 @@ class PropertyDetailsFrag: OXFragment() {
     }
 
     private fun setupView() {
-        mBinding.root.includible_rounded_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
+        mBinding.root.includible_property_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
         mBinding.root.includible_tenant.imageview_1.easyPicasso(propertyDetailsVM.tenant.value?.imageUrlTask)
         mBinding.root.includible_tenant.setOnClickListener {
 
+        }
+        mBinding.root.includible_property_image.setOnLongClickListener {
+            val bottomDialogForPhoto =  BottomDialogForPhoto(requireActivity(), "Replace Property Image") { uri, _ ->
+                if (uri!=null) {
+                    propertyDetailsVM.property?.setImage(uri)
+                        ?.addOnSuccessListener {
+                            mBinding.root.includible_property_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
+                        }
+                }
+            }
+            bottomDialogForPhoto.show(
+                requireActivity().supportFragmentManager,
+                "bottomSheet2"
+            )
+            true
         }
     }
 
