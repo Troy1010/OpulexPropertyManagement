@@ -16,7 +16,7 @@ class PropertyDetailsVM(val properties: MutableLiveData<List<Property>>, i:Int):
     val tenant by lazy{ MediatorLiveData<Tenant>() }
 
     init {
-        propertyDetailsRepo.getTenantByLandlordAndPropertyID(GlobalVM.user.value?.id, property?.id)
         tenant.addSource(propertyDetailsRepo.streamGetTenantByLandlordAndPropertyResult) { tenant.value = it }
+        propertyDetailsRepo.getTenantByLandlordAndPropertyID(GlobalVM.user.value?.id, property?.id)
     }
 }
