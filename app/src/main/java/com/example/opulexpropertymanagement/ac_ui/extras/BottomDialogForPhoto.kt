@@ -19,11 +19,12 @@ import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_sheet.*
+import kotlinx.android.synthetic.main.bottom_sheet.view.*
 import java.io.File
 import java.io.IOException
 
 
-class BottomDialogForPhoto(val contextZ: Context, val actionForUri:(uri: Uri?, choice:Choice)->Unit) : BottomSheetDialogFragment() {
+class BottomDialogForPhoto(val contextZ: Context, val title:String?=null, val actionForUri:(uri: Uri?, choice:Choice)->Unit) : BottomSheetDialogFragment() {
     lateinit var pictureUri: Uri
 
 
@@ -35,7 +36,11 @@ class BottomDialogForPhoto(val contextZ: Context, val actionForUri:(uri: Uri?, c
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.bottom_sheet, container, false)
+        val v = inflater.inflate(R.layout.bottom_sheet, container, false)
+        if (title==null) {
+            v.textview_title.visibility=View.GONE
+        }
+        return v
     }
 
     fun closeMyself() {
