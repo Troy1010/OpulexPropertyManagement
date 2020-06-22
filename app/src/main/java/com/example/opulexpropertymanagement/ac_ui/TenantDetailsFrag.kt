@@ -66,14 +66,12 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     }
 
     override fun getRecyclerDataSize(): Int {
-        logz("tenantDetailsVM.documents.value?.size:${tenantDetailsVM.documents.value?.size}")
         return tenantDetailsVM.documents.value?.size ?: 0
     }
 
     override fun bindRecyclerItemView(binding: ItemDocumentBinding, i: Int) {
         val document = tenantDetailsVM.documents.value?.get(i)!!
         binding.document = document
-        logz("About to do easyPicasso for document..")
         binding.root.imageview_document.easyPicasso(document.imageUrlTask)
         binding.root.setOnClickListener {
         }
