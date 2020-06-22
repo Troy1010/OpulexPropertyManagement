@@ -66,7 +66,7 @@ class PropertiesFrag: OXFragment(), AdapterRVProperties.ARVInterface {
     override fun bindRecyclerItemView(binding: ItemPropertyBinding, i: Int) {
         val property = propertiesVM.properties.value?.get(i) ?: Property()
         binding.property = property
-        binding.root.includible_rounded_image.imageview_1.easyPicasso(property.imageUrlTask)
+        binding.root.includible_property_image.imageview_1.easyPicasso(property.imageUrlTask)
         binding.root.setOnClickListener {
             PropertiesStoreOwner = this
             val directions = PropertiesFragDirections.actionFragPropertiesToFragPropertyDetails(property)

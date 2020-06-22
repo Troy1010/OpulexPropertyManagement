@@ -28,7 +28,7 @@
 
 
                 <include layout="@layout/includible_rounded_image"
-                    android:id="@+id/includible_rounded_image"
+                    android:id="@+id/includible_property_image"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@{property.singleLineAddress}"
-                    app:layout_constraintStart_toEndOf="@id/includible_rounded_image"
+                    app:layout_constraintStart_toEndOf="@id/includible_property_image"
                     app:layout_constraintEnd_toStartOf="@id/btn_trash"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="ADDRESS" />
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@{property.status}"
-                    app:layout_constraintStart_toEndOf="@id/includible_rounded_image"
+                    app:layout_constraintStart_toEndOf="@id/includible_property_image"
                     app:layout_constraintEnd_toStartOf="@id/btn_trash"
                     app:layout_constraintTop_toBottomOf="@id/barrier_1"
                     tools:text="STATUS" />
