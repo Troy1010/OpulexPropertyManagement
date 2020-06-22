@@ -17,13 +17,13 @@
             app:hintZ='@{"Name"}' />
 
         <include
-            android:id="@+id/textinput_city"
+            android:id="@+id/textinput_email"
             layout="@layout/includible_text_input"
             app:inputValidationState="@{tenantAddVM.emailInputValidationState}"
             app:hintZ='@{"Email"}' />
 
         <include
-            android:id="@+id/textinput_state"
+            android:id="@+id/textinput_phone"
             layout="@layout/includible_text_input"
             app:inputValidationState="@={tenantAddVM.phoneInputValidationState}"
             app:hintZ='@{"Phone"}' />
