@@ -98,7 +98,7 @@ class PropertyDetailsFrag: OXFragment() {
                 val directions = PropertyDetailsFragDirections.actionFragPropertyDetailsToTenantAddFrag(propertyDetailsVM.property!!)
                 navController.navigate(directions)
             } else {
-
+                navController.navigate(R.id.action_fragPropertyDetails_to_tenantDetailsFrag)
             }
         }
         mBinding.root.includible_property_image.setOnLongClickListener {
