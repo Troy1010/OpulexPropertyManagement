@@ -76,7 +76,7 @@ object PropertiesRepo {
             }, { result ->
                 // finally, upload the image to firebase, then publish to streamAddPropertyResult
                 if (result is AddPropertyResult.Success) {
-                    fbUserStorageTable?.child(FBKEY_PROPERTY)?.child(result.property.id)?.putFile(propertyImageUri)
+                    result.property.setImage(propertyImageUri)
                         ?.addOnSuccessListener {
                             streamAddPropertyResult.value = result
                         }

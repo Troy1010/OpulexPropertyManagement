@@ -1,8 +1,10 @@
 package com.example.opulexpropertymanagement.models
 
+import android.net.Uri
 import android.os.Parcelable
 import com.example.opulexpropertymanagement.app.FBKEY_PROPERTY
 import com.example.opulexpropertymanagement.app.fbUserStorageTable
+import com.google.firebase.storage.UploadTask
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -30,4 +32,7 @@ data class Property(
         get() = fbUserStorageTable?.child(FBKEY_PROPERTY)?.child(id)?.downloadUrl
     val status
         get() = PropertyStatusHelper.fromIDToName(statusID)
+    fun setImage(uri: Uri): UploadTask? {
+        return fbUserStorageTable?.child(FBKEY_PROPERTY)?.child(id)?.putFile(uri)
+    }
 }
