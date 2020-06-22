@@ -13,7 +13,7 @@ import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragTenantDetailsBinding
 import com.example.opulexpropertymanagement.util.easyPicasso
 
-class TenantDetailsFrag: OXFragment() {
+class TenantDetailsFrag : OXFragment() {
     lateinit var mBinding: FragTenantDetailsBinding
     val tenantDetailsVM: TenantDetailsVM by viewModels()
     override fun onCreateView(
@@ -31,7 +31,9 @@ class TenantDetailsFrag: OXFragment() {
     }
 
     private fun setupClickListeners() {
-
+        mBinding.fab.setOnClickListener {
+            
+        }
     }
 
     private fun setupObservers() {
