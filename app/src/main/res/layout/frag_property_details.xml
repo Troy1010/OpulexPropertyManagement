@@ -37,7 +37,7 @@
             android:id="@+id/textview_purchase_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{propertyDetailsVM.property.purchasePrice}"
+            android:text="@{propertyDetailsVM.property.displayablePrice}"
             android:textColor="@color/colorVsLight"
             android:textSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"

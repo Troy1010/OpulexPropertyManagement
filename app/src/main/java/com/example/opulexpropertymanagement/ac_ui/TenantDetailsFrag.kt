@@ -31,6 +31,7 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     lateinit var mBinding: FragTenantDetailsBinding
     val tenantDetailsVM: TenantDetailsVM by viewModels()
     val navController by lazy { this.findNavController() }
+    val args by lazy { arguments?.let { TenantDetailsFragArgs.fromBundle(it) } }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +43,7 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
         setupClickListeners()
         setupObservers()
         setupView()
+        tenantDetailsVM.tenant.value = args?.tenant
         return mBinding.root
     }
 

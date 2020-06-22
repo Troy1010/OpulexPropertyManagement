@@ -1,11 +1,14 @@
 package com.example.opulexpropertymanagement.models
 
 import android.net.Uri
+import android.os.Parcelable
 import com.example.opulexpropertymanagement.app.FBKEY_TENANT
 import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.google.firebase.storage.UploadTask
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Tenant(
     val id: String="",
     @SerializedName("landlordid")
@@ -20,7 +23,7 @@ data class Tenant(
     val phone: String,
     @SerializedName("tenantname")
     val name: String
-) {
+): Parcelable {
     val imageUrlTask
         get() = fbUserStorageTable?.child(FBKEY_TENANT)?.child(id)?.downloadUrl
     fun setImage(uri: Uri): UploadTask? {

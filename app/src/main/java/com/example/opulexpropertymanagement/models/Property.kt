@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Parcelable
 import com.example.opulexpropertymanagement.app.FBKEY_PROPERTY
 import com.example.opulexpropertymanagement.app.fbUserStorageTable
+import com.example.opulexpropertymanagement.util.Display
 import com.google.firebase.storage.UploadTask
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -26,6 +27,8 @@ data class Property(
     @SerializedName("propertystatus")
     val statusID: String = ""
 ) : Parcelable {
+    val displayablePrice
+        get() = Display.asMoney(purchasePrice)
     val singleLineAddress
         get() = "$streetAddress, $city, $state"
     val imageUrlTask

@@ -14,16 +14,12 @@ import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResu
 import com.example.tmcommonkotlin.logz
 
 class TenantDetailsVM : ViewModel() {
-    val propertyDetailsRepo = PropertyDetailsRepo
     val documentsRepo = DocumentsRepo()
 
     val tenant by lazy { MediatorLiveData<Tenant>() }
     val documents by lazy { MediatorLiveData<List<Document>>() }
 
     init {
-        tenant.addSource(propertyDetailsRepo.streamGetTenantByLandlordAndPropertyResult) {
-            tenant.value = it
-        }
         documents.addSource(documentsRepo.streamGetDocumentsResponse) {
             logz("Updating documents..")
             documents.value = it

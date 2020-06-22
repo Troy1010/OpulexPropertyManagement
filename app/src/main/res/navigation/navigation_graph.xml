@@ -105,6 +105,9 @@
             android:id="@+id/action_tenantDetailsFrag_to_documentDetailsFrag"
             app:destination="@id/documentDetailsFrag"
             app:popUpTo="@id/tenantDetailsFrag" />
+        <argument
+            android:name="tenant"
+            app:argType="com.example.opulexpropertymanagement.models.Tenant" />
     </fragment>
     <fragment
         android:id="@+id/documentDetailsFrag"
