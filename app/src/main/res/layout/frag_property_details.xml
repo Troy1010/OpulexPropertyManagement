@@ -14,22 +14,77 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <include layout="@layout/includible_rounded_image"
+        <include
             android:id="@+id/includible_rounded_image"
+            layout="@layout/includible_rounded_image"
             android:layout_width="wrap_content"
             android:layout_height="240dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textview_full_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@{propertyDetailsVM.property.singleLineAddress}"
             android:textColor="@color/colorVsLight"
             android:textSize="24dp"
             app:layout_constraintTop_toBottomOf="@id/includible_rounded_image"
             tools:text="ADDRESS" />
+
+        <TextView
+            android:id="@+id/textview_purchase_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{propertyDetailsVM.property.purchasePrice}"
+            android:textColor="@color/colorVsLight"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="20dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@id/textview_purchase_price_title"
+            app:layout_constraintTop_toBottomOf="@id/textview_full_address"
+            tools:text="PRICE" />
+
+        <TextView
+            android:id="@+id/textview_purchase_price_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Purchase Price"
+            android:textSize="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_purchase_price" />
+
+        <TextView
+            android:id="@+id/textview_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{propertyDetailsVM.property.status}"
+            android:textColor="@color/colorVsLight"
+            android:textSize="24dp"
+            android:gravity="end"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toEndOf="@id/textview_status_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_purchase_price"
+            tools:text="STATUS" />
+
+        <TextView
+            android:id="@+id/textview_status_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textSize="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_status" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_texts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="textview_status" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guide_middle"
@@ -38,40 +93,17 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.50" />
 
-        <androidx.cardview.widget.CardView
-            style="@style/OpulexTheme.CardViewLight"
+        <include layout="@layout/includible_grid_item"
+            android:id="@+id/includible_tenant"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="10dp"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guide_middle"
-            app:layout_constraintTop_toBottomOf="@id/textview_full_address">
+            app:layout_constraintTop_toBottomOf="@id/barrier_texts"
+            app:textValue='@{propertyDetailsVM.tenant.name != null? propertyDetailsVM.tenant.name : "Add Tenant"}'/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="6dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:src="@drawable/woman"
-                    app:layout_constraintBottom_toTopOf="@id/textview_tenant_name"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textview_tenant_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@{propertyDetailsVM.tenant.name}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:text="NAME" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
