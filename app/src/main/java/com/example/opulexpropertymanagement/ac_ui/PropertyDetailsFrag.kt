@@ -2,9 +2,7 @@ package com.example.opulexpropertymanagement.ac_ui
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -20,7 +18,6 @@ import com.example.opulexpropertymanagement.models.streamable.RemoveTenantResult
 import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.easyToast
-import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_property_details.view.*
 import kotlinx.android.synthetic.main.includible_rounded_image.view.imageview_1
 
@@ -49,6 +46,37 @@ class PropertyDetailsFrag: OXFragment() {
 
     private fun setupView() {
         mBinding.root.includible_property_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
+        registerForContextMenu(mBinding.root.includible_tenant)
+    }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        if (v==mBinding.root.includible_tenant) {
+            activity?.menuInflater?.inflate(R.menu.tenant_context_menu, menu)
+        }
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.remove_tenant -> {
+                val tenantID = propertyDetailsVM.tenant.value?.id
+                if (tenantID!=null) {
+                    AlertDialog.Builder(activity)
+                        .setTitle("Remove Tenant")
+                        .setMessage("Are you sure you want to remove this tenant?\nThis action cannot be undone.")
+                        .setPositiveButton("Remove") { _, _ ->
+                            propertyDetailsVM.tenantsRepo.removeTenant(tenantID)
+                        }
+                        .setNegativeButton("Cancel") { _, _ -> }
+                        .create().show()
+                }
+            }
+        }
+        return super.onContextItemSelected(item)
     }
 
     private fun setupObservers() {
@@ -72,20 +100,6 @@ class PropertyDetailsFrag: OXFragment() {
             } else {
 
             }
-        }
-        mBinding.root.includible_tenant.setOnLongClickListener {
-            val tenantID = propertyDetailsVM.tenant.value?.id
-            if (tenantID!=null) {
-                AlertDialog.Builder(activity)
-                    .setTitle("Remove Tenant")
-                    .setMessage("Are you sure you want to remove this tenant?\nThis action cannot be undone.")
-                    .setPositiveButton("Remove") { _, _ ->
-                        propertyDetailsVM.tenantsRepo.removeTenant(tenantID)
-                    }
-                    .setNegativeButton("Cancel") { _, _ -> }
-                    .create().show()
-            }
-            true
         }
         mBinding.root.includible_property_image.setOnLongClickListener {
             val bottomDialogForPhoto =  BottomDialogForPhoto(requireActivity(), "Replace Property Image") { uri, _ ->
