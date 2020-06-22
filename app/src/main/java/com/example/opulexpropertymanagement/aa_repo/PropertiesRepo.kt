@@ -62,6 +62,10 @@ object PropertiesRepo {
                     val findPropertiesResult = NetworkClient.getPropertiesForLandlord(user.usertype, user.id).await()
                     val propertyJustAdded = findPropertiesResult.Properties.findLast { it.singleLineAddress == property.singleLineAddress }
                     if (propertyJustAdded==null) {
+                        for (property in findPropertiesResult.Properties) {
+                            logz("  property:${property.singleLineAddress}")
+                        }
+                        logz("NO MATCHES WITH:${property.singleLineAddress}")
                         AddPropertyResult.Failure.DidNotReceiveProjectID
                     } else {
                         AddPropertyResult.Success(user, propertyJustAdded)

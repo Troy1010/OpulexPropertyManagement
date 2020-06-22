@@ -24,7 +24,7 @@ import com.example.tmcommonkotlin.logv
 class RegisterFrag : OXFragment(isToolbarEnabled = false) {
 
     lateinit var mBinding: FragRegisterBinding
-    val navController by lazy {this.findNavController()}
+    val navController by lazy { findNavController() }
     val registerVM: RegisterVM by viewModels()
 
     override fun onCreateView(

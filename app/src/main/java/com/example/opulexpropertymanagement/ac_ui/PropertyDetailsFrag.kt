@@ -46,7 +46,8 @@ class PropertyDetailsFrag: OXFragment() {
         mBinding.root.includible_property_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
         mBinding.root.includible_tenant.imageview_1.easyPicasso(propertyDetailsVM.tenant.value?.imageUrlTask)
         mBinding.root.includible_tenant.setOnClickListener {
-            navController.navigate(R.id.action_fragPropertyDetails_to_tenantAddFrag)
+            val directions = PropertyDetailsFragDirections.actionFragPropertyDetailsToTenantAddFrag(propertyDetailsVM.property!!)
+            navController.navigate(directions)
         }
         mBinding.root.includible_property_image.setOnLongClickListener {
             val bottomDialogForPhoto =  BottomDialogForPhoto(requireActivity(), "Replace Property Image") { uri, _ ->

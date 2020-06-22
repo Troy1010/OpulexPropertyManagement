@@ -89,5 +89,9 @@
     <fragment
         android:id="@+id/tenantAddFrag"
         android:name="com.example.opulexpropertymanagement.ac_ui.TenantAddFrag"
-        android:label="Add Tenant" />
+        android:label="Add Tenant" >
+        <argument
+            android:name="property"
+            app:argType="com.example.opulexpropertymanagement.models.Property" />
+    </fragment>
 </navigation>
