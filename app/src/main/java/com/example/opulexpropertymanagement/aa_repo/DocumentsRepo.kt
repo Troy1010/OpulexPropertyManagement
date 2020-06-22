@@ -9,6 +9,7 @@ import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.RemoveDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.TryLoginResult
+import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResult
 import com.example.opulexpropertymanagement.util.createUniqueID
 import com.example.tmcommonkotlin.logz
 import com.google.firebase.database.DataSnapshot
@@ -52,6 +53,18 @@ class DocumentsRepo {
             }
             ?.addOnFailureListener {
                 removeDocumentResult.value = RemoveDocumentResult.Failure(document)
+            }
+    }
+
+    // UpdateDocument
+    val updateDocumentResult by lazy { MutableLiveData<UpdateDocumentResult>() }
+    fun updateDocument(document: Document) {
+        fbUserDBTable?.child(document.tenantID)?.child(FBKEY_DOCUMENT)?.child(document.id)?.setValue(document.title)
+            ?.addOnSuccessListener {
+                updateDocumentResult.value = UpdateDocumentResult.Success(document)
+            }
+            ?.addOnFailureListener {
+                updateDocumentResult.value = UpdateDocumentResult.Failure.Unknown(it)
             }
     }
 

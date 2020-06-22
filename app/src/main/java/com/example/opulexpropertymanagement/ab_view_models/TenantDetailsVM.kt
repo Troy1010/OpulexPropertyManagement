@@ -10,9 +10,10 @@ import com.example.opulexpropertymanagement.aa_repo.TenantsRepo
 import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.models.Tenant
 import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
+import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResult
 import com.example.tmcommonkotlin.logz
 
-class TenantDetailsVM: ViewModel() {
+class TenantDetailsVM : ViewModel() {
     val propertyDetailsRepo = PropertyDetailsRepo
     val documentsRepo = DocumentsRepo()
 
@@ -20,7 +21,9 @@ class TenantDetailsVM: ViewModel() {
     val documents by lazy { MediatorLiveData<List<Document>>() }
 
     init {
-        tenant.addSource(propertyDetailsRepo.streamGetTenantByLandlordAndPropertyResult) { tenant.value = it }
+        tenant.addSource(propertyDetailsRepo.streamGetTenantByLandlordAndPropertyResult) {
+            tenant.value = it
+        }
         documents.addSource(documentsRepo.streamGetDocumentsResponse) {
             logz("Updating documents..")
             documents.value = it
@@ -31,10 +34,13 @@ class TenantDetailsVM: ViewModel() {
         documents.addSource(documentsRepo.removeDocumentResult) {
             documentsRepo.getDocuments(it.document.tenantID)
         }
-        documents.addSource(documentsRepo.addDocumentResult) {
-            if (it is AddDocumentResult.Success) {
+        documents.addSource(documentsRepo.updateDocumentResult) {
+            if (it is UpdateDocumentResult.Success)
                 documentsRepo.getDocuments(it.document.tenantID)
-            }
+        }
+        documents.addSource(documentsRepo.addDocumentResult) {
+            if (it is AddDocumentResult.Success)
+                documentsRepo.getDocuments(it.document.tenantID)
         }
     }
 }

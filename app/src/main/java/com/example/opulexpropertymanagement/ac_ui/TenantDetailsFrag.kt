@@ -22,6 +22,7 @@ import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.tmcommonkotlin.TMRecyclerViewAdapter
 import com.example.tmcommonkotlin.logz
+import kotlinx.android.synthetic.main.frag_property_details.view.*
 import kotlinx.android.synthetic.main.item_document.view.*
 // This is a silly hack to share a fragment-scoped ViewModel.
 // I prefer not to make an activityViewModel() because it's essentially a memory leak.

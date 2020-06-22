@@ -1,28 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/colorBackground">
+
     <ImageView
         android:id="@+id/btn_delete_document"
-        android:layout_gravity="end"
-        android:tint="@color/colorAccent"
-        android:src="@drawable/ic_basic_trash"
         android:layout_width="40dp"
-        android:layout_height="40dp"/>
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:src="@drawable/ic_basic_trash"
+        android:tint="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textview_document_title"
-        android:layout_marginBottom="40dp"
-        tools:text="DOCUMENT TITLE"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:textSize="18sp"
-        android:gravity="center_horizontal"/>
+        app:layout_constraintTop_toBottomOf="@id/btn_delete_document"
+        tools:text="DOCUMENT TITLE" />
+
+    <EditText
+        android:visibility="gone"
+        android:background="@color/colorBackground"
+        android:id="@+id/edittext_document_title"
+        app:layout_constraintTop_toTopOf="@id/textview_document_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_save_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_save_text"
+        android:text="Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/edittext_document_title"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <ImageView
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/textview_document_title"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/imageview_document"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
