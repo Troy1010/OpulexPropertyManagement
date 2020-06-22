@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:paddingTop="16dp">
 
         <include
             android:id="@+id/includible_tenant_image"
@@ -38,12 +38,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="16dp"
             android:gravity="end"
             android:text="@{tenantDetailsVM.tenant.email}"
             android:textColor="@color/colorVsLight"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/textview_email_title"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/textview_email_title"
             app:layout_constraintTop_toTopOf="@id/textview_email_title"
             tools:text="EMAIL" />
@@ -52,18 +53,19 @@
             android:id="@+id/textview_email_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Email"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_name"/>
+            app:layout_constraintTop_toBottomOf="@id/textview_name" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier_email_bot"
-            app:barrierDirection="bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="textview_email, textview_email_title"/>
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="textview_email, textview_email_title" />
 
 
         <TextView
@@ -71,12 +73,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="16dp"
             android:gravity="end"
             android:text="@{tenantDetailsVM.tenant.phone}"
             android:textColor="@color/colorVsLight"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/textview_phone_title"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/textview_phone_title"
             app:layout_constraintTop_toTopOf="@id/textview_phone_title"
             tools:text="PHONE" />
@@ -85,17 +88,18 @@
             android:id="@+id/textview_phone_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:text="Phone"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/barrier_email_bot"/>
+            app:layout_constraintTop_toBottomOf="@id/barrier_email_bot" />
 
         <androidx.constraintlayout.widget.Barrier
-            app:barrierDirection="bottom"
+            android:id="@+id/barrier_phone_bot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="textview_phone, textview_phone_title"
-            android:id="@+id/barrier_phone_bot"/>
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="textview_phone, textview_phone_title" />
 
 
         <TextView
@@ -103,20 +107,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="16dp"
             android:gravity="end"
             android:text="@{tenantDetailsVM.tenant.fullAddress}"
             android:textColor="@color/colorVsLight"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/textview_full_address_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/textview_full_address_title"
             app:layout_constraintTop_toTopOf="@id/textview_full_address_title"
-            app:layout_constraintBottom_toBottomOf="@id/textview_full_address_title"
             tools:text="ADDRESS" />
 
         <TextView
             android:id="@+id/textview_full_address_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:text="Address"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -131,13 +137,15 @@
             app:constraint_referenced_ids="textview_full_address_title, textview_full_address" />
 
         <androidx.recyclerview.widget.RecyclerView
-            app:layout_constraintTop_toTopOf="@id/barrier_address_bot"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/colorBackgroundHighlight"
+            android:orientation="horizontal"
             app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_max="150dp"
             app:layout_constraintHeight_min="80dp"
-            app:layout_constraintHeight_max="150dp"/>
+            app:layout_constraintTop_toTopOf="@id/barrier_address_bot" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
