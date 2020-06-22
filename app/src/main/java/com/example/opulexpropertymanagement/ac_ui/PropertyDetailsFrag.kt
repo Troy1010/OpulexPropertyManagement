@@ -1,5 +1,6 @@
 package com.example.opulexpropertymanagement.ac_ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,10 @@ import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto
 import com.example.opulexpropertymanagement.ac_ui.extras.PropertyDetailsVMFactory
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyDetailsBinding
+import com.example.opulexpropertymanagement.models.streamable.RemoveTenantResult
 import com.example.opulexpropertymanagement.util.easyPicasso
+import com.example.opulexpropertymanagement.util.onlyNew
+import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_property_details.view.*
 import kotlinx.android.synthetic.main.includible_rounded_image.view.imageview_1
@@ -45,18 +49,42 @@ class PropertyDetailsFrag: OXFragment() {
 
     private fun setupView() {
         mBinding.root.includible_property_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
+        registerForContextMenu(mBinding.root.includible_tenant)
     }
 
     private fun setupObservers() {
         propertyDetailsVM.tenant.observe(viewLifecycleOwner, Observer {
             mBinding.includibleTenant.imageview1.easyPicasso(propertyDetailsVM.tenant.value?.imageUrlTask)
         })
+        propertyDetailsVM.tenantsRepo.streamRemoveTenantResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
+            if (it is RemoveTenantResult.Failure.ApiDoesNotSupportRemovingTenants) {
+                easyToast(requireActivity(),"Api does not support tenant removal")
+            }
+        })
     }
 
     private fun setupClickListeners() {
         mBinding.root.includible_tenant.setOnClickListener {
-            val directions = PropertyDetailsFragDirections.actionFragPropertyDetailsToTenantAddFrag(propertyDetailsVM.property!!)
-            navController.navigate(directions)
+            if (propertyDetailsVM.tenant.value==null) {
+                val directions = PropertyDetailsFragDirections.actionFragPropertyDetailsToTenantAddFrag(propertyDetailsVM.property!!)
+                navController.navigate(directions)
+            } else {
+
+            }
+        }
+        mBinding.root.includible_tenant.setOnLongClickListener {
+            val tenantID = propertyDetailsVM.tenant.value?.id
+            if (tenantID!=null) {
+                AlertDialog.Builder(activity)
+                    .setTitle("Remove Tenant")
+                    .setMessage("Are you sure you want to remove this tenant?\nThis action cannot be undone.")
+                    .setPositiveButton("Remove") { _, _ ->
+                        propertyDetailsVM.tenantsRepo.removeTenant(tenantID)
+                    }
+                    .setNegativeButton("Cancel") { _, _ -> }
+                    .create().show()
+            }
+            true
         }
         mBinding.root.includible_property_image.setOnLongClickListener {
             val bottomDialogForPhoto =  BottomDialogForPhoto(requireActivity(), "Replace Property Image") { uri, _ ->
