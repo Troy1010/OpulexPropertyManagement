@@ -3,6 +3,7 @@ package com.example.opulexpropertymanagement.aa_repo
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.ac_ui.User
+import com.example.opulexpropertymanagement.app.FBKEY_PROPERTY
 import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.UserType
@@ -75,7 +76,7 @@ object PropertiesRepo {
             }, { result ->
                 // finally, upload the image to firebase, then publish to streamAddPropertyResult
                 if (result is AddPropertyResult.Success) {
-                    fbUserStorageTable?.child(result.property.id)?.putFile(propertyImageUri)
+                    fbUserStorageTable?.child(FBKEY_PROPERTY)?.child(result.property.id)?.putFile(propertyImageUri)
                         ?.addOnSuccessListener {
                             streamAddPropertyResult.value = result
                         }

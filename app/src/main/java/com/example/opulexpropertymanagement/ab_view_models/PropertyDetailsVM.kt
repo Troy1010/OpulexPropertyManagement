@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.opulexpropertymanagement.aa_repo.PropertiesRepo
 import com.example.opulexpropertymanagement.aa_repo.PropertyDetailsRepo
 import com.example.opulexpropertymanagement.models.Property
-import com.example.opulexpropertymanagement.models.network_responses.Tenant
+import com.example.opulexpropertymanagement.models.Tenant
 import com.example.tmcommonkotlin.logz
 
 class PropertyDetailsVM(val properties: MutableLiveData<List<Property>>, i:Int): ViewModel() {

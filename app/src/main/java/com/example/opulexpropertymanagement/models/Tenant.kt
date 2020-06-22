@@ -1,5 +1,7 @@
 package com.example.opulexpropertymanagement.models
 
+import com.example.opulexpropertymanagement.app.FBKEY_TENANT
+import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.google.gson.annotations.SerializedName
 
 data class Tenant(
@@ -16,4 +18,7 @@ data class Tenant(
     val phone: String,
     @SerializedName("tenantname")
     val name: String
-)
+) {
+    val imageUrlTask
+        get() = fbUserStorageTable?.child(FBKEY_TENANT)?.child(id)?.downloadUrl
+}

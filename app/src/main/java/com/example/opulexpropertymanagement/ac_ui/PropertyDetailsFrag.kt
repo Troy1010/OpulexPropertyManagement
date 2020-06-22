@@ -14,8 +14,12 @@ import com.example.opulexpropertymanagement.ac_ui.extras.PropertyDetailsVMFactor
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyDetailsBinding
 import com.example.opulexpropertymanagement.util.easyPicasso
+import kotlinx.android.synthetic.main.frag_property_details.view.*
+import kotlinx.android.synthetic.main.includible_grid_item.view.*
 import kotlinx.android.synthetic.main.includible_rounded_image.view.*
+import kotlinx.android.synthetic.main.includible_rounded_image.view.imageview_1
 import kotlinx.android.synthetic.main.item_property.view.*
+import kotlinx.android.synthetic.main.item_property.view.includible_rounded_image
 
 
 class PropertyDetailsFrag: OXFragment() {
@@ -25,7 +29,7 @@ class PropertyDetailsFrag: OXFragment() {
     val propertyIndex by lazy { propertiesVM.properties.value?.indexOf(args?.property)?:0 }
     val propertyDetailsVM: PropertyDetailsVM by viewModels({ this }) { PropertyDetailsVMFactory(propertiesVM.properties, propertyIndex) }
     val navController by lazy { this.findNavController() }
-    val property by lazy { propertiesVM.properties.value?.get(propertyIndex) }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,7 +45,11 @@ class PropertyDetailsFrag: OXFragment() {
     }
 
     private fun setupView() {
-        mBinding.root.includible_rounded_image.imageview_1.easyPicasso(property?.imageUrlTask)
+        mBinding.root.includible_rounded_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
+        mBinding.root.includible_tenant.imageview_1.easyPicasso(propertyDetailsVM.tenant.value?.imageUrlTask)
+        mBinding.root.includible_tenant.setOnClickListener {
+
+        }
     }
 
     private fun setupObservers() {

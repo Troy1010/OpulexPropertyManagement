@@ -4,7 +4,6 @@ import com.example.opulexpropertymanagement.app.Config
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.network_responses.ForgotPasswordResponse
 import com.example.opulexpropertymanagement.models.network_responses.PropertiesResponse
-import com.example.opulexpropertymanagement.models.network_responses.Tenant
 import com.example.opulexpropertymanagement.models.network_responses.TenantsResponse
 import com.example.tmcommonkotlin.Coroutines
 import com.google.gson.GsonBuilder
