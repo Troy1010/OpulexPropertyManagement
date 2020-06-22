@@ -14,6 +14,8 @@ import com.example.opulexpropertymanagement.ac_ui.extras.PropertyDetailsVMFactor
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyDetailsBinding
 import com.example.opulexpropertymanagement.util.easyPicasso
+import kotlinx.android.synthetic.main.includible_rounded_image.view.*
+import kotlinx.android.synthetic.main.item_property.view.*
 
 
 class PropertyDetails: OXFragment() {
@@ -39,7 +41,7 @@ class PropertyDetails: OXFragment() {
     }
 
     private fun setupView() {
-        mBinding.imageview1.easyPicasso(property?.imageUrlTask)
+        mBinding.root.includible_rounded_image.imageview_1.easyPicasso(property?.imageUrlTask)
     }
 
     private fun setupObservers() {

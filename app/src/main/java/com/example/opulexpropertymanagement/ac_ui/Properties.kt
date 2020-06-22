@@ -20,6 +20,7 @@ import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ac_ui.extras.AdapterRVProperties
 import com.example.opulexpropertymanagement.util.easyPicasso
 import kotlinx.android.synthetic.main.frag_properties.*
+import kotlinx.android.synthetic.main.includible_rounded_image.view.*
 import kotlinx.android.synthetic.main.item_property.view.*
 
 // This is a silly hack to share a fragment-scoped ViewModel.
@@ -65,7 +66,7 @@ class Properties: OXFragment(), AdapterRVProperties.ARVInterface {
     override fun bindRecyclerItemView(binding: ItemPropertyBinding, i: Int) {
         val property = propertiesVM.properties.value?.get(i) ?: Property()
         binding.property = property
-        binding.root.imageview_1.easyPicasso(property.imageUrlTask)
+        binding.root.includible_rounded_image.imageview_1.easyPicasso(property.imageUrlTask)
         binding.root.setOnClickListener {
             PropertiesStoreOwner = this
             val directions = PropertiesDirections.actionFragPropertiesToFragPropertyDetails(property)
