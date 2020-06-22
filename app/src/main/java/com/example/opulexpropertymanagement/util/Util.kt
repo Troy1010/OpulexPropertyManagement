@@ -63,7 +63,6 @@ fun ImageView.easyPicasso(endpoint:String) {
 
 fun ImageView.easyPicasso(uriTask:Task<Uri>?) {
     uriTask?.addOnSuccessListener { url ->
-        logz("easyPicassoURL:$url")
         this.easyPicasso(url.toString())
     }
 }
