@@ -3,11 +3,13 @@ package com.example.opulexpropertymanagement.aa_repo
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.aa_repo.network.NetworkClient
+import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.ac_ui.User
 import com.example.opulexpropertymanagement.app.FBKEY_TENANT
 import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.example.opulexpropertymanagement.models.Tenant
 import com.example.opulexpropertymanagement.models.streamable.AddTenantResult
+import com.example.opulexpropertymanagement.models.streamable.GetTenantsResult
 import com.example.opulexpropertymanagement.models.streamable.RemoveTenantResult
 import com.example.tmcommonkotlin.Coroutines
 import com.example.tmcommonkotlin.logz
@@ -73,5 +75,16 @@ object TenantsRepo {
         // THE NETWORK API CURRENTLY DOES NOT SUPPORT REMOVING TENANTS
         logz("WARNING: The network api currently does not support removing tenants")
         streamRemoveTenantResult.value = RemoveTenantResult.Failure.ApiDoesNotSupportRemovingTenants
+    }
+
+    // getAllTenants
+    val streamGetTenantsResult by lazy { MutableLiveData<List<Tenant>>() }
+    fun getTenants() {
+        Coroutines.ioThenMain({
+            val x = NetworkClient.getTenantsByLandlord(GlobalVM.user.value?.id!!).await()
+            x.Tenants
+        },{
+            streamGetTenantsResult.value = it
+        })
     }
 }

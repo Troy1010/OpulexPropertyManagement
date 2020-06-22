@@ -100,7 +100,7 @@
     <fragment
         android:id="@+id/tenantDetailsFrag"
         android:name="com.example.opulexpropertymanagement.ac_ui.TenantDetailsFrag"
-        android:label="TenantDetailsFrag" >
+        android:label="Tenant" >
         <action
             android:id="@+id/action_tenantDetailsFrag_to_documentDetailsFrag"
             app:destination="@id/documentDetailsFrag"
@@ -112,9 +112,22 @@
     <fragment
         android:id="@+id/documentDetailsFrag"
         android:name="com.example.opulexpropertymanagement.ac_ui.DocumentDetailsFrag"
-        android:label="DocumentDetailsFrag" >
+        android:label="Document" >
         <argument
             android:name="document"
             app:argType="com.example.opulexpropertymanagement.models.Document" />
     </fragment>
+    <fragment
+        android:id="@+id/tenantsFrag"
+        android:name="com.example.opulexpropertymanagement.ac_ui.TenantsFrag"
+        android:label="Tenants" >
+        <action
+            android:id="@+id/action_tenantsFrag_to_tenantDetailsFrag"
+            app:destination="@id/tenantDetailsFrag"
+            app:popUpTo="@id/tenantsFrag" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_tenantsFrag"
+        app:destination="@id/tenantsFrag"
+        app:popUpTo="@id/fragHome" />
 </navigation>

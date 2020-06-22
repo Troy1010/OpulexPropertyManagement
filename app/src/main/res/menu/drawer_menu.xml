@@ -16,5 +16,9 @@
             android:id="@+id/menuitem_login"
             android:icon="@drawable/ic_input_black_24dp"
             android:title="Login" />
+        <item
+            android:id="@+id/menuitem_tenants"
+            android:icon="@drawable/ic_airline_seat_recline_normal_black_24dp"
+            android:title="Tenants" />
     </group>
 </menu>

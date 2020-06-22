@@ -39,6 +39,7 @@ class ActivityHost : TMActivity(),
                 R.id.menuitem_properties -> navController.navigate(R.id.action_global_fragProperties)
                 R.id.menuitem_home -> navController.navigate(R.id.action_global_fragHome)
                 R.id.menuitem_login -> navController.navigate(R.id.action_global_fragLogin)
+                R.id.menuitem_tenants -> navController.navigate(R.id.action_global_tenantsFrag)
             }
             true
         }
