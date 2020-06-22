@@ -49,7 +49,6 @@ class PropertyDetailsFrag: OXFragment() {
 
     private fun setupView() {
         mBinding.root.includible_property_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
-        registerForContextMenu(mBinding.root.includible_tenant)
     }
 
     private fun setupObservers() {
