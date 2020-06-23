@@ -5,6 +5,8 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
@@ -30,6 +32,8 @@ fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
 fun <T> PublishSubject<T>.toLiveData(): LiveData<T> {
     return convertRXToLiveData(this)
 }
+
+
 
 @Throws(IOException::class)
 fun Context.createImageFile(): File {

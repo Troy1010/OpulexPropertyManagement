@@ -105,12 +105,9 @@ class PropertyDetailsFrag: OXFragment() {
         propertyDetailsVM.tenantsRepo.streamRemoveTenantResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
             when (it) {
                 is RemoveTenantResult.Failure.ApiDoesNotSupportRemovingTenants -> {
-                    easyToast(requireActivity(), "Api does not support tenant removal")
+                    easyToast("Api does not support tenant removal")
                 }
             }
-        })
-        maintenancesVM.maintenances.observe(viewLifecycleOwner, Observer {
-            logz("PropertiesFrag`Got new maintenance List: $it")
         })
     }
 
