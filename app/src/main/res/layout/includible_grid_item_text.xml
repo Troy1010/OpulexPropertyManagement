@@ -4,9 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.example.opulexpropertymanagement.R" />
 
         <variable
-            name="textValue"
+            name="titleText"
+            type="String" />
+
+        <variable
+            name="textInside"
             type="String" />
     </data>
 
@@ -26,34 +31,33 @@
                 android:layout_height="match_parent"
                 android:padding="6dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardview_for_image_inner"
+
+                <TextView
+                    android:id="@+id/textview_in_image"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="@{textInside}"
+                    android:textColor="@color/colorVsLight"
+                    android:textSize="70sp"
+                    android:translationZ="5dp"
                     app:layout_constraintBottom_toTopOf="@id/textview_tenant_name"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:cardCornerRadius="16dp">
+                    tools:text="8" />
 
-                    <ImageView
-                        android:id="@+id/imageview_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        tools:src="@drawable/woman" />
-                </androidx.cardview.widget.CardView>
                 <TextView
                     android:id="@+id/textview_tenant_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{textValue}"
+                    android:text="@{titleText}"
                     android:textColor="@color/colorVsLight"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    tools:text="NAME" />
+                    tools:text="TITLE" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>

@@ -12,7 +12,7 @@
         android:padding="16dp">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_for_image"
+            android:id="@+id/cardview_for_group"
             style="@style/OpulexTheme.CardViewLight"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
