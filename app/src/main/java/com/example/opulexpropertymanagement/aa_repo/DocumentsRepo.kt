@@ -3,6 +3,7 @@ package com.example.opulexpropertymanagement.aa_repo
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.app.FBKEY_DOCUMENT
+import com.example.opulexpropertymanagement.app.FBKEY_TENANT
 import com.example.opulexpropertymanagement.app.fbUserDBTable
 import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.example.opulexpropertymanagement.models.Document
@@ -21,8 +22,7 @@ class DocumentsRepo {
     // addDocument
     val addDocumentResult by lazy { MutableLiveData<AddDocumentResult>() }
     fun addDocument(tenantID: String, uri: Uri, title:String) {
-        logz("addDocument`Open")
-        val newDocumentRef = fbUserDBTable?.child(tenantID)?.child(FBKEY_DOCUMENT)?.push()!!
+        val newDocumentRef = fbUserDBTable?.child(FBKEY_TENANT)?.child(tenantID)?.child(FBKEY_DOCUMENT)?.push()!!
         val newDocumentID = newDocumentRef.key!!
         newDocumentRef.setValue(title)
         val newDocument = Document(newDocumentID, tenantID, title)
@@ -40,7 +40,7 @@ class DocumentsRepo {
     // removeDocument
     val removeDocumentResult by lazy { MutableLiveData<RemoveDocumentResult>() }
     fun removeDocument(document: Document) {
-        fbUserDBTable?.child(document.tenantID)?.child(FBKEY_DOCUMENT)?.child(document.id)?.removeValue()
+        fbUserDBTable?.child(FBKEY_TENANT)?.child(document.tenantID)?.child(FBKEY_DOCUMENT)?.child(document.id)?.removeValue()
             ?.addOnSuccessListener {
                 fbUserStorageTable?.child(FBKEY_DOCUMENT)?.child(document.tenantID)?.child(document.id)?.delete()
                     ?.addOnSuccessListener {
@@ -59,7 +59,8 @@ class DocumentsRepo {
     // UpdateDocument
     val updateDocumentResult by lazy { MutableLiveData<UpdateDocumentResult>() }
     fun updateDocument(document: Document) {
-        fbUserDBTable?.child(document.tenantID)?.child(FBKEY_DOCUMENT)?.child(document.id)?.setValue(document.title)
+        fbUserDBTable?.child(FBKEY_TENANT)?.child(document.tenantID)?.child(FBKEY_DOCUMENT)?.child(document.id)
+            ?.setValue(document.title)
             ?.addOnSuccessListener {
                 updateDocumentResult.value = UpdateDocumentResult.Success(document)
             }
@@ -71,8 +72,7 @@ class DocumentsRepo {
     // getDocuments
     val streamGetDocumentsResponse by lazy { MutableLiveData<List<Document>>() }
     fun getDocuments(tenantID: String) {
-        logz("getDocuments`Open")
-        fbUserDBTable?.child(tenantID)?.child(FBKEY_DOCUMENT)
+        fbUserDBTable?.child(FBKEY_TENANT)?.child(tenantID)?.child(FBKEY_DOCUMENT)
             ?.addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) { }
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
