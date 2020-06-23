@@ -11,7 +11,7 @@ import com.example.opulexpropertymanagement.ab_view_models.MaintenanceAddVM
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragAddMaintenanceBinding
 
-class MaintenanceAddFrag : OXFragment() {
+class MaintenanceDetailsFrag : OXFragment() {
     lateinit var fragBinding: FragAddMaintenanceBinding
     val maintenanceAddVM: MaintenanceAddVM by viewModels()
     override fun onCreateView(
@@ -21,7 +21,7 @@ class MaintenanceAddFrag : OXFragment() {
     ): View? {
 
         fragBinding = DataBindingUtil.inflate(
-            inflater, R.layout.frag_add_maintenance, container, false
+            inflater, R.layout.frag_maintenance_details, container, false
         )
         fragBinding.lifecycleOwner = this
         fragBinding.maintenance = maintenanceAddVM.maintenance.value // is this okay?
