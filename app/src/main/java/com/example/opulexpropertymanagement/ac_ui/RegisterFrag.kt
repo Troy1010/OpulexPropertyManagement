@@ -37,7 +37,7 @@ class RegisterFrag : OXFragment(isToolbarEnabled = false) {
         registerVM.repo.streamTryRegisterResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
             when (it) {
                 is RegisterResult.Success -> {
-                    navController.navigate(R.id.fragHome)
+                    navController.navigate(R.id.fragProperties)
                 }
                 is RegisterResult.Failure -> {
                     logv("RegistrationFailed`${it.msg}")

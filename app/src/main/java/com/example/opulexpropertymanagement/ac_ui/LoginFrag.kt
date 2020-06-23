@@ -61,7 +61,7 @@ class LoginFrag : OXFragment(isToolbarEnabled = false) {
                 if (args?.ReasonForLoginInt == ReasonForLogin.TriedToAddProperty.ordinal) {
                     navController.navigateUp()
                 } else {
-                    navController.navigate(R.id.fragHome)
+                    navController.navigate(R.id.fragProperties)
                 }
             } else if (it is TryLoginResult.Failure) {
                 when (it) {
