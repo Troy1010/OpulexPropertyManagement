@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
@@ -29,6 +30,7 @@ import kotlinx.android.synthetic.main.includible_rounded_image.view.imageview_1
 // This is a silly hack to share a fragment-scoped ViewModel.
 // I prefer not to make an activityViewModel() because it's essentially a memory leak.
 var PropertyDetailsStoreOwner: ViewModelStoreOwner? = null
+var PropertyDetailsLifecycleOwner: LifecycleOwner? = null
 class PropertyDetailsFrag: OXFragment() {
     lateinit var mBinding: FragPropertyDetailsBinding
     val args by lazy { arguments?.let { PropertyDetailsFragArgs.fromBundle(it) } }
@@ -112,6 +114,7 @@ class PropertyDetailsFrag: OXFragment() {
     private fun setupClickListeners() {
         mBinding.root.includible_maintenances.setOnClickListener {
             PropertyDetailsStoreOwner = this
+            PropertyDetailsLifecycleOwner = viewLifecycleOwner
             navController.navigate(R.id.action_fragPropertyDetails_to_maintenancesFrag)
         }
         mBinding.root.includible_tenant.setOnClickListener {
@@ -143,5 +146,6 @@ class PropertyDetailsFrag: OXFragment() {
     override fun onDestroy() {
         super.onDestroy()
         PropertyDetailsStoreOwner = null
+        PropertyDetailsLifecycleOwner = null
     }
 }

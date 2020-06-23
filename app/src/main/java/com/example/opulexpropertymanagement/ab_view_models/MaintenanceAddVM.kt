@@ -7,5 +7,4 @@ import com.example.opulexpropertymanagement.models.view_model_intermediates.Inpu
 
 class MaintenanceAddVM: ViewModel() {
     val descriptionInputValidationState by lazy { MutableLiveData<InputValidationState>().apply { value = InputValidationState() } }
-    val maintenance by lazy { MutableLiveData<Maintenance>() }
 }

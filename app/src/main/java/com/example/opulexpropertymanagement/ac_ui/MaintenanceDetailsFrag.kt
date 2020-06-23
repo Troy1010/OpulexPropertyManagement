@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.MaintenanceAddVM
@@ -13,6 +14,7 @@ import com.example.opulexpropertymanagement.ab_view_models.MaintenancesVM
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragMaintenanceDetailsBinding
 import com.example.opulexpropertymanagement.models.Maintenance
+import com.example.tmcommonkotlin.logz
 
 class MaintenanceDetailsFrag : OXFragment() {
     lateinit var fragBinding: FragMaintenanceDetailsBinding
@@ -28,8 +30,15 @@ class MaintenanceDetailsFrag : OXFragment() {
         fragBinding = DataBindingUtil.inflate(
             inflater, R.layout.frag_maintenance_details, container, false
         )
-        fragBinding.lifecycleOwner = this
+        fragBinding.lifecycleOwner = PropertyDetailsLifecycleOwner
+        setupObservers()
         return fragBinding.root
+    }
+
+    private fun setupObservers() {
+        maintenancesVM.selectedMaintenance.observe(viewLifecycleOwner, Observer {
+            logz("selectedMaintenancechanged:$it")
+        })
     }
 
     override fun onStart() {
@@ -40,9 +49,15 @@ class MaintenanceDetailsFrag : OXFragment() {
     private fun setupClickListeners() {
         fragBinding.btnMaintenanceDone.setOnClickListener {
             // sync
-            val maintenance = maintenanceAddVM.maintenance.value
-            if (maintenance!=null)
-                maintenancesVM.repo.addMaintenance(maintenancesVM.propertyID, maintenance)
+            //  *TODO link this directly
+            val id = maintenancesVM.selectedMaintenance.value?.id
+            if (id!=null) {
+                val maintenance = Maintenance(
+                    description = fragBinding.edittextMaintenanceDescription.text.toString(),
+                    id = id
+                )
+                maintenancesVM.repo.updateMaintenance(maintenancesVM.propertyID, maintenance)
+            }
             //
             navController.navigateUp()
         }
