@@ -3,6 +3,7 @@ package com.example.opulexpropertymanagement.ab_view_models
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa_repo.PropertiesRepo
 import com.example.opulexpropertymanagement.aa_repo.PropertyDetailsRepo
 import com.example.opulexpropertymanagement.aa_repo.TenantsRepo
@@ -16,10 +17,12 @@ class PropertyDetailsVM(val properties: MutableLiveData<List<Property>>, i:Int):
     val tenantsRepo = TenantsRepo
 
     val property = properties.value?.get(i)
-    val maintenances = ArrayList<Maintenance>()
+    val maintenances = MutableLiveData<ArrayList<Maintenance>>().apply { value = ArrayList() }
+    val maintenancesSize = MediatorLiveData<Int>()
     val tenant by lazy{ MediatorLiveData<Tenant>() }
 
     init {
+        maintenancesSize.addSource(maintenances) { maintenancesSize.value = it.size }
         tenant.addSource(propertyDetailsRepo.streamGetTenantByLandlordAndPropertyResult) { tenant.value = it }
         propertyDetailsRepo.getTenantByLandlordAndPropertyID(GlobalVM.user.value?.id, property?.id)
     }
