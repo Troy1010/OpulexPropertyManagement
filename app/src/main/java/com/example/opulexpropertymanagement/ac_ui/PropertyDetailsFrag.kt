@@ -16,6 +16,7 @@ import com.example.opulexpropertymanagement.ab_view_models.MaintenancesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyDetailsVM
 import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto
+import com.example.opulexpropertymanagement.ac_ui.extras.MaintenancesVMFactory
 import com.example.opulexpropertymanagement.ac_ui.extras.PropertyDetailsVMFactory
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyDetailsBinding
@@ -33,10 +34,10 @@ var PropertyDetailsStoreOwner: ViewModelStoreOwner? = null
 var PropertyDetailsLifecycleOwner: LifecycleOwner? = null
 class PropertyDetailsFrag: OXFragment() {
     lateinit var mBinding: FragPropertyDetailsBinding
-    val args by lazy { arguments?.let { PropertyDetailsFragArgs.fromBundle(it) } }
+    val args by lazy { requireArguments().let { PropertyDetailsFragArgs.fromBundle(it) } }
     val propertiesVM: PropertiesVM by viewModels({ PropertiesStoreOwner!! })
-    val propertyIndex by lazy { propertiesVM.properties.value?.indexOf(args?.property)?:0 }
-    val maintenancesVM: MaintenancesVM by viewModels()
+    val propertyIndex by lazy { propertiesVM.properties.value?.indexOf(args.property)?:0 }
+    val maintenancesVM: MaintenancesVM by viewModels { MaintenancesVMFactory(args.property) }
     val propertyDetailsVM: PropertyDetailsVM by viewModels({ this }) { PropertyDetailsVMFactory(propertiesVM.properties, propertyIndex) }
     val navController by lazy { findNavController() }
 
@@ -45,7 +46,6 @@ class PropertyDetailsFrag: OXFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        maintenancesVM.propertyID = args?.property?.id!!
         mBinding = DataBindingUtil.inflate(inflater, R.layout.frag_property_details, container, false)
         mBinding.lifecycleOwner = this
         mBinding.propertyDetailsVM = propertyDetailsVM
@@ -108,6 +108,9 @@ class PropertyDetailsFrag: OXFragment() {
                     easyToast(requireActivity(), "Api does not support tenant removal")
                 }
             }
+        })
+        maintenancesVM.maintenances.observe(viewLifecycleOwner, Observer {
+            logz("PropertiesFrag`Got new maintenance List: $it")
         })
     }
 

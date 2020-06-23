@@ -5,15 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.opulexpropertymanagement.aa_repo.MaintenancesRepo
 import com.example.opulexpropertymanagement.models.Maintenance
+import com.example.opulexpropertymanagement.models.Property
 
-class MaintenancesVM: ViewModel() {
+class MaintenancesVM(property: Property): ViewModel() {
     val repo = MaintenancesRepo()
-    var propertyID: String = "NULL" // Must be set by view (might want to change this)
-    val maintenances by lazy { MediatorLiveData<List<Maintenance>>() }
+    var propertyID: String = property.id
+    val maintenances = MediatorLiveData<List<Maintenance>>()
     val maintenancesSize = MediatorLiveData<Int>()
     val selectedMaintenance by lazy { MutableLiveData<Maintenance>() }
     init {
-        maintenancesSize.addSource(maintenances) { maintenancesSize.value = it.size }
+        maintenances.value = emptyList()
+        maintenancesSize.addSource(maintenances) { maintenancesSize.value = it?.size?:0 }
         maintenances.addSource(repo.streamGetMaintenancesResult) {
             maintenances.value = it
         }
@@ -26,5 +28,6 @@ class MaintenancesVM: ViewModel() {
         maintenances.addSource(repo.streamUpdateMaintenanceResult) {
             if (it) repo.getMaintenances(propertyID)
         }
+        repo.getMaintenances(propertyID)
     }
 }

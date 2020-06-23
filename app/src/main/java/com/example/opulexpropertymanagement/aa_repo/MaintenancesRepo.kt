@@ -71,13 +71,15 @@ class MaintenancesRepo {
             ?.addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) { streamGetMaintenancesResult.value = null }
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if (dataSnapshot.value!=null) {
-                        logz("dataSnapshot:$dataSnapshot")
-                        val maintenances = (dataSnapshot.value as Map<String, Map<String,Maintenance>>).map {
-                            it.value
+                    val dataSnapshotValue = dataSnapshot.value
+                    if (dataSnapshotValue!=null) {
+                        val maintenances = (dataSnapshotValue as Map<String, Map<String, String>>).map {
+                            Maintenance(
+                                it.value["description"]!!,
+                                it.value["id"]!!
+                            )
                         }
-//                        streamGetMaintenancesResult.value = maintenances
-//                        logz("maintenances:${streamGetMaintenancesResult.value}")
+                        streamGetMaintenancesResult.value = maintenances
                     } else {
                         streamGetMaintenancesResult.value = null
                     }

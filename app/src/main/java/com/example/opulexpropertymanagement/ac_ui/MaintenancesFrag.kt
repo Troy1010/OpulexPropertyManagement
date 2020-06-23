@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.MaintenancesVM
 import com.example.opulexpropertymanagement.ac_ui.extras.AdapterRVMaintenances
+import com.example.opulexpropertymanagement.ac_ui.extras.MaintenancesVMFactory
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.ItemMaintenanceBinding
 import com.example.opulexpropertymanagement.models.Maintenance
@@ -25,6 +26,7 @@ import kotlinx.android.synthetic.main.frag_properties.view.*
 var MaintenancesStoreOwner: ViewModelStoreOwner? = null
 class MaintenancesFrag: OXFragment(), AdapterRVMaintenances.ARVInterface {
     lateinit var fragView: View
+    val args by lazy { requireArguments().let { MaintenancesFragArgs.fromBundle(it) } }
     val maintenancesVM: MaintenancesVM by viewModels({ PropertyDetailsStoreOwner!!})
     val navController by lazy { findNavController() }
     override fun onCreateView(
@@ -48,7 +50,7 @@ class MaintenancesFrag: OXFragment(), AdapterRVMaintenances.ARVInterface {
             }
         })
         maintenancesVM.maintenances.observe(viewLifecycleOwner, Observer {
-            logz("updating to: $it")
+            logz("Got new maintenance List: $it")
             fragView.recyclerview_1.adapter?.notifyDataSetChanged()
         })
     }
@@ -74,10 +76,11 @@ class MaintenancesFrag: OXFragment(), AdapterRVMaintenances.ARVInterface {
     }
 
     override fun getRecyclerDataSize(): Int {
-        return 0
+        return maintenancesVM.maintenances.value?.size?:0
     }
 
     override fun bindRecyclerItemView(binding: ItemMaintenanceBinding, i: Int) {
+        logz("does this list match:${maintenancesVM.maintenances.value}")
         try {
             binding.maintenance = maintenancesVM.maintenances.value!![i]
         } catch (e: Exception) {

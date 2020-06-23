@@ -149,6 +149,9 @@
             android:id="@+id/action_maintenancesFrag_to_maintenanceDetailsFrag"
             app:destination="@id/maintenanceDetailsFrag"
             app:popUpTo="@id/maintenancesFrag" />
+        <argument
+            android:name="property"
+            app:argType="com.example.opulexpropertymanagement.models.Property" />
     </fragment>
     <fragment
         android:id="@+id/maintenanceDetailsFrag"
