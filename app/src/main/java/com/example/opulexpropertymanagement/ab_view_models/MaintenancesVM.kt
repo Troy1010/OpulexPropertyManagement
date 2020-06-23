@@ -8,29 +8,19 @@ import com.example.opulexpropertymanagement.models.Maintenance
 
 class MaintenancesVM: ViewModel() {
     val repo = MaintenancesRepo()
-    val maintenances = MutableLiveData<ArrayList<Maintenance>>().apply { value = ArrayList() }
+    var propertyID: String = "NULL" // Must be set by view (might want to change this)
+    val maintenances by lazy { MediatorLiveData<List<Maintenance>>() }
     val maintenancesSize = MediatorLiveData<Int>()
     init {
         maintenancesSize.addSource(maintenances) { maintenancesSize.value = it.size }
+        maintenances.addSource(repo.streamGetMaintenancesResult) {
+            maintenances.value = it
+        }
+        maintenances.addSource(repo.streamAddMaintenanceResult) {
+            if (it) repo.getMaintenances(propertyID) // TODO should probably just directly pass the change here to adjust without re-call
+        }
+        maintenances.addSource(repo.streamRemoveMaintenanceResult) {
+            if (it) repo.getMaintenances(propertyID)
+        }
     }
-//    val repo = PropertiesRepo
-//    val properties by lazy { MediatorLiveData<List<Property>>() }
-//    init {
-//        properties.addSource(repo.streamRequestPropertiesResult) {
-//            if (it is GetPropertiesResult.Success) {
-//                properties.value = it.properties
-//            }
-//        }
-//        properties.addSource(repo.streamAddPropertyResult) {
-//            val user = GlobalVM.user.value
-//            if ((it is AddPropertyResult.Success) && (user!=null)) {
-//                repo.requestPropertiesByUser(user)
-//            }
-//        }
-//        properties.addSource(repo.streamRemovePropertyResult) {
-//            val user = GlobalVM.user.value
-//            if ((it is RemovePropertyResult.Success) && (user!=null)) {
-//                repo.requestPropertiesByUser(user)
-//            }
-//        }
 }

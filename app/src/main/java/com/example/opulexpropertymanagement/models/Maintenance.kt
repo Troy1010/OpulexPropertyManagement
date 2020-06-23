@@ -1,6 +1,6 @@
 package com.example.opulexpropertymanagement.models
 
 data class Maintenance (
-    val requestDate: String,
+    var id: String,
     val description: String
 )
