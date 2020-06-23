@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa_repo.TenantsRepo
+import com.example.opulexpropertymanagement.ab_view_models.MaintenancesVM
 import com.example.opulexpropertymanagement.ab_view_models.TenantDetailsVM
 import com.example.opulexpropertymanagement.ac_ui.extras.AdapterRVDocuments
 import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto
@@ -86,5 +87,10 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
             val directions = TenantDetailsFragDirections.actionTenantDetailsFragToDocumentDetailsFrag(document)
             navController.navigate(directions)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        TenantDetailsStoreOwner = null
     }
 }

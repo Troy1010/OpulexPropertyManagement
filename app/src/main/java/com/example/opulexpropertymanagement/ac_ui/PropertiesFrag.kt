@@ -87,4 +87,9 @@ class PropertiesFrag: OXFragment(), AdapterRVProperties.ARVInterface {
                 .create().show()
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        PropertiesStoreOwner = null
+    }
 }

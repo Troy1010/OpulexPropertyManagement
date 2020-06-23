@@ -95,6 +95,10 @@
         <action
             android:id="@+id/action_fragPropertyDetails_to_tenantDetailsFrag"
             app:destination="@id/tenantDetailsFrag" />
+        <action
+            android:id="@+id/action_fragPropertyDetails_to_maintenancesFrag"
+            app:destination="@id/maintenancesFrag"
+            app:popUpTo="@id/fragPropertyDetails" />
     </fragment>
     <fragment
         android:id="@+id/tenantAddFrag"
@@ -137,4 +141,8 @@
         android:id="@+id/action_global_tenantsFrag"
         app:destination="@id/tenantsFrag"
         app:popUpTo="@id/fragHome" />
+    <fragment
+        android:id="@+id/maintenancesFrag"
+        android:name="com.example.opulexpropertymanagement.ac_ui.MaintenancesFrag"
+        android:label="MaintenancesFrag" />
 </navigation>

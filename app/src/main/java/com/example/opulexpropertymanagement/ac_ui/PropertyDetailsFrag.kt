@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa_repo.PropertyDetailsRepo
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
+import com.example.opulexpropertymanagement.ab_view_models.MaintenancesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ab_view_models.PropertyDetailsVM
 import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto
@@ -30,6 +31,7 @@ class PropertyDetailsFrag: OXFragment() {
     val args by lazy { arguments?.let { PropertyDetailsFragArgs.fromBundle(it) } }
     val propertiesVM: PropertiesVM by viewModels({ PropertiesStoreOwner!! })
     val propertyIndex by lazy { propertiesVM.properties.value?.indexOf(args?.property)?:0 }
+    val maintenancesVM: MaintenancesVM by viewModels()
     val propertyDetailsVM: PropertyDetailsVM by viewModels({ this }) { PropertyDetailsVMFactory(propertiesVM.properties, propertyIndex) }
     val navController by lazy { this.findNavController() }
 
@@ -41,6 +43,7 @@ class PropertyDetailsFrag: OXFragment() {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.frag_property_details, container, false)
         mBinding.lifecycleOwner = this
         mBinding.propertyDetailsVM = propertyDetailsVM
+        mBinding.maintenancesVM = maintenancesVM
         setupClickListeners()
         setupObservers()
         setupView()
@@ -104,6 +107,9 @@ class PropertyDetailsFrag: OXFragment() {
     }
 
     private fun setupClickListeners() {
+        mBinding.root.includible_maintenances.setOnClickListener {
+            navController.navigate(R.id.action_fragPropertyDetails_to_maintenancesFrag)
+        }
         mBinding.root.includible_tenant.setOnClickListener {
             if (propertyDetailsVM.tenant.value==null) {
                 val directions = PropertyDetailsFragDirections.actionFragPropertyDetailsToTenantAddFrag(propertyDetailsVM.property!!)
