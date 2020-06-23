@@ -4,8 +4,12 @@ import com.example.opulexpropertymanagement.ac_ui.User
 
 sealed class TryLoginResult {
     abstract val user: User?
-    class Failure(val msg:String) : TryLoginResult() {
+    sealed class Failure : TryLoginResult() {
         override val user: User? = null
+        object TooManyAttempts: Failure()
+        object IncorrectEmail: Failure()
+        class UnknownMsg(val msg:String): Failure()
+        class Unknown(val msg:String): Failure()
     }
     class Success(override val user: User?) : TryLoginResult()
 }

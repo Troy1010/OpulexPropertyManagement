@@ -18,6 +18,7 @@ import com.example.opulexpropertymanagement.ab_view_models.LoginVM
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
 import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.easyToast
+import com.example.tmcommonkotlin.exhaustive
 import com.example.tmcommonkotlin.logv
 import com.example.tmcommonkotlin.logz
 import io.reactivex.disposables.CompositeDisposable
@@ -63,8 +64,28 @@ class LoginFrag : OXFragment(isToolbarEnabled = false) {
                     navController.navigate(R.id.fragHome)
                 }
             } else if (it is TryLoginResult.Failure) {
-                logv("Login Failed:${it.msg}")
-                easyToast(requireActivity(), "Login Failed")
+                when (it) {
+                    is TryLoginResult.Failure.IncorrectEmail -> {
+                        logz("Login Failed`Incorrect Email")
+                        easyToast(requireActivity(), "Email is not registered")
+                    }
+                    is TryLoginResult.Failure.TooManyAttempts -> {
+                        logz("Too many login attempts.")
+                        easyToast(requireActivity(), "Too many login attempts. Try again later.")
+                    }
+                    is TryLoginResult.Failure.UnknownMsg -> {
+                        logz("Login Failed:${it.msg}")
+                        easyToast(requireActivity(), it.msg)
+                    }
+                    is TryLoginResult.Failure.Unknown -> {
+                        logz("Login Failed:${it.msg}")
+                        easyToast(requireActivity(), "Login Failed")
+                    }
+                    else -> {
+                        logz("Login Failed:${it}")
+                        easyToast(requireActivity(), "Login Failed")
+                    }
+                }.exhaustive
             }
         })
     }
