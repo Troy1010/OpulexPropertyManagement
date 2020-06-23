@@ -2,6 +2,7 @@ package com.example.opulexpropertymanagement.aa_repo
 
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.app.FBKEY_MAINTENANCE
+import com.example.opulexpropertymanagement.app.FBKEY_PROPERTY
 import com.example.opulexpropertymanagement.app.fbUserDBTable
 import com.example.opulexpropertymanagement.models.Maintenance
 import com.example.tmcommonkotlin.logz
@@ -11,10 +12,12 @@ import com.google.firebase.database.ValueEventListener
 import java.lang.Exception
 
 class MaintenancesRepo {
-    // addDocument
+    // addMaintenance
     val streamAddMaintenanceResult by lazy { MutableLiveData<Boolean>() }
     fun addMaintenance(propertyID: String, maintenance: Maintenance) {
-        val newRef = fbUserDBTable?.child(propertyID)?.child(FBKEY_MAINTENANCE)?.push()
+        if (propertyID=="NULL")
+            logz("WARNING: Property ID is \"NULL\"")
+        val newRef = fbUserDBTable?.child(FBKEY_PROPERTY)?.child(propertyID)?.child(FBKEY_MAINTENANCE)?.push()
         try {
             maintenance.id = newRef?.key!!
         } catch (e: Exception) {
@@ -32,9 +35,11 @@ class MaintenancesRepo {
             }
     }
 
+    // removeMaintenance
     val streamRemoveMaintenanceResult by lazy { MutableLiveData<Boolean>() }
     fun removeMaintenance(propertyID: String, maintenance: Maintenance) {
-        fbUserDBTable?.child(propertyID)?.child(FBKEY_MAINTENANCE)?.child(maintenance.id)?.removeValue()
+        fbUserDBTable?.child(FBKEY_PROPERTY)?.child(propertyID)?.child(FBKEY_MAINTENANCE)?.child(maintenance.id)
+            ?.removeValue()
             ?.addOnSuccessListener {
                 streamRemoveMaintenanceResult.value = true
             }
@@ -44,18 +49,34 @@ class MaintenancesRepo {
             ?: run { streamRemoveMaintenanceResult.value = false }
     }
 
+    // updateMaintenance
+    val streamUpdateMaintenanceResult by lazy { MutableLiveData<Boolean>() }
+    fun updateMaintenance(propertyID: String, maintenance: Maintenance) {
+        fbUserDBTable?.child(FBKEY_PROPERTY)?.child(propertyID)?.child(FBKEY_MAINTENANCE)?.child(maintenance.id)
+            ?.setValue(maintenance)
+            ?.addOnSuccessListener {
+                streamUpdateMaintenanceResult.value = true
+            }
+            ?.addOnFailureListener {
+                streamUpdateMaintenanceResult.value = false
+            }
+            ?: run { streamUpdateMaintenanceResult.value = false }
+    }
+
+    // getMaintenances
     val streamGetMaintenancesResult by lazy { MutableLiveData<List<Maintenance>>() }
     fun getMaintenances(propertyID: String) {
-        fbUserDBTable?.child(propertyID)?.child(FBKEY_MAINTENANCE)
+        fbUserDBTable?.child(FBKEY_PROPERTY)?.child(propertyID)?.child(FBKEY_MAINTENANCE)
             ?.addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) { streamGetMaintenancesResult.value = null }
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.value!=null) {
-                        val maintenances = (dataSnapshot.value as Map<String, Maintenance>).map {
+                        logz("dataSnapshot:$dataSnapshot")
+                        val maintenances = (dataSnapshot.value as Map<String, Map<String,Maintenance>>).map {
                             it.value
                         }
-                        streamGetMaintenancesResult.value = maintenances
-                        logz("maintenances:${streamGetMaintenancesResult.value}")
+//                        streamGetMaintenancesResult.value = maintenances
+//                        logz("maintenances:${streamGetMaintenancesResult.value}")
                     } else {
                         streamGetMaintenancesResult.value = null
                     }

@@ -11,6 +11,7 @@ class MaintenancesVM: ViewModel() {
     var propertyID: String = "NULL" // Must be set by view (might want to change this)
     val maintenances by lazy { MediatorLiveData<List<Maintenance>>() }
     val maintenancesSize = MediatorLiveData<Int>()
+    val selectedMaintenance by lazy { MutableLiveData<Maintenance>() }
     init {
         maintenancesSize.addSource(maintenances) { maintenancesSize.value = it.size }
         maintenances.addSource(repo.streamGetMaintenancesResult) {
@@ -20,6 +21,9 @@ class MaintenancesVM: ViewModel() {
             if (it) repo.getMaintenances(propertyID) // TODO should probably just directly pass the change here to adjust without re-call
         }
         maintenances.addSource(repo.streamRemoveMaintenanceResult) {
+            if (it) repo.getMaintenances(propertyID)
+        }
+        maintenances.addSource(repo.streamUpdateMaintenanceResult) {
             if (it) repo.getMaintenances(propertyID)
         }
     }

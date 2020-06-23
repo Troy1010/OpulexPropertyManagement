@@ -6,6 +6,7 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa_repo.PropertyDetailsRepo
@@ -25,7 +26,9 @@ import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_property_details.view.*
 import kotlinx.android.synthetic.main.includible_rounded_image.view.imageview_1
 
-
+// This is a silly hack to share a fragment-scoped ViewModel.
+// I prefer not to make an activityViewModel() because it's essentially a memory leak.
+var PropertyDetailsStoreOwner: ViewModelStoreOwner? = null
 class PropertyDetailsFrag: OXFragment() {
     lateinit var mBinding: FragPropertyDetailsBinding
     val args by lazy { arguments?.let { PropertyDetailsFragArgs.fromBundle(it) } }
@@ -33,13 +36,14 @@ class PropertyDetailsFrag: OXFragment() {
     val propertyIndex by lazy { propertiesVM.properties.value?.indexOf(args?.property)?:0 }
     val maintenancesVM: MaintenancesVM by viewModels()
     val propertyDetailsVM: PropertyDetailsVM by viewModels({ this }) { PropertyDetailsVMFactory(propertiesVM.properties, propertyIndex) }
-    val navController by lazy { this.findNavController() }
+    val navController by lazy { findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        maintenancesVM.propertyID = args?.property?.id!!
         mBinding = DataBindingUtil.inflate(inflater, R.layout.frag_property_details, container, false)
         mBinding.lifecycleOwner = this
         mBinding.propertyDetailsVM = propertyDetailsVM
@@ -94,7 +98,6 @@ class PropertyDetailsFrag: OXFragment() {
 
     private fun setupObservers() {
         propertyDetailsVM.tenant.observe(viewLifecycleOwner, Observer {
-            logz("observing new tenant:$it")
             mBinding.includibleTenant.imageview1.easyPicasso(propertyDetailsVM.tenant.value?.imageUrlTask)
         })
         propertyDetailsVM.tenantsRepo.streamRemoveTenantResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
@@ -108,6 +111,7 @@ class PropertyDetailsFrag: OXFragment() {
 
     private fun setupClickListeners() {
         mBinding.root.includible_maintenances.setOnClickListener {
+            PropertyDetailsStoreOwner = this
             navController.navigate(R.id.action_fragPropertyDetails_to_maintenancesFrag)
         }
         mBinding.root.includible_tenant.setOnClickListener {
@@ -134,5 +138,10 @@ class PropertyDetailsFrag: OXFragment() {
             )
             true
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        PropertyDetailsStoreOwner = null
     }
 }

@@ -144,5 +144,14 @@
     <fragment
         android:id="@+id/maintenancesFrag"
         android:name="com.example.opulexpropertymanagement.ac_ui.MaintenancesFrag"
-        android:label="MaintenancesFrag" />
+        android:label="Maintenances" >
+        <action
+            android:id="@+id/action_maintenancesFrag_to_maintenanceDetailsFrag"
+            app:destination="@id/maintenanceDetailsFrag"
+            app:popUpTo="@id/maintenancesFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/maintenanceDetailsFrag"
+        android:name="com.example.opulexpropertymanagement.ac_ui.MaintenanceDetailsFrag"
+        android:label="Maintenance Details" />
 </navigation>
