@@ -53,7 +53,6 @@ class MaintenancesRepo {
     // updateMaintenance
     val streamUpdateMaintenanceResult by lazy { MutableLiveData<Boolean>() }
     fun updateMaintenance(propertyID: String, maintenance: Maintenance) {
-        logz("updating maintenance:$maintenance")
         fbUserDBTable?.child(FBKEY_PROPERTY)?.child(propertyID)?.child(FBKEY_MAINTENANCE)?.child(maintenance.id)
             ?.setValue(maintenance)
             ?.addOnSuccessListener {
