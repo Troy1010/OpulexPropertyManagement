@@ -1,5 +1,6 @@
 package com.example.opulexpropertymanagement.ac_ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +44,6 @@ class MaintenancesFrag: OXFragment(), AdapterRVMaintenances.ARVInterface {
     private fun setupObservers() {
         maintenancesVM.repo.streamAddMaintenanceResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
             if (it) {
-                MaintenancesStoreOwner = this
                 navController.navigate(R.id.action_maintenancesFrag_to_maintenanceDetailsFrag)
             } else {
                 easyToast(requireActivity(), "Add Property Failed")
@@ -81,11 +81,32 @@ class MaintenancesFrag: OXFragment(), AdapterRVMaintenances.ARVInterface {
 
     override fun bindRecyclerItemView(binding: ItemMaintenanceBinding, i: Int) {
         logz("does this list match:${maintenancesVM.maintenances.value}")
-        try {
-            binding.maintenance = maintenancesVM.maintenances.value!![i]
+        val maintenance = try {
+            maintenancesVM.maintenances.value!![i]
         } catch (e: Exception) {
             logz("WARNING: CAUGHT AN UNTYPED EXCEPTION:$e\n${e.stackTrace}\n  .. When you know the type, add it in")
+            Maintenance()
         }
+        binding.maintenance = maintenance
+        binding.btnTrash.setOnClickListener {
+            AlertDialog.Builder(activity)
+                .setTitle("Delete Property")
+                .setMessage("Are you sure you want to delete this property?\nThis action cannot be undone.")
+                .setPositiveButton("Delete") { _, _ ->
+
+                    maintenancesVM.repo.removeMaintenance(maintenancesVM.propertyID, maintenance)
+                }
+                .setNegativeButton("Cancel") { _, _ -> }
+                .create().show()
+        }
+        binding.root.setOnClickListener {
+            navController.navigate(R.id.action_maintenancesFrag_to_maintenanceDetailsFrag)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        MaintenancesStoreOwner = this
     }
 
     override fun onDestroy() {
