@@ -6,7 +6,7 @@ sealed class TryLoginResult {
     abstract val user: User?
     sealed class Failure : TryLoginResult() {
         override val user: User? = null
-        object TooManyAttempts: Failure()
+        object TryIn5Mins: Failure()
         object IncorrectEmail: Failure()
         object InvalidInput: Failure()
         class UnknownMsg(val msg:String): Failure()

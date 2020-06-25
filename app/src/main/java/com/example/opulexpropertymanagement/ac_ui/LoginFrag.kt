@@ -67,7 +67,7 @@ class LoginFrag : OXFragment(isToolbarEnabled = false) {
                 } else if (it is TryLoginResult.Failure) {
                     val msg = when (it) {
                         is TryLoginResult.Failure.IncorrectEmail -> "Email is not registered"
-                        is TryLoginResult.Failure.TooManyAttempts -> "Too many login attempts. Try again later."
+                        is TryLoginResult.Failure.TryIn5Mins -> "Too many login attempts. Try again later."
                         is TryLoginResult.Failure.UnknownMsg -> it.msg
                         is TryLoginResult.Failure.Unknown -> "Login Failed"
                         is TryLoginResult.Failure.InvalidInput -> "Invalid input"

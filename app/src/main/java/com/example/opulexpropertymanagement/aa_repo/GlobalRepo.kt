@@ -29,14 +29,12 @@ object GlobalRepo {
                 val responseString = NetworkClient.tryLogin(email, password).await().string()
                 if ("success" in responseString) {
                     val user = Gson().fromJson(responseString, User::class.java)
-                    logz("SuccessfulLogin`user:$user")
                     TryLoginResult.Success(user)
                 } else if ("Email is not register" in responseString) {
                     TryLoginResult.Failure.IncorrectEmail
                 } else if ("try in next 5 mins" in responseString) {
-                    TryLoginResult.Failure.TooManyAttempts
+                    TryLoginResult.Failure.TryIn5Mins
                 } else if ("\"msg\":[" in responseString) {
-                    logz("responseString:$responseString")
                     val msg = try {
                         val item = Gson().fromJson(responseString, Message::class.java).msg[0]
                         if (item is Double) {
