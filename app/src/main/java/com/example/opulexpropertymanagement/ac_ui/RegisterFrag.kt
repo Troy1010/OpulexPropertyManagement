@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -21,6 +22,7 @@ import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.easyToast
+import com.example.tmcommonkotlin.exhaustive
 import com.example.tmcommonkotlin.logv
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_home.*
@@ -43,7 +45,6 @@ class RegisterFrag : OXFragment(isToolbarEnabled = false) {
         mBinding.registerVM = registerVM
         setupObservers()
         setupClickListeners()
-        logz("style:${mBinding.switchUserType.explicitStyle}")
         return mBinding.root
     }
 
@@ -54,20 +55,17 @@ class RegisterFrag : OXFragment(isToolbarEnabled = false) {
                     navController.navigate(R.id.fragProperties)
                 }
                 is RegisterResult.Failure -> {
-                    logv("RegistrationFailed`${it.msg}")
-                    if (it is RegisterResult.Failure.EmailAlreadyExists) {
-                        easyToast(requireActivity(), "Email already exists")
-                    } else {
-                        easyToast(requireActivity(), "Registration Failed")
-                    }
+                    val msg = when (it) {
+                        RegisterResult.Failure.Unknown -> "Registration Failed"
+                        RegisterResult.Failure.EmailWasNull -> "Email required"
+                        RegisterResult.Failure.PasswordWasNull -> "Password required"
+                        RegisterResult.Failure.UserTypeWasNull -> "Landlord or Tenant required"
+                        RegisterResult.Failure.EmailAlreadyExists -> "Email already exists"
+                    }.exhaustive
+                    easyToast(msg, Toast.LENGTH_LONG)
                 }
             }
         })
-//        registerVM.isChecked.observe(viewLifecycleOwner, Observer {
-//            switch_1.trackTintList = ColorStateList(
-//
-//            )
-//        })
     }
 
     private fun setupClickListeners() {

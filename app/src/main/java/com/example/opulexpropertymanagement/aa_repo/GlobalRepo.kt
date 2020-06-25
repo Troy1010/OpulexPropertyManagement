@@ -17,9 +17,13 @@ object GlobalRepo {
 
     // Network
     //  TryLogin
-    val liveDataTryLogin by lazy { MutableLiveData<TryLoginResult>() } // Observed by multiple VMs
+    val streamLoginAttemptResult by lazy { MutableLiveData<TryLoginResult>() } // Observed by multiple VMs
 
-    fun tryLogin(email: String, password: String) {
+    fun tryLogin(email: String?, password: String?) {
+        if ((email==null)||(password==null)) {
+            streamLoginAttemptResult.value = TryLoginResult.Failure.InvalidInput
+            return
+        }
         Coroutines.ioThenMain(
             {
                 val responseString = NetworkClient.tryLogin(email, password).await().string()
@@ -53,7 +57,7 @@ object GlobalRepo {
                 }
             },
             {
-                liveDataTryLogin.value = it
+                streamLoginAttemptResult.value = it
             }
         )
     }

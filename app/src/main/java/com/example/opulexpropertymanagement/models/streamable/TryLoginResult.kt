@@ -8,6 +8,7 @@ sealed class TryLoginResult {
         override val user: User? = null
         object TooManyAttempts: Failure()
         object IncorrectEmail: Failure()
+        object InvalidInput: Failure()
         class UnknownMsg(val msg:String): Failure()
         class Unknown(val msg:String): Failure()
     }

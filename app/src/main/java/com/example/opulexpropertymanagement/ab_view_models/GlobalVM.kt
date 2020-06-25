@@ -17,7 +17,7 @@ object GlobalVM : ViewModel() {
 
     init {
         user.value = GlobalRepo.sharedPref.getUserFromSharedPref()
-        user.addSource(repo.liveDataTryLogin) {
+        user.addSource(repo.streamLoginAttemptResult) {
             user.value = it.user
             user.value?.usertype = userType.value?.toNetworkRecognizedString ?:""
         }

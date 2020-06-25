@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="userInfo"
-            type="com.example.opulexpropertymanagement.ac_ui.User" />
+            name="loginVM"
+            type="com.example.opulexpropertymanagement.ab_view_models.LoginVM" />
     </data>
 
     <ScrollView
@@ -17,7 +17,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <include
@@ -71,6 +71,7 @@
                 app:layout_constraintTop_toBottomOf="@id/imageview_opulex_chicago">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:text="@={loginVM.enteredEmail}"
                     android:id="@+id/textinputedit_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -94,6 +95,7 @@
                 app:layout_constraintTop_toBottomOf="@id/textinputlayout_email">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:text="@={loginVM.enteredPassword}"
                     android:id="@+id/textinputedit_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
