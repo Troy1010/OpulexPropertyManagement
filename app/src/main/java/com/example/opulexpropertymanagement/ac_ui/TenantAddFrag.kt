@@ -17,6 +17,7 @@ import com.example.opulexpropertymanagement.databinding.FragTenantAddBinding
 import com.example.opulexpropertymanagement.models.Tenant
 import com.example.opulexpropertymanagement.models.streamable.AddTenantResult
 import com.example.opulexpropertymanagement.models.view_model_intermediates.InputValidationState
+import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.InputValidation
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
@@ -41,7 +42,7 @@ class TenantAddFrag : OXFragment() {
     }
 
     private fun setupObservers() {
-        tenantAddVM.repo.streamAddTenantResult.observe(viewLifecycleOwner, Observer {
+        tenantAddVM.repo.streamAddTenantResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
             if (it is AddTenantResult.Success) {
                 navController.navigateUp()
             } else {
