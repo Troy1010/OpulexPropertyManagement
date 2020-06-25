@@ -27,25 +27,4 @@ object GlobalVM : ViewModel() {
         user.value = null
     }
 
-    // extras
-
-    fun switchToggled(view: View) {
-
-    }
-
-    fun whipeDBAndAddUser() {
-        user.value?.apply {
-            GlobalRepo.whipeDBAndAddUser(this)
-        }
-    }
-
-    fun printSomething() {
-        logz("${user.value?.email}")
-    }
-
-    fun doSomething() {
-        logz("doSomething`")
-        logz(NetworkClient.addProperty("","","","","","","","","","","").toString())
-    }
-
 }

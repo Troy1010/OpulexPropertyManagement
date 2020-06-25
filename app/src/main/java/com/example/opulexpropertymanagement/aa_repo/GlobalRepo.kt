@@ -61,19 +61,4 @@ object GlobalRepo {
             }
         )
     }
-
-    // Database
-    fun whipeDBAndAddUser(user: User) {
-        dao.clear()
-        dao.addUser(user)
-    }
-
-    fun getFirstUserInDB(): User? {
-        val users = dao.getUsers()
-        if (users.isEmpty()) {
-            return null
-        } else {
-            return users[0]
-        }
-    }
 }

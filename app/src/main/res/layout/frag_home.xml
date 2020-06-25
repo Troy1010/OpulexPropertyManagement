@@ -11,14 +11,6 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <Switch
-            android:id="@+id/switch_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{userVM::switchToggled}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -32,17 +24,9 @@
         <Button
             android:text="Do Something Two"
             android:id="@+id/btn_do_something_two"
-            app:layout_constraintBottom_toTopOf="@id/btn_do_something"
+            app:layout_constraintBottom_toTopOf="@id/btn_go_to_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
-        <Button
-            android:onClick="@{() -> userVM.doSomething()}"
-            android:id="@+id/btn_do_something"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Do Something"
-            app:layout_constraintBottom_toTopOf="@id/btn_go_to_login" />
 
         <Button
             android:id="@+id/btn_go_to_login"
@@ -65,15 +49,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Logout"
-            app:layout_constraintBottom_toTopOf="@+id/btn_save_user_in_db"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <Button
-            android:id="@+id/btn_save_user_in_db"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> userVM.whipeDBAndAddUser()}"
-            android:text="Whipe DB and add user"
             app:layout_constraintBottom_toTopOf="@+id/btn_print_something"
             tools:layout_editor_absoluteX="16dp" />
 
