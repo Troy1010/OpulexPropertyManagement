@@ -107,7 +107,7 @@ fun handleInputValidationResult(
             logz("error.validationResult.msg: ${validationResult.msg}")
 //            layout.setErrorTextAppearance(R.style.ErrorText)
 //            layout.error = validationResult.msg
-            layout.error = "SDGDSFSDF"
+            layout.error = "SDGDSFSDF" // TODO
             true
         }
         is InputValidation.Result.Warning -> {

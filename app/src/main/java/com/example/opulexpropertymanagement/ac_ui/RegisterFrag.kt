@@ -1,11 +1,14 @@
 package com.example.opulexpropertymanagement.ac_ui
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -19,6 +22,8 @@ import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logv
+import com.example.tmcommonkotlin.logz
+import kotlinx.android.synthetic.main.frag_home.*
 
 
 class RegisterFrag : OXFragment(isToolbarEnabled = false) {
@@ -27,13 +32,22 @@ class RegisterFrag : OXFragment(isToolbarEnabled = false) {
     val navController by lazy { findNavController() }
     val registerVM: RegisterVM by viewModels()
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.frag_register, container, false)
-        onCreateViewInit()
+        mBinding.lifecycleOwner = this
+        mBinding.registerVM = registerVM
+        setupObservers()
+        setupClickListeners()
+        logz("style:${mBinding.switchUserType.explicitStyle}")
+        return mBinding.root
+    }
+
+    private fun setupObservers() {
         registerVM.repo.streamTryRegisterResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
             when (it) {
                 is RegisterResult.Success -> {
@@ -49,14 +63,16 @@ class RegisterFrag : OXFragment(isToolbarEnabled = false) {
                 }
             }
         })
-        return mBinding.root
+//        registerVM.isChecked.observe(viewLifecycleOwner, Observer {
+//            switch_1.trackTintList = ColorStateList(
+//
+//            )
+//        })
     }
 
-    private fun onCreateViewInit() {
+    private fun setupClickListeners() {
         mBinding.btnRegisterSend.setOnClickListener {
-            val email = mBinding.textinputeditEmail.text.toString()
-            val password = mBinding.textinputeditPassword.text.toString()
-            registerVM.repo.tryRegister(email, password, GlobalVM.userType.value?:UserType.Landlord)
+            registerVM.tryRegister()
         }
         mBinding.textviewAlreadyRegisteredSignIn.setOnClickListener {
             navController.navigate(R.id.fragLogin)

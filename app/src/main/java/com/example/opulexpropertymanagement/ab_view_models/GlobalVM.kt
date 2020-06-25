@@ -19,7 +19,7 @@ object GlobalVM : ViewModel() {
         user.value = GlobalRepo.sharedPref.getUserFromSharedPref()
         user.addSource(repo.liveDataTryLogin) {
             user.value = it.user
-            user.value?.usertype = userType.value?.let { it.toNetworkRecognizedString }?:""
+            user.value?.usertype = userType.value?.toNetworkRecognizedString ?:""
         }
     }
 

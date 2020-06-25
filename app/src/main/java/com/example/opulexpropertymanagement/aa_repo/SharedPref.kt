@@ -4,6 +4,8 @@ import android.content.Context
 import com.example.opulexpropertymanagement.app.App
 import com.example.opulexpropertymanagement.app.Config
 import com.example.opulexpropertymanagement.ac_ui.User
+import com.example.opulexpropertymanagement.app.SPKEY_USER_TYPE
+import com.example.opulexpropertymanagement.models.UserType
 
 // GlobalVM needs access
 object SharedPref {
