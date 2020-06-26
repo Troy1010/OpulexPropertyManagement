@@ -22,9 +22,6 @@ import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_properties.view.*
 
-// This is a silly hack to share a fragment-scoped ViewModel.
-// I prefer not to make an activityViewModel() because it's essentially a memory leak.
-var MaintenancesStoreOwner: ViewModelStoreOwner? = null
 class MaintenancesFrag: OXFragment(), AdapterRVMaintenances.ARVInterface {
     lateinit var fragView: View
     val args by lazy { requireArguments().let { MaintenancesFragArgs.fromBundle(it) } }
@@ -102,15 +99,5 @@ class MaintenancesFrag: OXFragment(), AdapterRVMaintenances.ARVInterface {
         binding.root.setOnClickListener {
             navController.navigate(R.id.action_maintenancesFrag_to_maintenanceDetailsFrag)
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        MaintenancesStoreOwner = this
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        MaintenancesStoreOwner = null
     }
 }
