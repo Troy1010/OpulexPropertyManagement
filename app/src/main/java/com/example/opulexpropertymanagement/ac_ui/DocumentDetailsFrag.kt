@@ -8,8 +8,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.TenantDetailsVM
@@ -25,10 +27,11 @@ import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_document_details.*
 
 
+
 class DocumentDetailsFrag: OXFragment() {
     val args by lazy { arguments?.let { DocumentDetailsFragArgs.fromBundle(it) } }
     val document by lazy { args?.document!! }
-    val tenantDetailsVM: TenantDetailsVM by viewModels({TenantDetailsStoreOwner!!})
+    val tenantDetailsVM: TenantDetailsVM by activityViewModels()
     val navController by lazy { this.findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater,

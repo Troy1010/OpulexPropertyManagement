@@ -28,11 +28,9 @@ class DocumentsRepo {
         val newDocument = Document(newDocumentID, tenantID, title)
         fbUserStorageTable?.child(FBKEY_DOCUMENT)?.child(tenantID)?.child(newDocumentID)?.putFile(uri)
             ?.addOnSuccessListener {
-                logz("Successfully added document")
                 addDocumentResult.value = AddDocumentResult.Success(newDocument)
             }
             ?.addOnFailureListener {
-                logz("Failed adding document")
                 addDocumentResult.value = AddDocumentResult.Failure.Unknown(it)
             }
     }
@@ -44,7 +42,6 @@ class DocumentsRepo {
             ?.addOnSuccessListener {
                 fbUserStorageTable?.child(FBKEY_DOCUMENT)?.child(document.tenantID)?.child(document.id)?.delete()
                     ?.addOnSuccessListener {
-                        logz("Successfully removed document")
                         removeDocumentResult.value = RemoveDocumentResult.Success(document)
                     }
                     ?.addOnFailureListener {
@@ -81,7 +78,6 @@ class DocumentsRepo {
                             Document(it.key, tenantID, it.value.toString())
                         }
                         streamGetDocumentsResponse.value = documents
-                        logz("documents:${streamGetDocumentsResponse.value}")
                     }
                 }
             })

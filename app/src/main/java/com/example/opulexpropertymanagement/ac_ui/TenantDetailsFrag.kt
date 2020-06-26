@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelStoreOwner
@@ -22,15 +23,13 @@ import com.example.opulexpropertymanagement.databinding.ItemDocumentBinding
 import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.tmcommonkotlin.TMRecyclerViewAdapter
+import com.example.tmcommonkotlin.logv
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_property_details.view.*
 import kotlinx.android.synthetic.main.item_document.view.*
-// This is a silly hack to share a fragment-scoped ViewModel.
-// I prefer not to make an activityViewModel() because it's essentially a memory leak.
-var TenantDetailsStoreOwner: ViewModelStoreOwner? = null
 class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     lateinit var mBinding: FragTenantDetailsBinding
-    val tenantDetailsVM: TenantDetailsVM by viewModels()
+    val tenantDetailsVM: TenantDetailsVM by activityViewModels()
     val navController by lazy { this.findNavController() }
     val args by lazy { arguments?.let { TenantDetailsFragArgs.fromBundle(it) } }
     override fun onCreateView(
@@ -44,6 +43,7 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
         setupClickListeners()
         setupObservers()
         setupView()
+
         tenantDetailsVM.tenant.value = args?.tenant
         return mBinding.root
     }
@@ -83,15 +83,13 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
         binding.document = document
         binding.root.imageview_document.easyPicasso(document.imageUrlTask)
         binding.root.setOnClickListener {
-            TenantDetailsStoreOwner = this
-            logz("${::tenantDetailsVM}")
             val directions = TenantDetailsFragDirections.actionTenantDetailsFragToDocumentDetailsFrag(document)
             navController.navigate(directions)
         }
     }
 
     override fun onDestroy() {
+        logz("TenantDetailsFrag`onDestroy")
         super.onDestroy()
-        TenantDetailsStoreOwner = null
     }
 }

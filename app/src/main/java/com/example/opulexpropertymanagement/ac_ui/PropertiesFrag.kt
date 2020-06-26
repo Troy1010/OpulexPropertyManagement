@@ -5,9 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +23,7 @@ import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
 import com.example.opulexpropertymanagement.ac_ui.extras.AdapterRVProperties
 import com.example.opulexpropertymanagement.util.easyPicasso
+import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_properties.*
 import kotlinx.android.synthetic.main.includible_rounded_image.view.*
 import kotlinx.android.synthetic.main.item_property.view.*
@@ -41,6 +46,8 @@ class PropertiesFrag: OXFragment(), AdapterRVProperties.ARVInterface {
         )
         mBinding.lifecycleOwner = this
         setupObservers()
+        logz("activityViewModels:${activityViewModels<ViewModel>()}")
+        logz("activityViewModels:${requireActivity()}")
         return mBinding.root
     }
 
@@ -89,6 +96,7 @@ class PropertiesFrag: OXFragment(), AdapterRVProperties.ARVInterface {
     }
 
     override fun onDestroy() {
+        logz("PropertiesFrag`onDestroy")
         super.onDestroy()
         PropertiesStoreOwner = null
     }

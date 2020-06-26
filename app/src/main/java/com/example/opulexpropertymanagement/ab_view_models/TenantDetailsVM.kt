@@ -21,7 +21,6 @@ class TenantDetailsVM : ViewModel() {
 
     init {
         documents.addSource(documentsRepo.streamGetDocumentsResponse) {
-            logz("Updating documents..")
             documents.value = it
         }
         documents.addSource(tenant) {
