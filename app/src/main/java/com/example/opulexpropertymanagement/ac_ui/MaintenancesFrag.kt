@@ -47,7 +47,6 @@ class MaintenancesFrag: OXFragment(), AdapterRVMaintenances.ARVInterface {
             }
         })
         maintenancesVM.maintenances.observe(viewLifecycleOwner, Observer {
-            logz("Got new maintenance List: $it")
             fragView.recyclerview_1.adapter?.notifyDataSetChanged()
         })
     }
@@ -77,7 +76,6 @@ class MaintenancesFrag: OXFragment(), AdapterRVMaintenances.ARVInterface {
     }
 
     override fun bindRecyclerItemView(binding: ItemMaintenanceBinding, i: Int) {
-        logz("does this list match:${maintenancesVM.maintenances.value}")
         val maintenance = try {
             maintenancesVM.maintenances.value!![i]
         } catch (e: Exception) {

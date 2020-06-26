@@ -17,6 +17,7 @@ import com.example.opulexpropertymanagement.models.Maintenance
 import com.example.tmcommonkotlin.logz
 
 class MaintenanceDetailsFrag : OXFragment() {
+//    val maintenancesVMStoreOwner by lazy { parentFragment }
     lateinit var fragBinding: FragMaintenanceDetailsBinding
     val maintenancesVM: MaintenancesVM by viewModels({ PropertyDetailsStoreOwner!! })
     val maintenanceAddVM: MaintenanceAddVM by viewModels()
@@ -26,7 +27,10 @@ class MaintenanceDetailsFrag : OXFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+//        for (x in viewModelStore) {
+//
+//        }
+//        logz("viewModelStore:${viewModelStore.}")
         fragBinding = DataBindingUtil.inflate(
             inflater, R.layout.frag_maintenance_details, container, false
         )
@@ -36,9 +40,6 @@ class MaintenanceDetailsFrag : OXFragment() {
     }
 
     private fun setupObservers() {
-        maintenancesVM.selectedMaintenance.observe(viewLifecycleOwner, Observer {
-            logz("selectedMaintenancechanged:$it")
-        })
     }
 
     override fun onStart() {

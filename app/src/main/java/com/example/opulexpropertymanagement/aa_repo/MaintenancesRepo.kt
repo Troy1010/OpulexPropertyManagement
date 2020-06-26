@@ -17,7 +17,6 @@ class MaintenancesRepo {
     fun addMaintenance(propertyID: String, maintenance: Maintenance) {
         if (propertyID=="NULL")
             logz("WARNING: Property ID is \"NULL\"")
-        logz("addMaintenance`maintenance:$maintenance")
         val newRef = fbUserDBTable?.child(FBKEY_PROPERTY)?.child(propertyID)?.child(FBKEY_MAINTENANCE)?.push()
         try {
             maintenance.id = newRef?.key!!

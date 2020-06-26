@@ -84,6 +84,7 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
         binding.root.imageview_document.easyPicasso(document.imageUrlTask)
         binding.root.setOnClickListener {
             TenantDetailsStoreOwner = this
+            logz("${::tenantDetailsVM}")
             val directions = TenantDetailsFragDirections.actionTenantDetailsFragToDocumentDetailsFrag(document)
             navController.navigate(directions)
         }
