@@ -50,7 +50,6 @@ class ActivityHost : TMActivity(),
         // Keep user hot & save user changes in SharedPref & sync to correct fbTable
         GlobalVM.user.observe(this, Observer {
             GlobalRepo.sharedPref.saveUserInSharedPref(it)
-            logz("syncing fbTable")
             it?.let { fbUserDBTable = firebaseDB.getReference(it.id) }
             it?.let { fbUserStorageTable = firebaseStorage.getReference(it.id) }
         })
