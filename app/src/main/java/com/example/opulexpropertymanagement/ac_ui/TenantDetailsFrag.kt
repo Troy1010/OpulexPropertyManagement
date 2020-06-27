@@ -16,7 +16,7 @@ import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa_repo.TenantsRepo
 import com.example.opulexpropertymanagement.ab_view_models.MaintenancesVM
 import com.example.opulexpropertymanagement.ab_view_models.TenantDetailsVM
-import com.example.opulexpropertymanagement.ab_view_models.inheritables.getTenantVM
+import com.example.opulexpropertymanagement.ab_view_models.getTenantVM
 import com.example.opulexpropertymanagement.ac_ui.activities.ActivityHostInterface
 import com.example.opulexpropertymanagement.ac_ui.extras.AdapterRVDocuments
 import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto

@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.TenantDetailsVM
-import com.example.opulexpropertymanagement.ab_view_models.inheritables.getTenantVM
+import com.example.opulexpropertymanagement.ab_view_models.getTenantVM
 import com.example.opulexpropertymanagement.ac_ui.activities.ActivityHostInterface
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.models.Document

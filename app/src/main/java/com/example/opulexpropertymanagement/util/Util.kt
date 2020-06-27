@@ -23,6 +23,9 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.reflect.KMutableProperty0
+import kotlin.reflect.KProperty
+import kotlin.reflect.KProperty0
 
 
 fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
@@ -127,3 +130,8 @@ fun handleInputValidationResult(
         }
     }
 }
+
+// the following allow `KMutableProperty0` to be used as a read/write delegate
+operator fun <T> KProperty0<T>.getValue(thisRef: Any?, property: KProperty<*>): T = get()
+operator fun <T> KMutableProperty0<T>.setValue(thisRef: Any?, property: KProperty<*>,
+                                               value: T) = set(value)
