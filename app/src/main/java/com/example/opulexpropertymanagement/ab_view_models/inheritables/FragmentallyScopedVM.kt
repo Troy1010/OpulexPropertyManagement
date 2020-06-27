@@ -5,4 +5,5 @@ import androidx.navigation.NavController
 abstract class FragmentallyScopedVM(
     navController: NavController
 ) {
+    abstract val fragmentsToScopeWith: HashSet<Int>
 }

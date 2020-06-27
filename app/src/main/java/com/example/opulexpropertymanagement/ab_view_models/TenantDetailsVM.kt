@@ -4,6 +4,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa_repo.DocumentsRepo
 import com.example.opulexpropertymanagement.aa_repo.PropertiesRepo
 import com.example.opulexpropertymanagement.aa_repo.PropertyDetailsRepo
@@ -16,6 +17,7 @@ import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResu
 import com.example.tmcommonkotlin.logz
 
 class TenantDetailsVM(val navController: NavController): FragmentallyScopedVM(navController) {
+    override val fragmentsToScopeWith = hashSetOf(R.id.tenantDetailsFrag, R.id.documentDetailsFrag)
     val documentsRepo = DocumentsRepo()
 
     val tenant by lazy { MediatorLiveData<Tenant>() }
