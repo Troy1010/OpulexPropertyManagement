@@ -61,22 +61,6 @@ class ActivityHost : TMActivity(),
             navController.navigate(R.id.action_fragProperties_to_fragTenantOrLandlord)
         }
         // ?
-        navController.addOnDestinationChangedListener { navController , destination, bundle ->
-            val tenantDetailsVMZ = tenantDetailsVM
-            if ((tenantDetailsVMZ!=null) && destination.id !in tenantDetailsVMZ.fragmentsToScopeWith) {
-                logz("making tenantDetailsVM null")
-                tenantDetailsVM = null
-                System.gc()
-            }
-        }
-    }
-
-    var tenantDetailsVM :TenantDetailsVM?=null
-    override fun getTenantVM(): TenantDetailsVM {
-        if (tenantDetailsVM==null) {
-            tenantDetailsVM = TenantDetailsVM(navController)
-        }
-        return tenantDetailsVM!!
     }
 
 

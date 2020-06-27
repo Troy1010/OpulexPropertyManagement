@@ -10,5 +10,4 @@ interface ActivityHostInterface {
     val toolbar: Toolbar?
     fun easyPhoto(code: Int)
     val pickImage: () -> Unit
-    fun getTenantVM():TenantDetailsVM
 }

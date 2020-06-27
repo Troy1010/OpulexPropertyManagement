@@ -16,6 +16,7 @@ import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa_repo.TenantsRepo
 import com.example.opulexpropertymanagement.ab_view_models.MaintenancesVM
 import com.example.opulexpropertymanagement.ab_view_models.TenantDetailsVM
+import com.example.opulexpropertymanagement.ab_view_models.inheritables.getTenantVM
 import com.example.opulexpropertymanagement.ac_ui.activities.ActivityHostInterface
 import com.example.opulexpropertymanagement.ac_ui.extras.AdapterRVDocuments
 import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto
@@ -31,7 +32,7 @@ import kotlinx.android.synthetic.main.frag_property_details.view.*
 import kotlinx.android.synthetic.main.item_document.view.*
 class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     lateinit var mBinding: FragTenantDetailsBinding
-    val tenantDetailsVM: TenantDetailsVM by lazy { (requireActivity() as ActivityHostInterface).getTenantVM() }
+    val tenantDetailsVM: TenantDetailsVM by lazy { getTenantVM(navController) }
     val navController by lazy { this.findNavController() }
     val args by lazy { arguments?.let { TenantDetailsFragArgs.fromBundle(it) } }
     override fun onCreateView(
