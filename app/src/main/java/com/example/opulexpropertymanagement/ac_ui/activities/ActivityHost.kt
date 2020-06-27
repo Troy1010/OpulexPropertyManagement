@@ -64,17 +64,19 @@ class ActivityHost : TMActivity(),
         val tenantVMKeepers = hashSetOf(R.id.tenantDetailsFrag, R.id.documentDetailsFrag)
         navController.addOnDestinationChangedListener { navController , destination, bundle ->
             if (destination.id !in tenantVMKeepers) {
-                logz("ReplaceWithBlankVM")
-                ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
-                    .get(KEY_TenantVMKeepers, BlankVM::class.java)
+                logz("making tenantDetailsVM null")
+                tenantDetailsVM = null
+                System.gc()
             }
         }
     }
 
-    val KEY_TenantVMKeepers = "TenantVM1234"
+    var tenantDetailsVM :TenantDetailsVM?=null
     override fun getTenantVM(): TenantDetailsVM {
-        return ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(App))
-            .get(KEY_TenantVMKeepers, TenantDetailsVM::class.java)
+        if (tenantDetailsVM==null) {
+            tenantDetailsVM = TenantDetailsVM()
+        }
+        return tenantDetailsVM!!
     }
 
 

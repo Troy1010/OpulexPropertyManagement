@@ -39,7 +39,6 @@ class PropertyDetailsFrag: OXFragment() {
     val maintenancesVM: MaintenancesVM by viewModels { MaintenancesVMFactory(args.property) }
     val propertyDetailsVM: PropertyDetailsVM by viewModels({ this }) { PropertyDetailsVMFactory(propertiesVM.properties, propertyIndex) }
     val navController by lazy { findNavController() }
-    val tenantDetailsVM: TenantDetailsVM by lazy { (requireActivity() as ActivityHostInterface).getTenantVM() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +52,6 @@ class PropertyDetailsFrag: OXFragment() {
         setupClickListeners()
         setupObservers()
         setupView()
-        logz("PropertyDetailsFrag`tenantDetailsVM:$tenantDetailsVM")
         return mBinding.root
     }
 
