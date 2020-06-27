@@ -13,7 +13,7 @@ import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResult
 import com.example.tmcommonkotlin.logz
 
-class TenantDetailsVM : AutoCloseable {
+class TenantDetailsVM {
     val documentsRepo = DocumentsRepo()
 
     val tenant by lazy { MediatorLiveData<Tenant>() }
@@ -42,9 +42,5 @@ class TenantDetailsVM : AutoCloseable {
 
     fun finalize() {
         logz("TenantDetailsVM`finalize")
-    }
-
-    override fun close() {
-        logz("TenantDetailsVM`close")
     }
 }
