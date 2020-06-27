@@ -15,7 +15,7 @@ import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResult
 import com.example.tmcommonkotlin.logz
 
-class TenantDetailsVM(val navController: NavController) {
+class TenantDetailsVM(val navController: NavController): FragmentallyScopedVM(navController) {
     val documentsRepo = DocumentsRepo()
 
     val tenant by lazy { MediatorLiveData<Tenant>() }
