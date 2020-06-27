@@ -61,9 +61,9 @@ class ActivityHost : TMActivity(),
             navController.navigate(R.id.action_fragProperties_to_fragTenantOrLandlord)
         }
         // ?
-        val tenantVMKeepers = hashSetOf(R.id.tenantDetailsFrag, R.id.documentDetailsFrag)
         navController.addOnDestinationChangedListener { navController , destination, bundle ->
-            if (destination.id !in tenantVMKeepers) {
+            val tenantDetailsVMZ = tenantDetailsVM
+            if ((tenantDetailsVMZ!=null) && destination.id !in tenantDetailsVMZ.fragmentsToScopeWith) {
                 logz("making tenantDetailsVM null")
                 tenantDetailsVM = null
                 System.gc()
