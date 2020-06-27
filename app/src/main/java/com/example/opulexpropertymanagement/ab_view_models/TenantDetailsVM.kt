@@ -13,13 +13,14 @@ import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResult
 import com.example.tmcommonkotlin.logz
 
-class TenantDetailsVM : ViewModel() {
+class TenantDetailsVM : ViewModel(), AutoCloseable {
     val documentsRepo = DocumentsRepo()
 
     val tenant by lazy { MediatorLiveData<Tenant>() }
     val documents by lazy { MediatorLiveData<List<Document>>() }
 
     init {
+        logz("TenantDetailsVM`Init`Open")
         documents.addSource(documentsRepo.streamGetDocumentsResponse) {
             documents.value = it
         }
@@ -37,5 +38,13 @@ class TenantDetailsVM : ViewModel() {
             if (it is AddDocumentResult.Success)
                 documentsRepo.getDocuments(it.document.tenantID)
         }
+    }
+
+    fun finalize() {
+        logz("TenantDetailsVM`finalize")
+    }
+
+    override fun close() {
+        logz("TenantDetailsVM`close")
     }
 }

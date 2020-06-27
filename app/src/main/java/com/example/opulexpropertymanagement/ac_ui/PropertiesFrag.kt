@@ -46,8 +46,8 @@ class PropertiesFrag: OXFragment(), AdapterRVProperties.ARVInterface {
         )
         mBinding.lifecycleOwner = this
         setupObservers()
-        logz("activityViewModels:${activityViewModels<ViewModel>()}")
-        logz("activityViewModels:${requireActivity()}")
+//        logz("activityViewModels:${activityViewModels<ViewModel>()}")
+//        logz("activityViewModels:${requireActivity()}")
         return mBinding.root
     }
 

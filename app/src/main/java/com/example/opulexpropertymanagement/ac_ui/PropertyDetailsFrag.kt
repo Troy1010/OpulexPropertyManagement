@@ -12,10 +12,8 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa_repo.PropertyDetailsRepo
-import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
-import com.example.opulexpropertymanagement.ab_view_models.MaintenancesVM
-import com.example.opulexpropertymanagement.ab_view_models.PropertiesVM
-import com.example.opulexpropertymanagement.ab_view_models.PropertyDetailsVM
+import com.example.opulexpropertymanagement.ab_view_models.*
+import com.example.opulexpropertymanagement.ac_ui.activities.ActivityHostInterface
 import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto
 import com.example.opulexpropertymanagement.ac_ui.extras.MaintenancesVMFactory
 import com.example.opulexpropertymanagement.ac_ui.extras.PropertyDetailsVMFactory
@@ -41,6 +39,7 @@ class PropertyDetailsFrag: OXFragment() {
     val maintenancesVM: MaintenancesVM by viewModels { MaintenancesVMFactory(args.property) }
     val propertyDetailsVM: PropertyDetailsVM by viewModels({ this }) { PropertyDetailsVMFactory(propertiesVM.properties, propertyIndex) }
     val navController by lazy { findNavController() }
+    val tenantDetailsVM: TenantDetailsVM by lazy { (requireActivity() as ActivityHostInterface).getTenantVM() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +53,7 @@ class PropertyDetailsFrag: OXFragment() {
         setupClickListeners()
         setupObservers()
         setupView()
+        logz("PropertyDetailsFrag`tenantDetailsVM:$tenantDetailsVM")
         return mBinding.root
     }
 

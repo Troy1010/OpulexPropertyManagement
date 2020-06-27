@@ -9,12 +9,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.grocerygo.activities_and_frags.Inheritables.TMActivity
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.GlobalVM
+import com.example.opulexpropertymanagement.ab_view_models.TenantDetailsVM
 import com.example.opulexpropertymanagement.ac_ui.GlobalRepo
 import com.example.opulexpropertymanagement.app.*
+import com.example.opulexpropertymanagement.util.BlankVM
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.activity_host.*
 
@@ -57,7 +60,23 @@ class ActivityHost : TMActivity(),
         if (GlobalVM.user.value == null) {
             navController.navigate(R.id.action_fragProperties_to_fragTenantOrLandlord)
         }
+        // ?
+        val tenantVMKeepers = hashSetOf(R.id.tenantDetailsFrag, R.id.documentDetailsFrag)
+        navController.addOnDestinationChangedListener { navController , destination, bundle ->
+            if (destination.id !in tenantVMKeepers) {
+                logz("ReplaceWithBlankVM")
+                ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
+                    .get(KEY_TenantVMKeepers, BlankVM::class.java)
+            }
+        }
     }
+
+    val KEY_TenantVMKeepers = "TenantVM1234"
+    override fun getTenantVM(): TenantDetailsVM {
+        return ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(App))
+            .get(KEY_TenantVMKeepers, TenantDetailsVM::class.java)
+    }
+
 
     override fun onBackPressed() {
         // Drawer

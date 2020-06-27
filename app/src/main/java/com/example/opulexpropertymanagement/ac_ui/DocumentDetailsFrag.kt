@@ -13,8 +13,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.ab_view_models.TenantDetailsVM
+import com.example.opulexpropertymanagement.ac_ui.activities.ActivityHostInterface
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.models.streamable.RemoveDocumentResult
@@ -31,7 +33,7 @@ import kotlinx.android.synthetic.main.frag_document_details.*
 class DocumentDetailsFrag: OXFragment() {
     val args by lazy { arguments?.let { DocumentDetailsFragArgs.fromBundle(it) } }
     val document by lazy { args?.document!! }
-    val tenantDetailsVM: TenantDetailsVM by activityViewModels()
+    val tenantDetailsVM: TenantDetailsVM by lazy { (requireActivity() as ActivityHostInterface).getTenantVM() }
     val navController by lazy { this.findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater,

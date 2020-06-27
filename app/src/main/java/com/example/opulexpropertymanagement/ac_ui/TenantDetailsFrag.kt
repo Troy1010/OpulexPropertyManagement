@@ -10,11 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa_repo.TenantsRepo
 import com.example.opulexpropertymanagement.ab_view_models.MaintenancesVM
 import com.example.opulexpropertymanagement.ab_view_models.TenantDetailsVM
+import com.example.opulexpropertymanagement.ac_ui.activities.ActivityHostInterface
 import com.example.opulexpropertymanagement.ac_ui.extras.AdapterRVDocuments
 import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto
 import com.example.opulexpropertymanagement.ac_ui.inheritables.OXFragment
@@ -29,7 +31,7 @@ import kotlinx.android.synthetic.main.frag_property_details.view.*
 import kotlinx.android.synthetic.main.item_document.view.*
 class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     lateinit var mBinding: FragTenantDetailsBinding
-    val tenantDetailsVM: TenantDetailsVM by activityViewModels()
+    val tenantDetailsVM: TenantDetailsVM by lazy { (requireActivity() as ActivityHostInterface).getTenantVM() }
     val navController by lazy { this.findNavController() }
     val args by lazy { arguments?.let { TenantDetailsFragArgs.fromBundle(it) } }
     override fun onCreateView(
@@ -43,7 +45,7 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
         setupClickListeners()
         setupObservers()
         setupView()
-
+        logz("TenantDetailsFrag`tenantDetailsVM:$tenantDetailsVM")
         tenantDetailsVM.tenant.value = args?.tenant
         return mBinding.root
     }
@@ -86,10 +88,5 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
             val directions = TenantDetailsFragDirections.actionTenantDetailsFragToDocumentDetailsFrag(document)
             navController.navigate(directions)
         }
-    }
-
-    override fun onDestroy() {
-        logz("TenantDetailsFrag`onDestroy")
-        super.onDestroy()
     }
 }

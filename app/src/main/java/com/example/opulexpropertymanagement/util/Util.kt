@@ -5,11 +5,10 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
+import androidx.lifecycle.ViewModel
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.app.App
 import com.example.tmcommonkotlin.InputValidation
@@ -24,6 +23,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
     return LiveDataReactiveStreams.fromPublisher(observable.toFlowable(BackpressureStrategy.DROP))
@@ -92,6 +92,9 @@ fun <T> LiveData<T>.onlyNew(lifecycleOwner: LifecycleOwner): LiveData<T> {
     }
     return this
 }
+
+internal class BlankVM : ViewModel() {}
+
 
 fun handleInputValidationResult(
     validationResult: InputValidation.Result,
