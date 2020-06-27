@@ -74,7 +74,7 @@ class ActivityHost : TMActivity(),
     var tenantDetailsVM :TenantDetailsVM?=null
     override fun getTenantVM(): TenantDetailsVM {
         if (tenantDetailsVM==null) {
-            tenantDetailsVM = TenantDetailsVM()
+            tenantDetailsVM = TenantDetailsVM(navController)
         }
         return tenantDetailsVM!!
     }
