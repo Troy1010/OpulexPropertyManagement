@@ -12,9 +12,9 @@ abstract class FragmentallyScopedVM(
     navController: NavController,
     instanceReference: KMutableProperty0<FragmentallyScopedVM?>
 ) {
-    var instance by instanceReference
     abstract val fragmentsToScopeWith: HashSet<Int>
     init {
+        var instance by instanceReference
         navController.addOnDestinationChangedListener { navController , destination, bundle ->
             val tenantDetailsVMZ = instance
             if ((tenantDetailsVMZ!=null) && destination.id !in tenantDetailsVMZ.fragmentsToScopeWith) {
