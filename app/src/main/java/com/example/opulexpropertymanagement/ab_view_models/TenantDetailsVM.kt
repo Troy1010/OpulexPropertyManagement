@@ -11,16 +11,10 @@ import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResult
 import com.example.tmcommonkotlin.logz
 
-
-
-
-
 class TenantDetailsVM(val navController: NavController): FragmentallyScopedVM(navController, ::instanceAsFragmentallyScopedVM) {
     override val fragmentsToScopeWith = hashSetOf(R.id.tenantDetailsFrag, R.id.documentDetailsFrag)
     companion object {
-        private var instanceAsFragmentallyScopedVM : FragmentallyScopedVM?
-            get() { return instance }
-            set(value) { instance = if (value==null) null else {value as TenantDetailsVM} }
+        // make a nullable singleton instance of TenantDetailsVM
         @Volatile
         private var instance: TenantDetailsVM?=null
         private val LOCK = Any()
@@ -31,6 +25,9 @@ class TenantDetailsVM(val navController: NavController): FragmentallyScopedVM(na
                 }
             }
         }
+        private var instanceAsFragmentallyScopedVM : FragmentallyScopedVM?
+            get() = instance
+            set(value) { instance = if (value==null) null else {value as TenantDetailsVM} }
     }
 
     val documentsRepo = DocumentsRepo()
