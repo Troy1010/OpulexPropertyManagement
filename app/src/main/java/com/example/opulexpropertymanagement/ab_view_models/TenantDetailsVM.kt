@@ -10,15 +10,29 @@ import com.example.opulexpropertymanagement.models.Tenant
 import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResult
 import com.example.tmcommonkotlin.logz
-var tenantDetailsVM : FragmentallyScopedVM?=null
-fun getTenantVM(navController:NavController): TenantDetailsVM {
-    if (tenantDetailsVM==null) {
-        tenantDetailsVM = TenantDetailsVM(navController)
-    }
-    return tenantDetailsVM as TenantDetailsVM
-}
-class TenantDetailsVM(val navController: NavController): FragmentallyScopedVM(navController, ::tenantDetailsVM) {
+
+
+
+
+
+class TenantDetailsVM(val navController: NavController): FragmentallyScopedVM(navController, ::instanceAsFragmentallyScopedVM) {
     override val fragmentsToScopeWith = hashSetOf(R.id.tenantDetailsFrag, R.id.documentDetailsFrag)
+    companion object {
+        private var instanceAsFragmentallyScopedVM : FragmentallyScopedVM?
+            get() { return instance }
+            set(value) { instance = if (value==null) null else {value as TenantDetailsVM} }
+        @Volatile
+        private var instance: TenantDetailsVM?=null
+        private val LOCK = Any()
+        fun getInstance(navController:NavController): TenantDetailsVM {
+            return instance?: synchronized(LOCK) {
+                instance?:TenantDetailsVM(navController).also {
+                    instance = it
+                }
+            }
+        }
+    }
+
     val documentsRepo = DocumentsRepo()
 
     val tenant by lazy { MediatorLiveData<Tenant>() }

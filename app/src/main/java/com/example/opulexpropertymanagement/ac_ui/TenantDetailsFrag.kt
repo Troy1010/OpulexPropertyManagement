@@ -16,7 +16,6 @@ import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa_repo.TenantsRepo
 import com.example.opulexpropertymanagement.ab_view_models.MaintenancesVM
 import com.example.opulexpropertymanagement.ab_view_models.TenantDetailsVM
-import com.example.opulexpropertymanagement.ab_view_models.getTenantVM
 import com.example.opulexpropertymanagement.ac_ui.activities.ActivityHostInterface
 import com.example.opulexpropertymanagement.ac_ui.extras.AdapterRVDocuments
 import com.example.opulexpropertymanagement.ac_ui.extras.BottomDialogForPhoto
@@ -28,11 +27,13 @@ import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.tmcommonkotlin.TMRecyclerViewAdapter
 import com.example.tmcommonkotlin.logv
 import com.example.tmcommonkotlin.logz
-import kotlinx.android.synthetic.main.frag_property_details.view.*
+import kotlinx.android.synthetic.main.frag_tenant_details.view.*
+import kotlinx.android.synthetic.main.includible_rounded_image.view.*
 import kotlinx.android.synthetic.main.item_document.view.*
+
 class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     lateinit var mBinding: FragTenantDetailsBinding
-    val tenantDetailsVM: TenantDetailsVM by lazy { getTenantVM(navController) }
+    val tenantDetailsVM: TenantDetailsVM by lazy { TenantDetailsVM.getInstance(navController) }
     val navController by lazy { this.findNavController() }
     val args by lazy { arguments?.let { TenantDetailsFragArgs.fromBundle(it) } }
     override fun onCreateView(
@@ -54,7 +55,7 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     private fun setupClickListeners() {
         mBinding.fab.setOnClickListener {
             val bottomDialog = BottomDialogForPhoto(requireActivity(), "Add Document") { uri, _ ->
-                val tenantID = tenantDetailsVM.tenant.value?.id!!
+                val tenantID = tenantDetailsVM.tenant.value?.id
                 if ((tenantID!=null) && (uri!=null)) {
                     tenantDetailsVM.documentsRepo.addDocument(tenantID, uri, "New Document")
                 }
@@ -65,7 +66,7 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
 
     private fun setupObservers() {
         tenantDetailsVM.tenant.observe(viewLifecycleOwner, Observer {
-            mBinding.includibleTenantImage.imageview1.easyPicasso(tenantDetailsVM.tenant.value?.imageUrlTask)
+            mBinding.root.includible_tenant_image.imageview_1.easyPicasso(tenantDetailsVM.tenant.value?.imageUrlTask)
         })
         tenantDetailsVM.documents.observe(viewLifecycleOwner, Observer {
             mBinding.recyclerview1.adapter?.notifyDataSetChanged()
