@@ -7,7 +7,7 @@ import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.tmcommonkotlin.Coroutines
 
-class RegisterRepo {
+open class RegisterRepo {
     val streamTryRegisterResult by lazy { MutableLiveData<RegisterResult>() }
 
     fun tryRegister(email: String?, password: String?, userType: UserType?) {
