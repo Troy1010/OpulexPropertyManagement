@@ -12,9 +12,9 @@ import java.lang.IndexOutOfBoundsException
 
 object GlobalRepo {
     //
-//    val NetworkClient
-    // SharedPref
-    val sharedPref = SharedPref
+    fun getUserEmail(id:String): String {
+        return streamLoginAttemptResult.value?.user?.email?:""
+    }
 
     // Network
     //  TryLogin
