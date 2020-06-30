@@ -4,7 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.aa.repo.network.NetworkClient
 import com.example.opulexpropertymanagement.aa.ui.User
-import com.example.opulexpropertymanagement.app.FBKEY_PROPERTY
+import com.example.opulexpropertymanagement.FBKEY_PROPERTY
 import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.UserType

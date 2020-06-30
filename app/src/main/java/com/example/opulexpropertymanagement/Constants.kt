@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.app
+ package com.example.opulexpropertymanagement
 
 const val FBKEY_TENANT = "Tenant"
 const val FBKEY_PROPERTY = "Property"

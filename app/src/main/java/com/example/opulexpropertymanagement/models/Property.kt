@@ -2,7 +2,7 @@ package com.example.opulexpropertymanagement.models
 
 import android.net.Uri
 import android.os.Parcelable
-import com.example.opulexpropertymanagement.app.FBKEY_PROPERTY
+import com.example.opulexpropertymanagement.FBKEY_PROPERTY
 import com.example.opulexpropertymanagement.app.fbUserStorageTable
 import com.example.opulexpropertymanagement.util.Display
 import com.google.firebase.storage.UploadTask
