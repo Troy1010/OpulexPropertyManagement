@@ -151,25 +151,18 @@ inline fun <reified T:ViewModel> AppCompatActivity.scopeVMToDestinations(
 inline fun <reified T> ViewModelStore.remove() {
     val VMStoreField = ViewModelStore::class.java.getDeclaredField("mMap")
     VMStoreField.isAccessible = true
-    logz("VMStoreField:${VMStoreField}")
-    logz("VMStoreFieldTypeName:${VMStoreField.type.name}")
-    val VMStoreMap = VMStoreField.get(this) as HashMap<*, *>
-    logz("VMStoreSize:${VMStoreMap.size}")
+    val VMStoreMap = VMStoreField.get(this) as HashMap<*, ViewModel>
     var keyToDelete:String?=null
-//    for (entry in VMStoreMap) {
-//        if (entry.value is T) {
-//            keyToDelete = entry.key.toString()
-//        }
-//    }
     VMStoreMap.map {
         if (it.value is T) {
             keyToDelete = it.key.toString()
         }
-        logz("key:${it.key} value:${it.value}")
         it
     }
-    if (keyToDelete!=null)
+    if (keyToDelete!=null) {
+        val methodField = ViewModel::class.java.getDeclaredMethod("onCleared")
+        methodField.isAccessible = true
+        methodField.invoke(VMStoreMap[keyToDelete])
         VMStoreMap.remove(keyToDelete)
-    logz("VMStoreSize:${VMStoreMap.size}")
-    logz("done")
+    }
 }
