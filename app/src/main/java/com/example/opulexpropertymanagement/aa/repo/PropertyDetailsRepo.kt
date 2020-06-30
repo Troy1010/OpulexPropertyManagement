@@ -17,10 +17,4 @@ object PropertyDetailsRepo {
             { streamGetTenantByLandlordAndPropertyResult.value = it }
         )
     }
-
-    // GetMaintenances
-    val streamGetMaintenancesResult by lazy { MutableLiveData<Maintenance>() }
-    fun getMaintenances() {
-
-    }
 }

@@ -59,8 +59,7 @@ class ActivityHost : TMActivity(),
         if (GlobalVM.user.value == null) {
             navController.navigate(R.id.action_fragProperties_to_fragTenantOrLandlord)
         }
-        // ?
-//        this.scopeVMToDestinations<PropertiesVM>(navController, hashSetOf(R.id.fragProperties, R.id.fragPropertyAdd))
+        // scopeVMToDestinations
         this.scopeVMToDestinations<TenantDetailsVM>(navController, hashSetOf(R.id.tenantDetailsFrag, R.id.documentDetailsFrag))
     }
 
