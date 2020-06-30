@@ -6,7 +6,7 @@
     <data>
         <variable
             name="registerVM"
-            type="com.example.opulexpropertymanagement.ab_view_models.RegisterVM" />
+            type="com.example.opulexpropertymanagement.aa.view_models.RegisterVM" />
     </data>
 
     <ScrollView
