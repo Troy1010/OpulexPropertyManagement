@@ -1,18 +1,9 @@
 package com.example.opulexpropertymanagement
 
-import com.example.opulexpropertymanagement.aa_repo.RegisterRepo
-import com.example.opulexpropertymanagement.ac_ui.User
-import com.example.opulexpropertymanagement.models.UserType
-import com.example.opulexpropertymanagement.models.streamable.RegisterResult
+import com.example.opulexpropertymanagement.aa.repo.RegisterRepo
+import com.example.opulexpropertymanagement.aa.ui.User
 import com.example.tmcommonkotlin.InputValidation
 import com.google.common.truth.Truth
-import io.reactivex.Scheduler
-import io.reactivex.android.plugins.RxAndroidPlugins
-import io.reactivex.annotations.NonNull
-import io.reactivex.disposables.Disposable
-import io.reactivex.internal.schedulers.ExecutorScheduler.ExecutorWorker
-import io.reactivex.plugins.RxJavaPlugins
-import junit.framework.Assert.assertEquals
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.AnyOf.anyOf
@@ -22,11 +13,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import java.util.concurrent.Callable
-import java.util.concurrent.Executor
-import java.util.concurrent.TimeUnit
 
 
 @RunWith(MockitoJUnitRunner::class)

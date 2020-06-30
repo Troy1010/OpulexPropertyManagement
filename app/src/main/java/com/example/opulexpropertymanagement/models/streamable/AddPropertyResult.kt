@@ -1,6 +1,6 @@
 package com.example.opulexpropertymanagement.models.streamable
 
-import com.example.opulexpropertymanagement.ac_ui.User
+import com.example.opulexpropertymanagement.aa.ui.User
 import com.example.opulexpropertymanagement.models.Property
 
 sealed class AddPropertyResult {
