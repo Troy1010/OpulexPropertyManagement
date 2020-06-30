@@ -13,6 +13,7 @@ import com.example.opulexpropertymanagement.aa.ui.extras.AdapterRVTenant
 import com.example.opulexpropertymanagement.aa.ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.ItemTenantBinding
 import com.example.opulexpropertymanagement.models.Tenant
+import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_tenants.*

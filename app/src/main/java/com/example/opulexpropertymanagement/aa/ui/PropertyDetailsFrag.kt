@@ -18,8 +18,11 @@ import com.example.opulexpropertymanagement.aa.ui.extras.PropertyDetailsVMFactor
 import com.example.opulexpropertymanagement.aa.ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyDetailsBinding
 import com.example.opulexpropertymanagement.models.streamable.RemoveTenantResult
+import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.easyToast
+import kotlinx.android.synthetic.main.frag_property_details.view.*
+import kotlinx.android.synthetic.main.includible_rounded_image.view.*
 
 // This is a silly hack to share a fragment-scoped ViewModel.
 // I prefer not to make an activityViewModel() because it's essentially a memory leak.
