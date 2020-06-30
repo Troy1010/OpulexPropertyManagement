@@ -15,7 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import javax.inject.Inject
 
 
 interface INetworkClient {

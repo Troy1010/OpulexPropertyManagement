@@ -7,7 +7,6 @@ import com.example.opulexpropertymanagement.aa.repo.SharedPref
 import com.example.opulexpropertymanagement.models.network_responses.Message
 import com.example.tmcommonkotlin.Coroutines
 import com.google.gson.Gson
-import dagger.internal.DaggerCollections
 import java.lang.IndexOutOfBoundsException
 
 
