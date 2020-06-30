@@ -20,7 +20,6 @@ class TenantDetailsVM(): ViewModel() {
     val documents by lazy { MediatorLiveData<List<Document>>() }
 
     init {
-        logz("TenantDetailsVM`Init`Open")
         documents.addSource(documentsRepo.streamGetDocumentsResponse) {
             documents.value = it
         }

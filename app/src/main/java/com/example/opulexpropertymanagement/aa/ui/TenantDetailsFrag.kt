@@ -38,7 +38,6 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
         setupClickListeners()
         setupObservers()
         setupView()
-        logz("TenantDetailsFrag`tenantDetailsVM:$tenantDetailsVM")
         tenantDetailsVM.tenant.value = args?.tenant
         return mBinding.root
     }
