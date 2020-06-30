@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement
+package com.example.opulexpropertymanagement.unitTests
 
 import com.example.opulexpropertymanagement.aa.repo.RegisterRepo
 import com.example.opulexpropertymanagement.aa.ui.User
