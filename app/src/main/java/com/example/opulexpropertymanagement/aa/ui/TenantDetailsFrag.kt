@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.item_document.view.*
 
 class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     lateinit var mBinding: FragTenantDetailsBinding
-    val tenantDetailsVM: TenantDetailsVM by lazy { TenantDetailsVM.getInstance(navController) }
+    val tenantDetailsVM: TenantDetailsVM by activityViewModels()
     val navController by lazy { this.findNavController() }
     val args by lazy { arguments?.let { TenantDetailsFragArgs.fromBundle(it) } }
     override fun onCreateView(

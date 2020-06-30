@@ -5,10 +5,9 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import android.widget.ImageView
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
-import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.*
+import androidx.navigation.NavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.app.App
 import com.example.tmcommonkotlin.InputValidation
@@ -23,6 +22,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty0
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty0
@@ -135,3 +135,41 @@ fun handleInputValidationResult(
 operator fun <T> KProperty0<T>.getValue(thisRef: Any?, property: KProperty<*>): T = get()
 operator fun <T> KMutableProperty0<T>.setValue(thisRef: Any?, property: KProperty<*>,
                                                value: T) = set(value)
+
+
+inline fun <reified T:ViewModel> AppCompatActivity.scopeVMToDestinations(
+    navController: NavController,
+    destinations: HashSet<Int>
+) {
+    navController.addOnDestinationChangedListener { _, destination, _ ->
+        if (destination.id !in destinations) {
+            this.viewModelStore.remove<T>()
+        }
+    }
+}
+
+inline fun <reified T> ViewModelStore.remove() {
+    val VMStoreField = ViewModelStore::class.java.getDeclaredField("mMap")
+    VMStoreField.isAccessible = true
+    logz("VMStoreField:${VMStoreField}")
+    logz("VMStoreFieldTypeName:${VMStoreField.type.name}")
+    val VMStoreMap = VMStoreField.get(this) as HashMap<*, *>
+    logz("VMStoreSize:${VMStoreMap.size}")
+    var keyToDelete:String?=null
+//    for (entry in VMStoreMap) {
+//        if (entry.value is T) {
+//            keyToDelete = entry.key.toString()
+//        }
+//    }
+    VMStoreMap.map {
+        if (it.value is T) {
+            keyToDelete = it.key.toString()
+        }
+        logz("key:${it.key} value:${it.value}")
+        it
+    }
+    if (keyToDelete!=null)
+        VMStoreMap.remove(keyToDelete)
+    logz("VMStoreSize:${VMStoreMap.size}")
+    logz("done")
+}

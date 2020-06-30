@@ -14,7 +14,10 @@ import com.example.grocerygo.activities_and_frags.Inheritables.TMActivity
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa.view_models.GlobalVM
 import com.example.opulexpropertymanagement.aa.ui.GlobalRepo
+import com.example.opulexpropertymanagement.aa.view_models.PropertiesVM
+import com.example.opulexpropertymanagement.aa.view_models.TenantDetailsVM
 import com.example.opulexpropertymanagement.app.*
+import com.example.opulexpropertymanagement.util.scopeVMToDestinations
 import kotlinx.android.synthetic.main.activity_host.*
 
 class ActivityHost : TMActivity(),
@@ -57,6 +60,8 @@ class ActivityHost : TMActivity(),
             navController.navigate(R.id.action_fragProperties_to_fragTenantOrLandlord)
         }
         // ?
+//        this.scopeVMToDestinations<PropertiesVM>(navController, hashSetOf(R.id.fragProperties, R.id.fragPropertyAdd))
+        this.scopeVMToDestinations<TenantDetailsVM>(navController, hashSetOf(R.id.tenantDetailsFrag, R.id.documentDetailsFrag))
     }
 
 

@@ -3,6 +3,7 @@ package com.example.opulexpropertymanagement.aa.ui
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.frag_document_details.*
 class DocumentDetailsFrag: OXFragment() {
     val args by lazy { arguments?.let { DocumentDetailsFragArgs.fromBundle(it) } }
     val document by lazy { args?.document!! }
-    val tenantDetailsVM: TenantDetailsVM by lazy { TenantDetailsVM.getInstance(navController) }
+    val tenantDetailsVM: TenantDetailsVM by activityViewModels()
     val navController by lazy { this.findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater,
