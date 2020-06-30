@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
 
@@ -60,7 +61,23 @@ repositories {
     mavenLocal()
     maven { url 'https://jitpack.io' }
 }
+kapt {
+    correctErrorTypes true
+}
 dependencies {
+    def daggerVersion = "2.28-alpha"
+    // Dagger/Hilt
+    implementation "com.google.dagger:hilt-android:$daggerVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$daggerVersion"
+
+    // For instrumentation tests
+    androidTestImplementation  "com.google.dagger:hilt-android-testing:$daggerVersion"
+    androidTestAnnotationProcessor "com.google.dagger:hilt-android-compiler:$daggerVersion"
+
+    // For local unit tests
+    testImplementation "com.google.dagger:hilt-android-testing:$daggerVersion"
+    testAnnotationProcessor "com.google.dagger:hilt-android-compiler:$daggerVersion"
+    //
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
