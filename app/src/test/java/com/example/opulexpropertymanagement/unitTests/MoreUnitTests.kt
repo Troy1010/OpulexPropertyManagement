@@ -3,7 +3,6 @@ package com.example.opulexpropertymanagement.unitTests
 import com.example.opulexpropertymanagement.aa.repo.RegisterRepo
 import com.example.opulexpropertymanagement.aa.ui.User
 import com.example.tmcommonkotlin.InputValidation
-import com.google.common.truth.Truth
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.AnyOf.anyOf
@@ -39,7 +38,7 @@ class MoreUnitTests {
             id =  "463",
             usertype = "landlord"
         )
-        Truth.assertThat(x)
+//        Truth.assertThat(x)
     }
     @Before
     fun doAMockitoPreparation() {
