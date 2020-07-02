@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.unitTests
+package com.example.opulexpropertymanagement.extraTests
 
 import com.example.opulexpropertymanagement.aa.repo.UserRepo
 import com.example.opulexpropertymanagement.aa.ui.GlobalRepo

@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.unitTests
+package com.example.opulexpropertymanagement.extraTests
 
 import org.junit.Test
 
