@@ -78,11 +78,6 @@ fun ImageView.easyPicasso(uriTask:Task<Uri>?) {
     }
 }
 
-@Throws(Exception::class)
-fun createUniqueID(): String? {
-    return UUID.randomUUID().toString().replace("-", "").toUpperCase()
-}
-
 
 
 // This is a silly hack to make LiveData act as a life-cycle aware non-replaying observable.
@@ -166,3 +161,15 @@ inline fun <reified T> ViewModelStore.remove() {
         VMStoreMap.remove(keyToDelete)
     }
 }
+
+class Util {
+    fun Hello(): String {
+        return "Hi there"
+    }
+    companion object {
+        fun HuntBoar(): String {
+            return "Got it"
+        }
+    }
+}
+

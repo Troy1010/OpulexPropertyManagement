@@ -16,6 +16,10 @@ object GlobalRepo {
         return streamLoginAttemptResult.value?.user?.email?:""
     }
 
+    fun sayHi(): String {
+        return "Hello"
+    }
+
     // Network
     //  TryLogin
     val streamLoginAttemptResult by lazy { MutableLiveData<TryLoginResult>() } // Observed by multiple VMs
