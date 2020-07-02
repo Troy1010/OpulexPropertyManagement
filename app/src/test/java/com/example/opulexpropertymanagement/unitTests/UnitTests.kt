@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.verbs.expect
 import com.example.opulexpropertymanagement.util.DoTheOtherOtherThing
 import com.example.opulexpropertymanagement.util.DoTheOtherThing
 import com.example.opulexpropertymanagement.util.Util
+import com.example.opulexpropertymanagement.util.generateUniqueID
 import org.junit.jupiter.api.Test
 
 
@@ -34,5 +35,19 @@ class UnitTests {
     @Test
     fun `Do The Other Other Thing`() {
         expect(DoTheOtherOtherThing()).toBe("Eggs hidden")
+    }
+
+    @Test
+    fun `Compare two unique ids`() {
+        val x : Long = 456
+        val y : Long = 357
+        expect(x).notToBe(y)
+    }
+
+    @Test
+    fun `Compare two unique ids by function`() {
+        val x : String? = generateUniqueID()
+        val y : String? = generateUniqueID()
+        expect(x).notToBe(y)
     }
 }
