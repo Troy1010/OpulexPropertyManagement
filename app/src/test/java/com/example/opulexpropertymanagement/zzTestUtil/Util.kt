@@ -7,10 +7,6 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
-fun logq(msg:String) {
-    System.out.println(msg)
-}
-
 val TEST_COROUTINE_DISPATCHER_NAMESPACE =
     ExtensionContext.Namespace.create(TEST_COROUTINE_DISPATCHER_NAMESPACE_STRING)
 

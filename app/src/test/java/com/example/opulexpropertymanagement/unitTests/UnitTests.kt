@@ -8,8 +8,10 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.expect
 import com.example.opulexpropertymanagement.zzTestUtil.getOrAwaitValue
 import com.example.opulexpropertymanagement.util.generateUniqueID
+import com.example.opulexpropertymanagement.zzTestUtil.TL
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 
 class UnitTests {
@@ -30,7 +32,7 @@ class UnitTests {
         }
     }
 
-    @Test
+    @RepeatedTest(10)
     fun `Two Unique Ids must not match`() {
         val id1 = generateUniqueID()
         val id2 = generateUniqueID()
@@ -38,17 +40,18 @@ class UnitTests {
     }
 
     @Test
-    fun `Convert RX To LiveData`() {
-//        val x = PublishSubject.create<Int>()
-//        val liveData = convertRXToLiveData(x)
-//        logq("liveData:$liveData")
-//        x.onNext(34)
+    fun `LiveData simple test`() {
+        TL.logz("starting LiveData simple test")
         val liveData = MutableLiveData<Int>()
+        liveData.value = 22
         liveData.value = 34
         liveData.getOrAwaitValue().also { value ->
-            expect(value).toBe(34)
+            expect(value) {
+                toBe(34)
+                notToBe(22)
+                notToBe(38)
+            }
         }
         liveData.value = 38
-//        x.onNext(34)
     }
 }
