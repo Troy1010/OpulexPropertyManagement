@@ -90,47 +90,6 @@ fun <T> LiveData<T>.onlyNew(lifecycleOwner: LifecycleOwner): LiveData<T> {
     return this
 }
 
-internal class BlankVM : ViewModel() {}
-
-
-fun handleInputValidationResult(
-    validationResult: InputValidation.Result,
-    layout: TextInputLayout,
-    bClearError: Boolean = false
-): Boolean {
-    if (bClearError) {
-        layout.isErrorEnabled = false
-        return false
-    }
-    return when (validationResult) {
-        is InputValidation.Result.Error -> {
-            logz("error.validationResult.msg: ${validationResult.msg}")
-//            layout.setErrorTextAppearance(R.style.ErrorText)
-//            layout.error = validationResult.msg
-            layout.error = "SDGDSFSDF" // TODO
-            true
-        }
-        is InputValidation.Result.Warning -> {
-            logz("warning")
-            layout.setErrorTextAppearance(R.style.WarningText)
-            layout.error = validationResult.msg
-            false
-        }
-        is InputValidation.Result.Success -> {
-            logz("success")
-            layout.editText?.setText(validationResult.correctedValue)
-            layout.isErrorEnabled = false
-            false
-        }
-    }
-}
-
-
-// the following allow `KMutableProperty0` to be used as a read/write delegate
-operator fun <T> KProperty0<T>.getValue(thisRef: Any?, property: KProperty<*>): T = get()
-operator fun <T> KMutableProperty0<T>.setValue(thisRef: Any?, property: KProperty<*>,
-                                               value: T) = set(value)
-
 
 inline fun <reified T:ViewModel> AppCompatActivity.scopeVMToDestinations(
     navController: NavController,
@@ -162,26 +121,7 @@ inline fun <reified T> ViewModelStore.remove() {
     }
 }
 
-class Util {
-    fun Hello(): String {
-        return "Hi there"
-    }
-    companion object {
-        fun HuntBoar(): String {
-            return "Got it"
-        }
-    }
-}
-
 @Throws(Exception::class)
 fun generateUniqueID(): String? {
     return UUID.randomUUID().toString().replace("-", "").toUpperCase()
-}
-
-fun DoTheOtherThing(): String {
-    return "Pineapple collection complete"
-}
-
-fun DoTheOtherOtherThing(): String {
-    return "Eggs hidden"
 }
