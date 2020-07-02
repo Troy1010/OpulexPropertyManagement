@@ -29,15 +29,6 @@ import kotlin.reflect.KProperty0
 // For some reason, if this file is named Util, tests do not compile due to: Unresolved reference
 
 
-fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
-    return LiveDataReactiveStreams.fromPublisher(observable.toFlowable(BackpressureStrategy.DROP))
-}
-
-fun <T> PublishSubject<T>.toLiveData(): LiveData<T> {
-    return convertRXToLiveData(this)
-}
-
-
 
 @Throws(IOException::class)
 fun Context.createImageFile(): File {
@@ -124,4 +115,13 @@ inline fun <reified T> ViewModelStore.remove() {
 @Throws(Exception::class)
 fun generateUniqueID(): String? {
     return UUID.randomUUID().toString().replace("-", "").toUpperCase()
+}
+
+
+fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
+    return LiveDataReactiveStreams.fromPublisher(observable.toFlowable(BackpressureStrategy.DROP))
+}
+
+fun <T> PublishSubject<T>.toLiveData(): LiveData<T> {
+    return convertRXToLiveData(this)
 }

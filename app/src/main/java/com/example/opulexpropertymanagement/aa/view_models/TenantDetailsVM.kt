@@ -2,10 +2,7 @@ package com.example.opulexpropertymanagement.aa.view_models
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.aa.repo.DocumentsRepo
-import com.example.opulexpropertymanagement.aa.view_models.inheritables.FragmentallyScopedVM
 import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.models.Tenant
 import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
