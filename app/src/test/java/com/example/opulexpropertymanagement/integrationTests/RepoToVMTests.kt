@@ -1,6 +1,7 @@
 package com.example.opulexpropertymanagement.integrationTests
 
 import com.example.opulexpropertymanagement.zzTestUtil.ContentTestExtension
+import com.example.opulexpropertymanagement.zzTestUtil.TL
 import com.example.tmcommonkotlin.logz
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -14,11 +15,11 @@ import java.util.stream.Stream
 @ExperimentalCoroutinesApi
 @ExtendWith(ContentTestExtension::class)
 class RepoToVMTests(val testDispatcher: TestCoroutineDispatcher) {
-//    companion object {
-//        @JvmStatic
-//        private fun qwer() = Stream.of(1,4,5,6,7,8,23)
-//    }
-    private fun qwer() = Stream.of(1,4,5,6,7,8,23)
+    companion object {
+        @JvmStatic
+        private fun qwer() = Stream.of(1,4,5,6,7,8,23)
+    }
+//    private fun qwer() = Stream.of(1,4,5,6,7,8,23)
 
     @DisplayName("Test for multiples of 5")
     @ParameterizedTest
@@ -27,7 +28,7 @@ class RepoToVMTests(val testDispatcher: TestCoroutineDispatcher) {
     fun multiplesOf5(input: Int) {
 //        val result: String = fizzBuzz.play(input)
 //        Assertions.assertEquals("Buzz", result)
-        logz("running test. input:$input")
+        TL.logz("running test. input:$input")
     }
 
 //    fun mySource(): IntStream? {
