@@ -26,6 +26,8 @@ import kotlin.reflect.KMutableProperty0
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty0
 
+// For some reason, if this file is named Util, tests do not compile due to: Unresolved reference
+
 
 fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
     return LiveDataReactiveStreams.fromPublisher(observable.toFlowable(BackpressureStrategy.DROP))
