@@ -1,6 +1,6 @@
 package com.example.opulexpropertymanagement.integrationTests
 
-import com.example.opulexpropertymanagement.testUtil.ContentTestExtension
+import com.example.opulexpropertymanagement.zzTestUtil.ContentTestExtension
 import com.example.tmcommonkotlin.logz
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
