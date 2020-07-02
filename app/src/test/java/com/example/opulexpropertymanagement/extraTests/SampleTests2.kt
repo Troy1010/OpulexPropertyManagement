@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.unitTests
+package com.example.opulexpropertymanagement.extraTests
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor

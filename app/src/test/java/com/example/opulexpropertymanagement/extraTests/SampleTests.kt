@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.unitTests
+package com.example.opulexpropertymanagement.extraTests
 
 import androidx.lifecycle.MutableLiveData
 import ch.tutteli.atrium.api.fluent.en_GB.notToBe
