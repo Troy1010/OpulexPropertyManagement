@@ -1,13 +1,7 @@
-package com.example.opulexpropertymanagement.util
+package com.example.opulexpropertymanagement.testUtil
 
-import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.room.RoomDatabase
-import androidx.room.RoomSQLiteQuery
-import androidx.room.paging.LimitOffsetDataSource
-import io.mockk.every
-import io.mockk.mockk
 import org.junit.jupiter.api.extension.ExtensionContext
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit

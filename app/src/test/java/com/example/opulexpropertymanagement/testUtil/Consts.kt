@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.util
+package com.example.opulexpropertymanagement.testUtil
 
 const val TEST_COROUTINE_DISPATCHER_NAMESPACE_STRING = "extensionNamespace"
 const val TEST_COROUTINE_DISPATCHER_KEY = 1132019

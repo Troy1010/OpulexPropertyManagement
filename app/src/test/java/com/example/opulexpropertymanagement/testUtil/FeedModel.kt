@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.util
+package com.example.opulexpropertymanagement.testUtil
 
 data class FeedLoadTest(
     val isRealtime: Boolean

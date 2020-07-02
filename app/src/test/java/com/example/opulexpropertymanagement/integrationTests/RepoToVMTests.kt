@@ -1,6 +1,6 @@
 package com.example.opulexpropertymanagement.integrationTests
 
-import com.example.opulexpropertymanagement.util.ContentTestExtension
+import com.example.opulexpropertymanagement.testUtil.ContentTestExtension
 import com.example.tmcommonkotlin.logz
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -8,8 +8,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-import org.junit.jupiter.params.provider.ValueSource
-import java.util.stream.IntStream
 import java.util.stream.Stream
 
 

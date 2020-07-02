@@ -2,13 +2,7 @@ package com.example.opulexpropertymanagement.unitTests
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
-import com.example.opulexpropertymanagement.util.convertRXToLiveData
 import com.example.opulexpropertymanagement.util.generateUniqueID
-import com.example.opulexpropertymanagement.util.getOrAwaitValue
-import com.example.tmcommonkotlin.logz
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.ReplaySubject
 import org.junit.jupiter.api.Test
 
 class UnitTests {
