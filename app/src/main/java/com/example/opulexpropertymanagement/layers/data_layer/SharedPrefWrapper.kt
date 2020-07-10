@@ -4,22 +4,23 @@ import android.content.Context
 import com.example.opulexpropertymanagement.*
 import com.example.opulexpropertymanagement.app.App
 import com.example.opulexpropertymanagement.layers.z_ui.User
+import javax.inject.Inject
 
 // GlobalVM needs access
-object SharedPref {
+class SharedPrefWrapper @Inject constructor() {
 
-    val instance = App.getSharedPreferences(
+    val sharedPreferences = App.getSharedPreferences(
         SHARED_PREF_FILE_NAME,
         Context.MODE_PRIVATE
     )
-    val editor = instance.edit()
+    val editor = sharedPreferences.edit()
 
     fun getUserFromSharedPref(): User? {
         // get User from SharedPref, and feed it into loginAttemptStream
-        val storedEmail = instance.getString(KEY_EMAIL, null)
-        val storedUserType = instance.getString(KEY_USER_TYPE, null)
-        val storedAppApiKey = instance.getString(KEY_APP_API_KEY, null)
-        val storedID = instance.getString(KEY_ID, null)
+        val storedEmail = sharedPreferences.getString(KEY_EMAIL, null)
+        val storedUserType = sharedPreferences.getString(KEY_USER_TYPE, null)
+        val storedAppApiKey = sharedPreferences.getString(KEY_APP_API_KEY, null)
+        val storedID = sharedPreferences.getString(KEY_ID, null)
         if ((storedID == null) || (storedEmail == null) || (storedAppApiKey==null) || (storedUserType==null)) {
             return null
         } else {

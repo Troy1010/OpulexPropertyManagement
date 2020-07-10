@@ -1,6 +1,8 @@
 package com.example.opulexpropertymanagement.di
 
 import com.example.opulexpropertymanagement.BASE_URL
+import com.example.opulexpropertymanagement.layers.data_layer.Repo
+import com.example.opulexpropertymanagement.layers.data_layer.SharedPrefWrapper
 import com.example.opulexpropertymanagement.layers.data_layer.network.INetworkClient
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -14,6 +16,18 @@ import javax.inject.Singleton
 
 @Module
 class ApplicationModuleZ {
+//    @Provides
+//    @Singleton
+//    fun providesSharedPrefWrapper(): SharedPrefWrapper {
+//        return S
+//    }
+
+    @Provides
+    @Singleton
+    fun providesRepo(sharedPrefWrapper: SharedPrefWrapper): Repo {
+        return Repo(sharedPrefWrapper)
+    }
+
     @Provides
     @Singleton
     fun provideNetworkClient(): INetworkClient {
