@@ -3,7 +3,7 @@ package com.example.opulexpropertymanagement.layers.data_layer
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.FBKEY_MAINTENANCE
 import com.example.opulexpropertymanagement.FBKEY_PROPERTY
-import com.example.opulexpropertymanagement.app.fbUserDBTable
+import com.example.opulexpropertymanagement.fbUserDBTable
 import com.example.opulexpropertymanagement.models.Maintenance
 import com.example.tmcommonkotlin.logz
 import com.google.firebase.database.DataSnapshot

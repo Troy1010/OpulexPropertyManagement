@@ -11,12 +11,10 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.grocerygo.activities_and_frags.Inheritables.TMActivity
-import com.example.opulexpropertymanagement.CODE_PICK_IMAGE
-import com.example.opulexpropertymanagement.R
+import com.example.opulexpropertymanagement.*
 import com.example.opulexpropertymanagement.layers.data_layer.OLDSharedPref
 import com.example.opulexpropertymanagement.layers.view_models.GlobalVM
 import com.example.opulexpropertymanagement.layers.view_models.TenantDetailsVM
-import com.example.opulexpropertymanagement.app.*
 import com.example.opulexpropertymanagement.util.scopeVMToDestinations
 import kotlinx.android.synthetic.main.activity_host.*
 

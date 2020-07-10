@@ -3,7 +3,7 @@ package com.example.opulexpropertymanagement.models
 import android.net.Uri
 import android.os.Parcelable
 import com.example.opulexpropertymanagement.FBKEY_TENANT
-import com.example.opulexpropertymanagement.app.fbUserStorageTable
+import com.example.opulexpropertymanagement.fbUserStorageTable
 import com.google.firebase.storage.UploadTask
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize

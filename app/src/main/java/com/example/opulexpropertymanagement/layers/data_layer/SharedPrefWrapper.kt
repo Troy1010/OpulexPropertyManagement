@@ -2,7 +2,7 @@ package com.example.opulexpropertymanagement.layers.data_layer
 
 import android.content.Context
 import com.example.opulexpropertymanagement.*
-import com.example.opulexpropertymanagement.app.App
+import com.example.opulexpropertymanagement.App
 import com.example.opulexpropertymanagement.layers.z_ui.User
 import javax.inject.Inject
 

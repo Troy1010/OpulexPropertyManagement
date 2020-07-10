@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.layers.data_layer.network.NetworkClient
 import com.example.opulexpropertymanagement.layers.z_ui.User
 import com.example.opulexpropertymanagement.FBKEY_PROPERTY
-import com.example.opulexpropertymanagement.app.fbUserStorageTable
+import com.example.opulexpropertymanagement.fbUserStorageTable
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult

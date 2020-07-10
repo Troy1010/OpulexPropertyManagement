@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.layers.view_models.GlobalVM
 import com.example.opulexpropertymanagement.layers.z_ui.inheritables.OXFragment
-import com.example.opulexpropertymanagement.app.fbUserDBTable
+import com.example.opulexpropertymanagement.fbUserDBTable
 import com.example.opulexpropertymanagement.databinding.FragHomeBinding
 import com.example.tmcommonkotlin.logz
 import com.google.firebase.database.DataSnapshot

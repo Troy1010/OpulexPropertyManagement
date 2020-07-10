@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.app
+package com.example.opulexpropertymanagement
 
 import android.app.Application
 import com.example.opulexpropertymanagement.di.ApplicationComponentZ

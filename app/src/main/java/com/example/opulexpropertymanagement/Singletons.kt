@@ -1,4 +1,4 @@
-package com.example.opulexpropertymanagement.app
+package com.example.opulexpropertymanagement
 
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase

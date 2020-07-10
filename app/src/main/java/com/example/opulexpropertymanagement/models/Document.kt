@@ -2,7 +2,7 @@ package com.example.opulexpropertymanagement.models
 
 import android.os.Parcelable
 import com.example.opulexpropertymanagement.FBKEY_DOCUMENT
-import com.example.opulexpropertymanagement.app.fbUserStorageTable
+import com.example.opulexpropertymanagement.fbUserStorageTable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

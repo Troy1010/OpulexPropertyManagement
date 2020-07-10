@@ -3,7 +3,7 @@ package com.example.opulexpropertymanagement.layers.data_layer
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.layers.data_layer.network.INetworkClient
 import com.example.opulexpropertymanagement.layers.z_ui.GlobalRepo
-import com.example.opulexpropertymanagement.app.App
+import com.example.opulexpropertymanagement.App
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.tmcommonkotlin.Coroutines

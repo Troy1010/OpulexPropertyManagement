@@ -9,11 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
 import androidx.navigation.NavController
 import com.example.opulexpropertymanagement.R
-import com.example.opulexpropertymanagement.app.App
-import com.example.tmcommonkotlin.InputValidation
-import com.example.tmcommonkotlin.logz
+import com.example.opulexpropertymanagement.App
 import com.google.android.gms.tasks.Task
-import com.google.android.material.textfield.TextInputLayout
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -22,9 +19,6 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.reflect.KMutableProperty0
-import kotlin.reflect.KProperty
-import kotlin.reflect.KProperty0
 
 // For some reason, if this file is named Util, tests do not compile due to: Unresolved reference
 

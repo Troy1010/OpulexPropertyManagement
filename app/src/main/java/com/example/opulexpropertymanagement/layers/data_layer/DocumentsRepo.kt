@@ -4,8 +4,8 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.FBKEY_DOCUMENT
 import com.example.opulexpropertymanagement.FBKEY_TENANT
-import com.example.opulexpropertymanagement.app.fbUserDBTable
-import com.example.opulexpropertymanagement.app.fbUserStorageTable
+import com.example.opulexpropertymanagement.fbUserDBTable
+import com.example.opulexpropertymanagement.fbUserStorageTable
 import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.RemoveDocumentResult
