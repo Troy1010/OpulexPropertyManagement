@@ -2,7 +2,7 @@ package com.example.opulexpropertymanagement.layers.data_layer
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
-import com.example.opulexpropertymanagement.layers.data_layer.network.NetworkClient
+import com.example.opulexpropertymanagement.layers.data_layer.network.apiClient
 import com.example.opulexpropertymanagement.layers.z_ui.User
 import com.example.opulexpropertymanagement.FBKEY_PROPERTY
 import com.example.opulexpropertymanagement.fbUserStorageTable
@@ -29,7 +29,7 @@ object PropertiesRepo {
                 GetPropertiesResult.Failure.InvalidUserID
             }
             try {
-                val x = NetworkClient.getPropertiesForLandlord(user.usertype, user.id).await()
+                val x = apiClient.getPropertiesForLandlord(user.usertype, user.id).await()
                 GetPropertiesResult.Success(x.Properties)
             } catch (e: Exception) {
                 logz("WARNING:Could not get properties")
@@ -45,7 +45,7 @@ object PropertiesRepo {
     fun addProperty(property: Property, user: User, propertyImageUri: Uri) {
         Coroutines.ioThenMain(
             {
-                val responseString =  NetworkClient.addProperty(
+                val responseString =  apiClient.addProperty(
                     address = property.streetAddress,
                     city = property.city,
                     country = property.country,
@@ -60,7 +60,7 @@ object PropertiesRepo {
                 ).await().string()
                 if ("successfully added" in responseString) {
                     // then, get our product id (because the api doesn't return it for us, unfortunately)
-                    val findPropertiesResult = NetworkClient.getPropertiesForLandlord(user.usertype, user.id).await()
+                    val findPropertiesResult = apiClient.getPropertiesForLandlord(user.usertype, user.id).await()
                     val propertyJustAdded = findPropertiesResult.Properties.findLast { it.singleLineAddress == property.singleLineAddress }
                     if (propertyJustAdded==null) {
                         for (property in findPropertiesResult.Properties) {
@@ -100,7 +100,7 @@ object PropertiesRepo {
     fun removeProperty(propertyID: String) {
         Coroutines.ioThenMain(
             {
-                val responseBody = NetworkClient.removeProperty(propertyID).await()
+                val responseBody = apiClient.removeProperty(propertyID).await()
                 if ("succesfully" in responseBody.string()) {
                     RemovePropertyResult.Success(propertyID)
                 } else {

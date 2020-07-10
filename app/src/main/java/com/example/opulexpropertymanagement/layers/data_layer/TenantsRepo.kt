@@ -2,7 +2,7 @@ package com.example.opulexpropertymanagement.layers.data_layer
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
-import com.example.opulexpropertymanagement.layers.data_layer.network.NetworkClient
+import com.example.opulexpropertymanagement.layers.data_layer.network.apiClient
 import com.example.opulexpropertymanagement.layers.view_models.GlobalVM
 import com.example.opulexpropertymanagement.models.Tenant
 import com.example.opulexpropertymanagement.models.streamable.AddTenantResult
@@ -16,7 +16,7 @@ object TenantsRepo {
     fun addTenant(tenant: Tenant, tenantImageUri: Uri) {
         Coroutines.ioThenMain(
             {
-                val responseString =  NetworkClient.addTenants(
+                val responseString =  apiClient.addTenants(
                     address = tenant.fullAddress,
                     email = tenant.email,
                     landlordid = tenant.landlordID,
@@ -26,7 +26,7 @@ object TenantsRepo {
                 ).await().string()
                 if ("successfully added" in responseString) {
                     // then, get our tenant id (because the api doesn't return it for us, unfortunately)
-                    val tenantsResponse = NetworkClient.getTenantsByLandlord(tenant.landlordID).await()
+                    val tenantsResponse = apiClient.getTenantsByLandlord(tenant.landlordID).await()
                     val tenantJustAdded = tenantsResponse.Tenants.findLast {
                         (it.name == tenant.name) && (it.propertyid == tenant.propertyid) && (it.email == tenant.email)
                     }
@@ -77,7 +77,7 @@ object TenantsRepo {
     val streamGetTenantsResult by lazy { MutableLiveData<List<Tenant>>() }
     fun getTenants() {
         Coroutines.ioThenMain({
-            val x = NetworkClient.getTenantsByLandlord(GlobalVM.user.value?.id!!).await()
+            val x = apiClient.getTenantsByLandlord(GlobalVM.user.value?.id!!).await()
             x.Tenants
         },{
             streamGetTenantsResult.value = it

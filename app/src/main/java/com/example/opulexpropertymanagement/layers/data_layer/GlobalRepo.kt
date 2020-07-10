@@ -2,7 +2,7 @@ package com.example.opulexpropertymanagement.layers.z_ui
 
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.models.streamable.TryLoginResult
-import com.example.opulexpropertymanagement.layers.data_layer.network.NetworkClient
+import com.example.opulexpropertymanagement.layers.data_layer.network.apiClient
 import com.example.opulexpropertymanagement.models.network_responses.Message
 import com.example.tmcommonkotlin.Coroutines
 import com.example.tmcommonkotlin.logz
@@ -27,7 +27,7 @@ object GlobalRepo {
         }
         Coroutines.ioThenMain(
             {
-                val responseString = NetworkClient.tryLogin(email, password).await().string()
+                val responseString = apiClient.tryLogin(email, password).await().string()
                 if ("success" in responseString) {
                     val user = Gson().fromJson(responseString, User::class.java)
                     TryLoginResult.Success(user)

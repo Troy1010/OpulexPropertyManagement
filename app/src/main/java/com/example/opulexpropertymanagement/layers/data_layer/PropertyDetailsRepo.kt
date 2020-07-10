@@ -1,7 +1,7 @@
 package com.example.opulexpropertymanagement.layers.data_layer
 
 import androidx.lifecycle.MutableLiveData
-import com.example.opulexpropertymanagement.layers.data_layer.network.NetworkClient
+import com.example.opulexpropertymanagement.layers.data_layer.network.apiClient
 import com.example.opulexpropertymanagement.models.Tenant
 import com.example.tmcommonkotlin.Coroutines
 
@@ -12,7 +12,7 @@ object PropertyDetailsRepo {
         if (landlordID==null || propertyID==null)
             return
         Coroutines.ioThenMain(
-            { NetworkClient.getTenantsByLandlord(landlordID).await().Tenants.find { tenant -> tenant.propertyid == propertyID } },
+            { apiClient.getTenantsByLandlord(landlordID).await().Tenants.find { tenant -> tenant.propertyid == propertyID } },
             { streamGetTenantByLandlordAndPropertyResult.value = it }
         )
     }
