@@ -10,9 +10,9 @@ import org.junit.jupiter.api.extension.ExtendWith
 class TestSomething {
 
 
-    @Test
-    fun `test a repo`() {
-        val repo = MaintenancesRepo()
-        repo.addMaintenance()
-    }
+//    @Test
+//    fun `test a repo`() {
+//        val repo = MaintenancesRepo()
+//        repo.addMaintenance()
+//    }
 }

@@ -16,6 +16,10 @@ import com.example.opulexpropertymanagement.layers.z_ui.extras.BottomDialogForPh
 import com.example.opulexpropertymanagement.layers.z_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragTenantDetailsBinding
 import com.example.opulexpropertymanagement.databinding.ItemDocumentBinding
+import com.example.opulexpropertymanagement.util.easyPicasso
+import kotlinx.android.synthetic.main.frag_tenant_details.view.*
+import kotlinx.android.synthetic.main.includible_rounded_image.view.*
+import kotlinx.android.synthetic.main.item_document.view.*
 
 class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     lateinit var mBinding: FragTenantDetailsBinding
@@ -51,7 +55,7 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
 
     private fun setupObservers() {
         tenantDetailsVM.tenant.observe(viewLifecycleOwner, Observer {
-            mBinding.root.includible_tenant_image.imageview_1.easyPicasso(tenantDetailsVM.tenant.value?.imageUrlTask)
+            mBinding.root.includible_tenant_image.imageview_rounded_image.easyPicasso(tenantDetailsVM.tenant.value?.imageUrlTask)
         })
         tenantDetailsVM.documents.observe(viewLifecycleOwner, Observer {
             mBinding.recyclerview1.adapter?.notifyDataSetChanged()

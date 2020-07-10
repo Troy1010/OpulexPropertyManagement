@@ -1,7 +1,7 @@
 package com.example.opulexpropertymanagement.di
 
+import com.example.opulexpropertymanagement.BASE_URL
 import com.example.opulexpropertymanagement.layers.data_layer.network.INetworkClient
-import com.example.opulexpropertymanagement.app.Config
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
@@ -24,7 +24,7 @@ class ApplicationModuleZ {
             .addConverterFactory(ScalarsConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .baseUrl(Config.BASE_URL)
+            .baseUrl(BASE_URL)
             .build()
             .create(INetworkClient::class.java)
     }

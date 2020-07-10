@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.grocerygo.activities_and_frags.Inheritables.TMActivity
+import com.example.opulexpropertymanagement.CODE_PICK_IMAGE
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.layers.data_layer.SharedPref
 import com.example.opulexpropertymanagement.layers.view_models.GlobalVM
@@ -100,6 +101,6 @@ class ActivityHost : TMActivity(),
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_OPEN_DOCUMENT
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), Config.CODE_PICK_IMAGE)
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), CODE_PICK_IMAGE)
     }
 }

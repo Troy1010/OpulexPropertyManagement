@@ -11,9 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import com.example.grocerygo.activities_and_frags.Inheritables.TMActivity
+import com.example.opulexpropertymanagement.CODE_CAMERA
+import com.example.opulexpropertymanagement.CODE_PICK_IMAGE
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.layers.z_ui.activities.ActivityHostInterface
-import com.example.opulexpropertymanagement.app.Config
 import com.example.opulexpropertymanagement.util.createImageFile
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
@@ -63,7 +64,7 @@ class BottomDialogForPhoto(val contextZ: Context, val title:String?=null, val ac
                     Manifest.permission.CAMERA,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ),
-                code = Config.CODE_CAMERA,
+                code = CODE_CAMERA,
                 startAction = {
                     val photoFile: File? = try {
                         contextZ.createImageFile()
@@ -82,7 +83,7 @@ class BottomDialogForPhoto(val contextZ: Context, val title:String?=null, val ac
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri)
                         activity?.startActivityForResult(
                             intent,
-                            Config.CODE_CAMERA
+                            CODE_CAMERA
                         )
                     }
                 },
@@ -96,7 +97,7 @@ class BottomDialogForPhoto(val contextZ: Context, val title:String?=null, val ac
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ),
-                code = Config.CODE_PICK_IMAGE,
+                code = CODE_PICK_IMAGE,
                 startAction = (activity as ActivityHostInterface).pickImage,
                 resultHandlingAction = { intent -> actionForUri(intent?.data, Choice.Gallery) }
             )

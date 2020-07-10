@@ -18,8 +18,12 @@ import com.example.opulexpropertymanagement.layers.z_ui.extras.PropertyDetailsVM
 import com.example.opulexpropertymanagement.layers.z_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyDetailsBinding
 import com.example.opulexpropertymanagement.models.streamable.RemoveTenantResult
+import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.easyToast
+import kotlinx.android.synthetic.main.frag_property_details.view.*
+import kotlinx.android.synthetic.main.includible_rounded_image.view.*
+import kotlinx.android.synthetic.main.item_property.view.*
 
 // This is a silly hack to share a fragment-scoped ViewModel.
 // I prefer not to make an activityViewModel() because it's essentially a memory leak.
@@ -57,7 +61,7 @@ class PropertyDetailsFrag: OXFragment() {
     }
 
     private fun setupView() {
-        mBinding.root.includible_property_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
+        mBinding.root.includible_property_image.imageview_rounded_image.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
         registerForContextMenu(mBinding.root.includible_tenant)
     }
 
@@ -124,7 +128,7 @@ class PropertyDetailsFrag: OXFragment() {
                 if (uri!=null) {
                     propertyDetailsVM.property?.setImage(uri)
                         ?.addOnSuccessListener {
-                            mBinding.root.includible_property_image.imageview_1.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
+                            mBinding.root.includible_property_image.imageview_rounded_image.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
                         }
                 }
             }

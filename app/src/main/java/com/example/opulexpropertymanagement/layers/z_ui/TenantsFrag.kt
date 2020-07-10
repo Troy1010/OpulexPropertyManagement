@@ -13,9 +13,11 @@ import com.example.opulexpropertymanagement.layers.z_ui.extras.AdapterRVTenant
 import com.example.opulexpropertymanagement.layers.z_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.ItemTenantBinding
 import com.example.opulexpropertymanagement.models.Tenant
+import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.opulexpropertymanagement.util.onlyNew
 import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_tenants.*
+import kotlinx.android.synthetic.main.item_tenant.view.*
 
 class TenantsFrag : OXFragment(), AdapterRVTenant.ARVInterface {
     lateinit var tenants: List<Tenant>

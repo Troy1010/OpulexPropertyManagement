@@ -5,6 +5,7 @@ import com.example.opulexpropertymanagement.models.streamable.TryLoginResult
 import com.example.opulexpropertymanagement.layers.data_layer.network.NetworkClient
 import com.example.opulexpropertymanagement.models.network_responses.Message
 import com.example.tmcommonkotlin.Coroutines
+import com.example.tmcommonkotlin.logz
 import com.google.gson.Gson
 import java.lang.IndexOutOfBoundsException
 
@@ -13,10 +14,6 @@ object GlobalRepo {
     //
     fun getUserEmail(id:String): String {
         return streamLoginAttemptResult.value?.user?.email?:""
-    }
-
-    fun sayHi(): String {
-        return "Hello"
     }
 
     // Network
@@ -59,6 +56,7 @@ object GlobalRepo {
                 }
             },
             {
+                logz("userID:${it?.user?.id}")
                 streamLoginAttemptResult.value = it
             }
         )
