@@ -1,10 +1,10 @@
 package com.example.opulexpropertymanagement.layers.view_models
 
 import androidx.lifecycle.*
-import com.example.opulexpropertymanagement.layers.repo.SharedPref
+import com.example.opulexpropertymanagement.layers.data_layer.SharedPref
 import com.example.opulexpropertymanagement.models.UserType
-import com.example.opulexpropertymanagement.layers.ui.GlobalRepo
-import com.example.opulexpropertymanagement.layers.ui.User
+import com.example.opulexpropertymanagement.layers.z_ui.GlobalRepo
+import com.example.opulexpropertymanagement.layers.z_ui.User
 import com.example.opulexpropertymanagement.models.mapNetworkRecognizedStringToUserType
 
 // this is intended to be an activity-level VM

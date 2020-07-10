@@ -3,8 +3,8 @@ package com.example.opulexpropertymanagement.layers.view_models
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.opulexpropertymanagement.layers.repo.PropertyDetailsRepo
-import com.example.opulexpropertymanagement.layers.repo.TenantsRepo
+import com.example.opulexpropertymanagement.layers.data_layer.PropertyDetailsRepo
+import com.example.opulexpropertymanagement.layers.data_layer.TenantsRepo
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.Tenant
 

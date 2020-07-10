@@ -4,7 +4,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.opulexpropertymanagement.layers.ui.GlobalRepo
+import com.example.opulexpropertymanagement.layers.z_ui.GlobalRepo
 import com.example.opulexpropertymanagement.models.streamable.TryLoginResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

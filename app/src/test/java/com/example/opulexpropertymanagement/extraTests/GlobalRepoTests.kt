@@ -1,6 +1,6 @@
 package com.example.opulexpropertymanagement.extraTests
 
-import com.example.opulexpropertymanagement.layers.ui.GlobalRepo
+import com.example.opulexpropertymanagement.layers.z_ui.GlobalRepo
 import com.example.opulexpropertymanagement.util.Display
 import org.junit.Assert
 import org.junit.Before

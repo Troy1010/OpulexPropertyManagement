@@ -1,7 +1,7 @@
 package com.example.opulexpropertymanagement.extraTests
 
-import com.example.opulexpropertymanagement.layers.repo.RegisterRepo
-import com.example.opulexpropertymanagement.layers.ui.User
+import com.example.opulexpropertymanagement.layers.data_layer.RegisterRepo
+import com.example.opulexpropertymanagement.layers.z_ui.User
 import com.example.tmcommonkotlin.InputValidation
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.MatcherAssert.assertThat

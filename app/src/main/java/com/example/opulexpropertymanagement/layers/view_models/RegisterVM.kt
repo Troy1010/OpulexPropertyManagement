@@ -3,7 +3,7 @@ package com.example.opulexpropertymanagement.layers.view_models
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.opulexpropertymanagement.layers.repo.RegisterRepo
+import com.example.opulexpropertymanagement.layers.data_layer.RegisterRepo
 import com.example.opulexpropertymanagement.models.UserType
 
 class RegisterVM : ViewModel() {

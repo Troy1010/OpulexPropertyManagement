@@ -1,6 +1,6 @@
 package com.example.opulexpropertymanagement.di
 
-import com.example.opulexpropertymanagement.layers.repo.network.INetworkClient
+import com.example.opulexpropertymanagement.layers.data_layer.network.INetworkClient
 import com.example.opulexpropertymanagement.app.Config
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory

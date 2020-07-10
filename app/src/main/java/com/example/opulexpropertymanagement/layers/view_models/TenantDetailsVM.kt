@@ -2,7 +2,7 @@ package com.example.opulexpropertymanagement.layers.view_models
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.example.opulexpropertymanagement.layers.repo.DocumentsRepo
+import com.example.opulexpropertymanagement.layers.data_layer.DocumentsRepo
 import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.models.Tenant
 import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
