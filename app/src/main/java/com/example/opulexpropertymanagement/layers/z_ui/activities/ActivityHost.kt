@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.grocerygo.activities_and_frags.Inheritables.TMActivity
 import com.example.opulexpropertymanagement.*
-import com.example.opulexpropertymanagement.layers.data_layer.OLDSharedPref
 import com.example.opulexpropertymanagement.layers.view_models.GlobalVM
 import com.example.opulexpropertymanagement.layers.view_models.TenantDetailsVM
 import com.example.opulexpropertymanagement.util.scopeVMToDestinations
@@ -49,7 +48,7 @@ class ActivityHost : TMActivity(),
         drawerToggle.syncState()
         // Keep user hot & save user changes in SharedPref & sync to correct fbTable
         GlobalVM.user.observe(this, Observer {
-            OLDSharedPref.saveUserInSharedPref(it)
+            App.component.getRepo().writeUser(it)
             it?.let { fbUserDBTable = firebaseDB.getReference(it.id) }
             it?.let { fbUserStorageTable = firebaseStorage.getReference(it.id) }
         })

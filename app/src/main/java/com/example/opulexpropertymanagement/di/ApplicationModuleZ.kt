@@ -16,12 +16,6 @@ import javax.inject.Singleton
 
 @Module
 class ApplicationModuleZ {
-//    @Provides
-//    @Singleton
-//    fun providesSharedPrefWrapper(): SharedPrefWrapper {
-//        return S
-//    }
-
     @Provides
     @Singleton
     fun providesRepo(sharedPrefWrapper: SharedPrefWrapper): Repo {
