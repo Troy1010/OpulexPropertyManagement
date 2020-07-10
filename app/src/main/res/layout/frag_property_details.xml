@@ -7,11 +7,11 @@
 
         <variable
             name="propertyDetailsVM"
-            type="com.example.opulexpropertymanagement.aa.view_models.PropertyDetailsVM" />
+            type="com.example.opulexpropertymanagement.layers.view_models.PropertyDetailsVM" />
 
         <variable
             name="maintenancesVM"
-            type="com.example.opulexpropertymanagement.aa.view_models.MaintenancesVM" />
+            type="com.example.opulexpropertymanagement.layers.view_models.MaintenancesVM" />
     </data>
 
     <ScrollView

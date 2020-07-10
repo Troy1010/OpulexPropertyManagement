@@ -7,7 +7,7 @@
 
         <variable
             name="tenantDetailsVM"
-            type="com.example.opulexpropertymanagement.aa.view_models.TenantDetailsVM" />
+            type="com.example.opulexpropertymanagement.layers.view_models.TenantDetailsVM" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

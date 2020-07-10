@@ -1,7 +1,6 @@
 package com.example.opulexpropertymanagement.extraTests
 
-import com.example.opulexpropertymanagement.aa.repo.UserRepo
-import com.example.opulexpropertymanagement.aa.ui.GlobalRepo
+import com.example.opulexpropertymanagement.layers.ui.GlobalRepo
 import com.example.opulexpropertymanagement.util.Display
 import org.junit.Assert
 import org.junit.Before

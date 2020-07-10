@@ -7,7 +7,7 @@
 
         <variable
             name="loginVM"
-            type="com.example.opulexpropertymanagement.aa.view_models.LoginVM" />
+            type="com.example.opulexpropertymanagement.layers.view_models.LoginVM" />
     </data>
 
     <ScrollView

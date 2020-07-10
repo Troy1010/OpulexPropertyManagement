@@ -15,8 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/OpulexTheme">
-        <activity android:name="com.example.opulexpropertymanagement.aa.ui.activities.ActivityHost" />
-        <activity android:name="com.example.opulexpropertymanagement.aa.ui.activities.ActivitySplashscreen">
+        <activity android:name="com.example.opulexpropertymanagement.layers.ui.activities.ActivityHost" />
+        <activity android:name="com.example.opulexpropertymanagement.layers.ui.activities.ActivitySplashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

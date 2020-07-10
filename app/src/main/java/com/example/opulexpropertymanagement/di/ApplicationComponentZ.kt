@@ -1,7 +1,6 @@
 package com.example.opulexpropertymanagement.di
 
-import com.example.opulexpropertymanagement.aa.repo.MaintenancesRepo
-import com.example.opulexpropertymanagement.aa.repo.RegisterRepo
+import com.example.opulexpropertymanagement.layers.repo.RegisterRepo
 import dagger.Component
 import javax.inject.Singleton
 

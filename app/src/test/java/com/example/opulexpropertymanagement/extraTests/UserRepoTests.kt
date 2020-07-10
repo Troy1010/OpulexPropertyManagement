@@ -1,11 +1,8 @@
 package com.example.opulexpropertymanagement.extraTests
 
-import com.example.opulexpropertymanagement.aa.repo.RegisterRepo
-import com.example.opulexpropertymanagement.aa.repo.SharedPref
-import com.example.opulexpropertymanagement.aa.repo.UserRepo
-import com.example.opulexpropertymanagement.aa.ui.GlobalRepo
+import com.example.opulexpropertymanagement.layers.repo.UserRepo
+import com.example.opulexpropertymanagement.layers.ui.GlobalRepo
 import com.example.opulexpropertymanagement.util.Display
-import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

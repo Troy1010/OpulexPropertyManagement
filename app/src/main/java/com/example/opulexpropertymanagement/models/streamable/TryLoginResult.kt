@@ -1,6 +1,6 @@
 package com.example.opulexpropertymanagement.models.streamable
 
-import com.example.opulexpropertymanagement.aa.ui.User
+import com.example.opulexpropertymanagement.layers.ui.User
 
 sealed class TryLoginResult {
     abstract val user: User?

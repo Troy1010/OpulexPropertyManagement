@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/fragLogin"
-        android:name="com.example.opulexpropertymanagement.aa.ui.LoginFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.LoginFrag"
         android:label="Login" >
         <argument
             android:name="ReasonForLoginInt"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragRegister"
-        android:name="com.example.opulexpropertymanagement.aa.ui.RegisterFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.RegisterFrag"
         android:label="Register" >
         <action
             android:id="@+id/action_fragRegister_to_fragLogin"
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragTenantOrLandlord"
-        android:name="com.example.opulexpropertymanagement.aa.ui.TenantOrLandlordFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.TenantOrLandlordFrag"
         android:label="Actions" >
         <action
             android:id="@+id/action_fragTenantOrLandlord_to_fragProperties"
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragProperties"
-        android:name="com.example.opulexpropertymanagement.aa.ui.PropertiesFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.PropertiesFrag"
         android:label="Properties" >
         <action
             android:id="@+id/action_fragProperties_to_fragPropertyAdd"
@@ -53,7 +53,7 @@
         app:destination="@id/fragProperties" />
     <fragment
         android:id="@+id/fragPropertyAdd"
-        android:name="com.example.opulexpropertymanagement.aa.ui.PropertyAddFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.PropertyAddFrag"
         android:label="Add Property" >
         <action
             android:id="@+id/action_fragPropertyAdd_to_fragLogin"
@@ -66,7 +66,7 @@
         app:popUpTo="@id/fragProperties" />
     <fragment
         android:id="@+id/fragPropertyDetails"
-        android:name="com.example.opulexpropertymanagement.aa.ui.PropertyDetailsFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.PropertyDetailsFrag"
         android:label="Property Details" >
         <argument
             android:name="property"
@@ -85,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/tenantAddFrag"
-        android:name="com.example.opulexpropertymanagement.aa.ui.TenantAddFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.TenantAddFrag"
         android:label="Add Tenant" >
         <argument
             android:name="property"
@@ -93,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/tenantDetailsFrag"
-        android:name="com.example.opulexpropertymanagement.aa.ui.TenantDetailsFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.TenantDetailsFrag"
         android:label="Tenant" >
         <action
             android:id="@+id/action_tenantDetailsFrag_to_documentDetailsFrag"
@@ -105,7 +105,7 @@
     </fragment>
     <fragment
         android:id="@+id/documentDetailsFrag"
-        android:name="com.example.opulexpropertymanagement.aa.ui.DocumentDetailsFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.DocumentDetailsFrag"
         android:label="Document" >
         <argument
             android:name="document"
@@ -113,7 +113,7 @@
     </fragment>
     <fragment
         android:id="@+id/tenantsFrag"
-        android:name="com.example.opulexpropertymanagement.aa.ui.TenantsFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.TenantsFrag"
         android:label="Tenants" >
         <action
             android:id="@+id/action_tenantsFrag_to_tenantDetailsFrag"
@@ -126,7 +126,7 @@
         app:popUpTo="@id/fragProperties" />
     <fragment
         android:id="@+id/maintenancesFrag"
-        android:name="com.example.opulexpropertymanagement.aa.ui.MaintenancesFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.MaintenancesFrag"
         android:label="Maintenances" >
         <action
             android:id="@+id/action_maintenancesFrag_to_maintenanceDetailsFrag"
@@ -138,6 +138,6 @@
     </fragment>
     <fragment
         android:id="@+id/maintenanceDetailsFrag"
-        android:name="com.example.opulexpropertymanagement.aa.ui.MaintenanceDetailsFrag"
+        android:name="com.example.opulexpropertymanagement.layers.ui.MaintenanceDetailsFrag"
         android:label="Maintenance Details" />
 </navigation>
