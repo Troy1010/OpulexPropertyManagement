@@ -37,14 +37,14 @@ class DocumentDetailsFrag: OXFragment() {
     }
 
     private fun setupObservers() {
-        tenantDetailsVM.documentsRepo.removeDocumentResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
+        tenantDetailsVM.removeDocumentResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
             if (it is RemoveDocumentResult.Success) {
                 navController.navigateUp()
             } else {
                 easyToast(requireActivity(), "Failed to delete document")
             }
         })
-        tenantDetailsVM.documentsRepo.updateDocumentResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
+        tenantDetailsVM.updateDocumentResult.onlyNew(viewLifecycleOwner).observe(viewLifecycleOwner, Observer {
             if (it is UpdateDocumentResult.Success) {
                 textview_document_title.text = it.document.title
             } else {
@@ -60,7 +60,7 @@ class DocumentDetailsFrag: OXFragment() {
                 .setTitle("Delete Document")
                 .setMessage("Are you sure you want to delete this document?\nThis action cannot be undone.")
                 .setPositiveButton("Delete") { _, _ ->
-                    tenantDetailsVM.documentsRepo.removeDocument(document)
+                    tenantDetailsVM.removeDocument(document)
                 }
                 .setNegativeButton("Cancel") { _, _ -> }
                 .create().show()
@@ -68,7 +68,7 @@ class DocumentDetailsFrag: OXFragment() {
         btn_save_text.setOnClickListener {
             val newTitle = edittext_document_title.text.toString()
             val updatedDocument = Document(document.id, document.tenantID, newTitle)
-            tenantDetailsVM.documentsRepo.updateDocument(updatedDocument)
+            tenantDetailsVM.updateDocument(updatedDocument)
             btn_save_text.visibility = View.GONE
             edittext_document_title.visibility = View.GONE
             textview_document_title.visibility = View.VISIBLE

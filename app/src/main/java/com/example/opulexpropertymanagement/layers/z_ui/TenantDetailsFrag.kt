@@ -46,7 +46,7 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
             val bottomDialog = BottomDialogForPhoto(requireActivity(), "Add Document") { uri, _ ->
                 val tenantID = tenantDetailsVM.tenant.value?.id
                 if ((tenantID!=null) && (uri!=null)) {
-                    tenantDetailsVM.documentsRepo.addDocument(tenantID, uri, "New Document")
+                    tenantDetailsVM.addDocument(uri, "New Document")
                 }
             }
             bottomDialog.show(requireActivity().supportFragmentManager, "ZipZoopTheBottomDialog")

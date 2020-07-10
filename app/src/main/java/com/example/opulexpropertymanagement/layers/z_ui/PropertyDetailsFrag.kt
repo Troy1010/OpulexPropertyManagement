@@ -47,10 +47,14 @@ class PropertyDetailsFrag: OXFragment() {
         mBinding.lifecycleOwner = this
         mBinding.propertyDetailsVM = propertyDetailsVM
         mBinding.maintenancesVM = maintenancesVM
+        return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
         setupObservers()
         setupView()
-        return mBinding.root
     }
 
     override fun onStart() {
@@ -61,7 +65,7 @@ class PropertyDetailsFrag: OXFragment() {
     }
 
     private fun setupView() {
-        mBinding.root.includible_property_image.imageview_rounded_image.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
+        mBinding.root.includible_property_image_details.imageview_rounded_image.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
         registerForContextMenu(mBinding.root.includible_tenant)
     }
 
@@ -123,12 +127,12 @@ class PropertyDetailsFrag: OXFragment() {
                 navController.navigate(directions)
             }
         }
-        mBinding.root.includible_property_image.setOnLongClickListener {
+        mBinding.root.includible_property_image_details.setOnLongClickListener {
             val bottomDialogForPhoto =  BottomDialogForPhoto(requireActivity(), "Replace Property Image") { uri, _ ->
                 if (uri!=null) {
                     propertyDetailsVM.property?.setImage(uri)
                         ?.addOnSuccessListener {
-                            mBinding.root.includible_property_image.imageview_rounded_image.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
+                            mBinding.root.includible_property_image_details.imageview_rounded_image.easyPicasso(propertyDetailsVM.property?.imageUrlTask)
                         }
                 }
             }
