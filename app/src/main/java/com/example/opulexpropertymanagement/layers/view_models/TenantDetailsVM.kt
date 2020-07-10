@@ -9,7 +9,7 @@ import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResult
 import com.example.tmcommonkotlin.logz
 
-class TenantDetailsVM(): ViewModel() {
+class TenantDetailsVM: ViewModel() {
 
     val documentsRepo = DocumentsRepo()
 
