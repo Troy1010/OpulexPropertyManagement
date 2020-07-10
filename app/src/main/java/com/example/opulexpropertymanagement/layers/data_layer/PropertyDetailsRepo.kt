@@ -12,7 +12,7 @@ object PropertyDetailsRepo {
         if (landlordID==null || propertyID==null)
             return
         Coroutines.ioThenMain(
-            { apiClient.getTenantsByLandlord(landlordID).await().Tenants.find { tenant -> tenant.propertyid == propertyID } },
+            { apiClient.getTenantsByLandlord(landlordID).Tenants.find { tenant -> tenant.propertyid == propertyID } },
             { streamGetTenantByLandlordAndPropertyResult.value = it }
         )
     }

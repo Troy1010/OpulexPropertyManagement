@@ -1,17 +1,15 @@
 package com.example.opulexpropertymanagement.layers.data_layer
 
 import androidx.lifecycle.MutableLiveData
-import com.example.opulexpropertymanagement.layers.data_layer.network.INetworkClient
 import com.example.opulexpropertymanagement.layers.z_ui.GlobalRepo
 import com.example.opulexpropertymanagement.App
+import com.example.opulexpropertymanagement.layers.data_layer.network.apiClient
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.tmcommonkotlin.Coroutines
 import javax.inject.Inject
 
 open class RegisterRepo {
-    @Inject
-    lateinit var networkClient2: INetworkClient
     init {
         App.component.injectRegisterRepo(this)
     }
@@ -30,8 +28,7 @@ open class RegisterRepo {
         }
         Coroutines.ioThenMain({
             val resultString =
-                networkClient2.register(email, email, password, userType.toNetworkRecognizedString)
-                    .await().string()
+                apiClient.register(email, email, password, userType.toNetworkRecognizedString).string()
             if ("success" in resultString) {
                 GlobalRepo.tryLogin(email, password)
                 RegisterResult.Success

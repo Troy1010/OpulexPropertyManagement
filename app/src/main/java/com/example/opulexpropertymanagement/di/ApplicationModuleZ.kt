@@ -3,7 +3,7 @@ package com.example.opulexpropertymanagement.di
 import com.example.opulexpropertymanagement.BASE_URL
 import com.example.opulexpropertymanagement.layers.data_layer.Repo
 import com.example.opulexpropertymanagement.layers.data_layer.SharedPrefWrapper
-import com.example.opulexpropertymanagement.layers.data_layer.network.INetworkClient
+import com.example.opulexpropertymanagement.layers.data_layer.network.ApiService
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
@@ -24,7 +24,7 @@ class ApplicationModuleZ {
 
     @Provides
     @Singleton
-    fun provideNetworkClient(): INetworkClient {
+    fun provideNetworkClient(): ApiService {
         val gson = GsonBuilder().setLenient().create()
         return Retrofit
             .Builder()
@@ -34,6 +34,6 @@ class ApplicationModuleZ {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(BASE_URL)
             .build()
-            .create(INetworkClient::class.java)
+            .create(ApiService::class.java)
     }
 }

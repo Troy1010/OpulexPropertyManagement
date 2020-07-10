@@ -27,7 +27,7 @@ object GlobalRepo {
         }
         Coroutines.ioThenMain(
             {
-                val responseString = apiClient.tryLogin(email, password).await().string()
+                val responseString = apiClient.tryLogin(email, password).string()
                 if ("success" in responseString) {
                     val user = Gson().fromJson(responseString, User::class.java)
                     TryLoginResult.Success(user)

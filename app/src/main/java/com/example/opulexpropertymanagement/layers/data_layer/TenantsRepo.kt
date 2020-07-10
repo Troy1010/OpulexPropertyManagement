@@ -23,10 +23,10 @@ object TenantsRepo {
                     mobile = tenant.phone,
                     name = tenant.name,
                     propertyid = tenant.propertyid
-                ).await().string()
+                ).string()
                 if ("successfully added" in responseString) {
                     // then, get our tenant id (because the api doesn't return it for us, unfortunately)
-                    val tenantsResponse = apiClient.getTenantsByLandlord(tenant.landlordID).await()
+                    val tenantsResponse = apiClient.getTenantsByLandlord(tenant.landlordID)
                     val tenantJustAdded = tenantsResponse.Tenants.findLast {
                         (it.name == tenant.name) && (it.propertyid == tenant.propertyid) && (it.email == tenant.email)
                     }
@@ -77,7 +77,7 @@ object TenantsRepo {
     val streamGetTenantsResult by lazy { MutableLiveData<List<Tenant>>() }
     fun getTenants() {
         Coroutines.ioThenMain({
-            val x = apiClient.getTenantsByLandlord(GlobalVM.user.value?.id!!).await()
+            val x = apiClient.getTenantsByLandlord(GlobalVM.user.value?.id!!)
             x.Tenants
         },{
             streamGetTenantsResult.value = it

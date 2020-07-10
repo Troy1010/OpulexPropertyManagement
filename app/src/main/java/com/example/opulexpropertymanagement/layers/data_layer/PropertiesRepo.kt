@@ -29,7 +29,7 @@ object PropertiesRepo {
                 GetPropertiesResult.Failure.InvalidUserID
             }
             try {
-                val x = apiClient.getPropertiesForLandlord(user.usertype, user.id).await()
+                val x = apiClient.getPropertiesForLandlord(user.usertype, user.id)
                 GetPropertiesResult.Success(x.Properties)
             } catch (e: Exception) {
                 logz("WARNING:Could not get properties")
@@ -57,10 +57,10 @@ object PropertiesRepo {
                     state = property.state,
                     userid = user.id,
                     userType = user.usertype
-                ).await().string()
+                ).string()
                 if ("successfully added" in responseString) {
                     // then, get our product id (because the api doesn't return it for us, unfortunately)
-                    val findPropertiesResult = apiClient.getPropertiesForLandlord(user.usertype, user.id).await()
+                    val findPropertiesResult = apiClient.getPropertiesForLandlord(user.usertype, user.id)
                     val propertyJustAdded = findPropertiesResult.Properties.findLast { it.singleLineAddress == property.singleLineAddress }
                     if (propertyJustAdded==null) {
                         for (property in findPropertiesResult.Properties) {
@@ -100,7 +100,7 @@ object PropertiesRepo {
     fun removeProperty(propertyID: String) {
         Coroutines.ioThenMain(
             {
-                val responseBody = apiClient.removeProperty(propertyID).await()
+                val responseBody = apiClient.removeProperty(propertyID)
                 if ("succesfully" in responseBody.string()) {
                     RemovePropertyResult.Success(propertyID)
                 } else {
