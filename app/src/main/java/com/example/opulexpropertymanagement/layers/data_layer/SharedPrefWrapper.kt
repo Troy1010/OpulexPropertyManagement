@@ -7,7 +7,7 @@ import com.example.opulexpropertymanagement.layers.z_ui.User
 import javax.inject.Inject
 
 // GlobalVM needs access
-class SharedPrefWrapper @Inject constructor() {
+class SharedPrefWrapper @Inject constructor(): SharedPrefWrapperInterface {
 
     val sharedPreferences = App.getSharedPreferences(
         SHARED_PREF_FILE_NAME,
@@ -15,7 +15,7 @@ class SharedPrefWrapper @Inject constructor() {
     )
     val editor = sharedPreferences.edit()
 
-    fun getUserFromSharedPref(): User? {
+    override fun readUser(): User? {
         // get User from SharedPref, and feed it into loginAttemptStream
         val storedEmail = sharedPreferences.getString(KEY_EMAIL, null)
         val storedUserType = sharedPreferences.getString(KEY_USER_TYPE, null)
@@ -34,7 +34,7 @@ class SharedPrefWrapper @Inject constructor() {
         }
     }
 
-    fun saveUserInSharedPref(user: User?) {
+    override fun writeUser(user: User?) {
         if (user == null) {
             editor.clear()
         } else {

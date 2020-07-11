@@ -11,21 +11,15 @@ import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.RemoveDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResult
 import com.example.opulexpropertymanagement.util.generateUniqueID
-import com.example.tmcommonkotlin.logz
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class Repo @Inject constructor(private val sharedPrefWrapper: SharedPrefWrapper) {
-    fun readUser(): User? {
-        return sharedPrefWrapper.getUserFromSharedPref()
-    }
-
-    fun writeUser(user: User?) {
-        sharedPrefWrapper.saveUserInSharedPref(user)
-    }
+class Repo @Inject constructor(private val sharedPrefWrapper: SharedPrefWrapper)
+    : SharedPrefWrapperInterface by sharedPrefWrapper
+{
 
     suspend fun addDocument(tenantID: String, uri: Uri, title: String): AddDocumentResult {
         val newDocumentID = generateUniqueID()
