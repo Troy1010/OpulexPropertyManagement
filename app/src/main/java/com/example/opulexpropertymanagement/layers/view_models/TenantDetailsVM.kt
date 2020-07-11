@@ -21,11 +21,10 @@ class TenantDetailsVM(val tenant: Tenant) : ViewModel() {
     val documents by lazy { MediatorLiveData<List<Document>>() }
 
     init {
-        val tenantID = tenant.id
-        repo.documentsChangedListener(tenantID, { dataSnapshot ->
+        repo.documentsChangedListener(tenant.id, { dataSnapshot ->
             if (dataSnapshot.value != null) {
                 val documentsMap = (dataSnapshot.value as Map<String, Any>).map {
-                    Document(it.key, tenantID, it.value.toString())
+                    Document(it.key, tenant.id, it.value.toString())
                 }
                 documents.value = documentsMap
             } else {
@@ -47,16 +46,13 @@ class TenantDetailsVM(val tenant: Tenant) : ViewModel() {
     val addDocumentResult by lazy { MediatorLiveData<AddDocumentResult>() }
     fun addDocument(uri: Uri, title: String) {
         viewModelScope.launch {
-            val tenantID = tenant.id
-            if (tenantID != null) {
-                val result = repo.addDocument(
-                    tenantID,
-                    uri,
-                    title
-                )
-                withContext(Dispatchers.Main) {
-                    addDocumentResult.value = result
-                }
+            val result = repo.addDocument(
+                tenant.id,
+                uri,
+                title
+            )
+            withContext(Dispatchers.Main) {
+                addDocumentResult.value = result
             }
         }
     }
