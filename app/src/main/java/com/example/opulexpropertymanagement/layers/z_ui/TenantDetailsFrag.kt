@@ -17,15 +17,17 @@ import com.example.opulexpropertymanagement.layers.z_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragTenantDetailsBinding
 import com.example.opulexpropertymanagement.databinding.ItemDocumentBinding
 import com.example.opulexpropertymanagement.util.easyPicasso
+import com.example.opulexpropertymanagement.util.vmFactoryFactory
+import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_tenant_details.view.*
 import kotlinx.android.synthetic.main.includible_rounded_image.view.*
 import kotlinx.android.synthetic.main.item_document.view.*
 
 class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     lateinit var mBinding: FragTenantDetailsBinding
-    val tenantDetailsVM: TenantDetailsVM by activityViewModels()
-    val navController by lazy { this.findNavController() }
     val args by lazy { arguments?.let { TenantDetailsFragArgs.fromBundle(it) } }
+    val tenantDetailsVM: TenantDetailsVM by activityViewModels { vmFactoryFactory { TenantDetailsVM(args!!.tenant) } }
+    val navController by lazy { this.findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,15 +39,13 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
         setupClickListeners()
         setupObservers()
         setupView()
-        tenantDetailsVM.tenant.value = args?.tenant
         return mBinding.root
     }
 
     private fun setupClickListeners() {
         mBinding.fab.setOnClickListener {
             val bottomDialog = BottomDialogForPhoto(requireActivity(), "Add Document") { uri, _ ->
-                val tenantID = tenantDetailsVM.tenant.value?.id
-                if ((tenantID!=null) && (uri!=null)) {
+                if (uri!=null) {
                     tenantDetailsVM.addDocument(uri, "New Document")
                 }
             }
@@ -54,15 +54,13 @@ class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     }
 
     private fun setupObservers() {
-        tenantDetailsVM.tenant.observe(viewLifecycleOwner, Observer {
-            mBinding.root.includible_tenant_image.imageview_rounded_image.easyPicasso(tenantDetailsVM.tenant.value?.imageUrlTask)
-        })
         tenantDetailsVM.documents.observe(viewLifecycleOwner, Observer {
             mBinding.recyclerview1.adapter?.notifyDataSetChanged()
         })
     }
 
     private fun setupView() {
+        mBinding.root.includible_tenant_image.imageview_rounded_image.easyPicasso(tenantDetailsVM.tenant.imageUrlTask)
         mBinding.recyclerview1.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         mBinding.recyclerview1.adapter = AdapterRVDocuments(this, R.layout.item_document)
     }

@@ -10,6 +10,7 @@ import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.RemoveDocumentResult
 import com.example.opulexpropertymanagement.models.streamable.UpdateDocumentResult
+import com.example.opulexpropertymanagement.util.generateUniqueID
 import com.example.tmcommonkotlin.logz
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -27,16 +28,14 @@ class Repo @Inject constructor(private val sharedPrefWrapper: SharedPrefWrapper)
     }
 
     suspend fun addDocument(tenantID: String, uri: Uri, title: String): AddDocumentResult {
-        val newDocumentRef = fbUserDBTable?.child(FBKEY_TENANT)?.child(tenantID)?.child(
-            FBKEY_DOCUMENT
-        )?.push()!!
-        newDocumentRef.setValue(title)
-        val newDocumentID = newDocumentRef.key!!
+        val newDocumentID = generateUniqueID()
         val newDocument = Document(newDocumentID, tenantID, title)
         try {
             fbUserStorageTable?.child(FBKEY_DOCUMENT)?.child(tenantID)?.child(newDocumentID)
                 ?.putFile(uri)
                 ?.await()
+            fbUserDBTable?.child(FBKEY_TENANT)?.child(tenantID)?.child(FBKEY_DOCUMENT)?.child(newDocumentID)
+                ?.setValue(title)
             return AddDocumentResult.Success(newDocument)
         } catch (e: Exception) {
             return AddDocumentResult.Failure.Unknown(e)
@@ -67,7 +66,7 @@ class Repo @Inject constructor(private val sharedPrefWrapper: SharedPrefWrapper)
         }
     }
 
-    fun addDocumentsListeners(
+    fun documentsChangedListener(
         tenantID: String,
         listener: (DataSnapshot) -> Unit,
         errorListener: ((DatabaseError) -> Unit)?=null

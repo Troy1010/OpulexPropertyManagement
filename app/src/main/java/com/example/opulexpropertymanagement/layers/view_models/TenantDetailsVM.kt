@@ -15,25 +15,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TenantDetailsVM : ViewModel() {
+class TenantDetailsVM(val tenant: Tenant) : ViewModel() {
 
     private val repo = App.component.getRepo()
-
-    val tenant by lazy { MediatorLiveData<Tenant>() }
     val documents by lazy { MediatorLiveData<List<Document>>() }
 
     init {
-        val tenantID = tenant.value?.id
-        if (tenantID != null) {
-            repo.addDocumentsListeners(tenantID, { dataSnapshot ->
-                if (dataSnapshot.value != null) {
-                    val documentsMap = (dataSnapshot.value as Map<String, Any>).map {
-                        Document(it.key, tenantID, it.value.toString())
-                    }
-                    documents.value = documentsMap
+        val tenantID = tenant.id
+        repo.documentsChangedListener(tenantID, { dataSnapshot ->
+            if (dataSnapshot.value != null) {
+                val documentsMap = (dataSnapshot.value as Map<String, Any>).map {
+                    Document(it.key, tenantID, it.value.toString())
                 }
-            })
-        }
+                documents.value = documentsMap
+            } else {
+                documents.value = emptyList()
+            }
+        })
     }
 
     val removeDocumentResult by lazy { MediatorLiveData<RemoveDocumentResult>() }
@@ -49,7 +47,7 @@ class TenantDetailsVM : ViewModel() {
     val addDocumentResult by lazy { MediatorLiveData<AddDocumentResult>() }
     fun addDocument(uri: Uri, title: String) {
         viewModelScope.launch {
-            val tenantID = tenant.value?.id
+            val tenantID = tenant.id
             if (tenantID != null) {
                 val result = repo.addDocument(
                     tenantID,

@@ -10,6 +10,7 @@ import androidx.lifecycle.*
 import androidx.navigation.NavController
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.App
+import com.example.tmcommonkotlin.logz
 import com.google.android.gms.tasks.Task
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
@@ -57,6 +58,9 @@ fun ImageView.easyPicasso(endpoint:String) {
 fun ImageView.easyPicasso(uriTask: Task<Uri>?) {
     uriTask?.addOnSuccessListener { url ->
         this.easyPicasso(url.toString())
+    }
+    uriTask?.addOnFailureListener {
+        throw it
     }
     if (uriTask==null) {
         val x = getDrawableUri(R.drawable.image_not_found_yet)
@@ -107,7 +111,7 @@ inline fun <reified T> ViewModelStore.remove() {
 }
 
 @Throws(Exception::class)
-fun generateUniqueID(): String? {
+fun generateUniqueID(): String {
     return UUID.randomUUID().toString().replace("-", "").toUpperCase()
 }
 
@@ -118,4 +122,13 @@ fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
 
 fun <T> PublishSubject<T>.toLiveData(): LiveData<T> {
     return convertRXToLiveData(this)
+}
+
+fun <T: ViewModel> vmFactoryFactory(constructor:()->T) : ViewModelProvider.Factory {
+    return object: ViewModelProvider.Factory {
+        override fun <Y : ViewModel?> create(modelClass: Class<Y>): Y {
+            @Suppress("UNCHECKED_CAST")
+            return constructor() as Y
+        }
+    }
 }
