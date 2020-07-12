@@ -2,14 +2,13 @@ package com.example.opulexpropertymanagement.layers.data_layer
 
 import android.content.Context
 import com.example.opulexpropertymanagement.*
-import com.example.opulexpropertymanagement.App
 import com.example.opulexpropertymanagement.layers.z_ui.User
 import javax.inject.Inject
 
 // GlobalVM needs access
-class SharedPrefWrapper @Inject constructor(): SharedPrefWrapperInterface {
+class SharedPrefWrapper @Inject constructor(appContext: Context): SharedPrefWrapperInterface {
 
-    val sharedPreferences = App.getSharedPreferences(
+    val sharedPreferences = appContext.getSharedPreferences(
         SHARED_PREF_FILE_NAME,
         Context.MODE_PRIVATE
     )

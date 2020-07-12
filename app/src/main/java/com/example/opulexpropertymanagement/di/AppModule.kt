@@ -1,6 +1,7 @@
 package com.example.opulexpropertymanagement.di
 
 import android.app.Application
+import android.content.Context
 import com.example.opulexpropertymanagement.BASE_URL
 import com.example.opulexpropertymanagement.layers.data_layer.Repo
 import com.example.opulexpropertymanagement.layers.data_layer.SharedPrefWrapper
@@ -19,7 +20,7 @@ import javax.inject.Singleton
 class AppModule(private val appContext: Application) {
     @Provides
     @Singleton
-    fun providesAppContext() = appContext
+    fun providesAppContext() : Context = appContext
 
     @Provides
     @Singleton
