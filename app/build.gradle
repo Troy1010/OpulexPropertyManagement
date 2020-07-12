@@ -81,12 +81,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     // Firebase + Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
-    // Testing
-//    testImplementation "com.google.truth.extensions:truth-java8-extension:1.0.1"
-//    testImplementation "com.google.truth:truth:1.0.1"
-//    testImplementation "org.ow2.asm:asm:7.0"
-//    testImplementation 'org.mockito:mockito-inline:2.23.4'
-//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     // TMCommonKotlin
     implementation 'tminus1010.tmcommonkotlin:tmcommonkotlin:1.0.11'
     // Navigation
@@ -131,53 +125,56 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:3.14.4"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2"
-
-//    def daggerVersion = "2.28-alpha"
-//    // Dagger/Hilt
-//    implementation "com.google.dagger:hilt-android:$daggerVersion"
-//    kapt "com.google.dagger:hilt-android-compiler:$daggerVersion"
-//
-//    //  Dagger/Hilt - For instrumentation tests
-//    androidTestImplementation  "com.google.dagger:hilt-android-testing:$daggerVersion"
-//    androidTestAnnotationProcessor "com.google.dagger:hilt-android-compiler:$daggerVersion"
-//
-//    //  Dagger/Hilt - For local unit tests
-//    testImplementation "com.google.dagger:hilt-android-testing:$daggerVersion"
-//    testAnnotationProcessor "com.google.dagger:hilt-android-compiler:$daggerVersion"
     // Dagger
     implementation 'com.google.dagger:dagger:2.25.4'
     kapt 'com.google.dagger:dagger-compiler:2.25.4'
-
-    // Testing
+    // ##Testing
     def lifecycle_test_version = '2.1.0'
     def junit_version = '5.5.1'
     def test_rules_core_version = '1.2.0'
     def fragment_version = '1.2.4'
-    //  Local Unit
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_version"
-    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit_version"
-    testImplementation "io.mockk:mockk:1.9.3"
-    testImplementation 'org.assertj:assertj-core:3.13.2'
-    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
-    testImplementation "androidx.arch.core:core-testing:$lifecycle_test_version"
-//    androidTestImplementation "android.arch.core:core-testing:1.1.0"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2"
-    //  AndroidX - JVM
-    testImplementation "androidx.test:core-ktx:1.2.0"
-    testImplementation "androidx.test.ext:junit-ktx:1.1.1"
-    testImplementation "androidx.test:rules:$test_rules_core_version"
-    testImplementation "androidx.test:core:$test_rules_core_version"
+    //  *Assertion Libraries
+//    //    AssertJ
+//    testImplementation 'org.assertj:assertj-core:3.13.2'
+//    //    Atrium
+//    def atrium_version='0.12.0'
+//    testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
+//    //    Atrium -> Kotlin
+//    testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:$atrium_version"
+//    testRuntimeOnly    "ch.tutteli.atrium:atrium-domain-robstoll-kotlin_1_3:$atrium_version"
+    //  *Testing suite
+//    testImplementation 'junit:junit:4.12'
+    //  *Mocking
+    //    Mockito
+    testImplementation 'org.mockito:mockito-inline:2.23.4'
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC3'
+    //  *?
+    //    AndroidX - JVM
+//    testImplementation "androidx.test:core-ktx:1.2.0"
+//    testImplementation "androidx.test.ext:junit-ktx:1.1.1"
+//    testImplementation "androidx.test:rules:$test_rules_core_version"
+//    testImplementation "androidx.test:core:$test_rules_core_version"
+    // Testing
+//    testImplementation "com.google.truth.extensions:truth-java8-extension:1.0.1"
+//    testImplementation "com.google.truth:truth:1.0.1"
+//    testImplementation "org.ow2.asm:asm:7.0"
+//    testImplementation 'org.mockito:mockito-inline:2.23.4'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //  ?
 //    testImplementation 'junit:junit:4.12'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    // Atrium
-    def atrium_version='0.12.0'
-    testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
-    // Atrium -> Kotlin
-    testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:$atrium_version"
-    testRuntimeOnly    "ch.tutteli.atrium:atrium-domain-robstoll-kotlin_1_3:$atrium_version"
-    // Mockito
-    testImplementation 'org.mockito:mockito-inline:2.23.4'
-    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC3'
+//    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
+//    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_version"
+//    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit_version"
+//    testImplementation "io.mockk:mockk:1.9.3"
+//    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+//    testImplementation "androidx.arch.core:core-testing:$lifecycle_test_version"
+////    androidTestImplementation "android.arch.core:core-testing:1.1.0"
+//    androidTestImplementation 'android.arch.core:core-testing:1.1.1'
+//    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2"
+    // copy-pasted from PG_Testing
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
 }

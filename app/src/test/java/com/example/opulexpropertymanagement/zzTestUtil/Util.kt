@@ -2,13 +2,13 @@ package com.example.opulexpropertymanagement.zzTestUtil
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import org.junit.jupiter.api.extension.ExtensionContext
+//import org.junit.jupiter.api.extension.ExtensionContext
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
-val TEST_COROUTINE_DISPATCHER_NAMESPACE =
-    ExtensionContext.Namespace.create(TEST_COROUTINE_DISPATCHER_NAMESPACE_STRING)
+//val TEST_COROUTINE_DISPATCHER_NAMESPACE =
+//    ExtensionContext.Namespace.create(TEST_COROUTINE_DISPATCHER_NAMESPACE_STRING)
 
 //fun LabelContentTest.mockUser() =
 //    if (this.isUserSignedIn) FirebaseAuth.getInstance().currentUser else null
