@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 //apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'de.mobilej.unmock'
 
 android {
     compileSdkVersion 29
@@ -64,6 +65,9 @@ repositories {
 }
 kapt {
     correctErrorTypes true
+}
+unMock {
+    keepStartingWith "android.net.Uri"
 }
 dependencies {
     //

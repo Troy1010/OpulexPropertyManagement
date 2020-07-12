@@ -26,7 +26,6 @@ class TenantDetailsVMTests {
     @Mock lateinit var sharedPrefs : SharedPreferences
     @Mock lateinit var appContext: App
     val appComponent = DaggerAppComponent.builder().appModule(AppModule()).build()
-    @Mock lateinit var uri: Uri
     val uriObj = Uri.parse("content://com.android.providers.media.documents/document/image%3A40")
 
     @Before
@@ -39,7 +38,6 @@ class TenantDetailsVMTests {
     @Test
     fun `test addDocument`() {
         val tenantDetailsVM = TenantDetailsVM(tenant, repo)
-//        uriObj.parse("content://com.android.providers.media.documents/document/image%3A40")
-        tenantDetailsVM.addDocument(uriObj, "A good document")
+//        tenantDetailsVM.addDocument(uriObj, "A good document")
     }
 }
