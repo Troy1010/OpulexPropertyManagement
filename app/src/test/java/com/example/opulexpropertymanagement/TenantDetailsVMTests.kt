@@ -1,10 +1,7 @@
-package com.example.opulexpropertymanagement.unitTests
+package com.example.opulexpropertymanagement
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.opulexpropertymanagement.App
-import com.example.opulexpropertymanagement.AppClass
-import com.example.opulexpropertymanagement.di.AppModule
 import com.example.opulexpropertymanagement.layers.data_layer.Repo
 import com.example.opulexpropertymanagement.layers.view_models.TenantDetailsVM
 import com.example.opulexpropertymanagement.models.Tenant
