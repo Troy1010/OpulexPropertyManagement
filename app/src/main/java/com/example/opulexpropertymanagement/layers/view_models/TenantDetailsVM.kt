@@ -44,7 +44,6 @@ class TenantDetailsVM(val tenant: Tenant, val repo: Repo) : ViewModel() {
 
     val addDocumentResult by lazy { MediatorLiveData<AddDocumentResult>() }
     fun addDocument(uri: Uri, title: String) {
-        logz("uri:$uri")
         viewModelScope.launch {
             val result = repo.addDocument(
                 tenant.id,
