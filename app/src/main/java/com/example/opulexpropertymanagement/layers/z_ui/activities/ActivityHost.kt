@@ -48,7 +48,7 @@ class ActivityHost : TMActivity(),
         drawerToggle.syncState()
         // Keep user hot & save user changes in SharedPref & sync to correct fbTable
         GlobalVM.user.observe(this, Observer {
-            App.component.getRepo().writeUser(it)
+            App.appComponent.getRepo().writeUser(it)
             it?.let { fbUserDBTable = firebaseDB.getReference(it.id) }
             it?.let { fbUserStorageTable = firebaseStorage.getReference(it.id) }
         })

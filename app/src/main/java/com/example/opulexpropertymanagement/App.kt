@@ -10,10 +10,10 @@ val App by lazy { AppClass.instance }
 class AppClass : Application() {
     override fun onCreate() {
         super.onCreate()
-        instance = this
-        component = DaggerApplicationComponentZ.builder().applicationModuleZ(ApplicationModuleZ()).build()
+        instance = this // TODO remove
+        appComponent = DaggerApplicationComponentZ.builder().applicationModuleZ(ApplicationModuleZ(this)).build()
     }
-    lateinit var component: ApplicationComponentZ
+    lateinit var appComponent: ApplicationComponentZ
     companion object {
         lateinit var instance: AppClass
             private set

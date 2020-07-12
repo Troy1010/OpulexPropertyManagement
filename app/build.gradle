@@ -86,7 +86,7 @@ dependencies {
     // TMCommonKotlin
     implementation 'tminus1010.tmcommonkotlin:tmcommonkotlin:1.0.11'
     // Navigation
-    def nav_version = "2.3.0-rc01"
+    def nav_version = "2.3.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     // Activity+Fragment (supports Lifecycle)
@@ -167,11 +167,13 @@ dependencies {
     //  ?
 //    testImplementation 'junit:junit:4.12'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-
     // Atrium
     def atrium_version='0.12.0'
     testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
     // Atrium -> Kotlin
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:$atrium_version"
     testRuntimeOnly    "ch.tutteli.atrium:atrium-domain-robstoll-kotlin_1_3:$atrium_version"
+    // Mockito
+    testImplementation 'org.mockito:mockito-inline:2.23.4'
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC3'
 }

@@ -5,6 +5,8 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.opulexpropertymanagement.App
+import com.example.opulexpropertymanagement.appComponent
+import com.example.opulexpropertymanagement.layers.data_layer.Repo
 import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.models.Tenant
 import com.example.opulexpropertymanagement.models.streamable.AddDocumentResult
@@ -15,9 +17,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TenantDetailsVM(val tenant: Tenant) : ViewModel() {
+class TenantDetailsVM(val tenant: Tenant, val repo2: Repo) : ViewModel() {
 
-    private val repo = App.component.getRepo()
+    val repo = appComponent.getRepo()
+
     val documents by lazy { MediatorLiveData<List<Document>>() }
 
     init {
@@ -45,6 +48,7 @@ class TenantDetailsVM(val tenant: Tenant) : ViewModel() {
 
     val addDocumentResult by lazy { MediatorLiveData<AddDocumentResult>() }
     fun addDocument(uri: Uri, title: String) {
+        logz("uri:$uri")
         viewModelScope.launch {
             val result = repo.addDocument(
                 tenant.id,

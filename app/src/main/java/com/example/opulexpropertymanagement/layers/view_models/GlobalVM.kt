@@ -2,7 +2,6 @@ package com.example.opulexpropertymanagement.layers.view_models
 
 import androidx.lifecycle.*
 import com.example.opulexpropertymanagement.App
-import com.example.opulexpropertymanagement.layers.data_layer.SharedPrefWrapper
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.layers.z_ui.GlobalRepo
 import com.example.opulexpropertymanagement.layers.z_ui.User
@@ -10,7 +9,7 @@ import com.example.opulexpropertymanagement.models.mapNetworkRecognizedStringToU
 
 object GlobalVM : ViewModel() {
 
-    val repo2 = App.component.getRepo()
+    val repo2 = App.appComponent.getRepo()
     val repo = GlobalRepo
 
     val user = MediatorLiveData<User?>() // Other fragment-level VMs require this

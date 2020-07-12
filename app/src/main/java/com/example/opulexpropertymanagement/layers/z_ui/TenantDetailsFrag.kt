@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.opulexpropertymanagement.App
 import com.example.opulexpropertymanagement.R
 import com.example.opulexpropertymanagement.layers.view_models.TenantDetailsVM
 import com.example.opulexpropertymanagement.layers.z_ui.extras.AdapterRVDocuments
@@ -18,7 +19,6 @@ import com.example.opulexpropertymanagement.databinding.FragTenantDetailsBinding
 import com.example.opulexpropertymanagement.databinding.ItemDocumentBinding
 import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.opulexpropertymanagement.util.vmFactoryFactory
-import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_tenant_details.view.*
 import kotlinx.android.synthetic.main.includible_rounded_image.view.*
 import kotlinx.android.synthetic.main.item_document.view.*
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.item_document.view.*
 class TenantDetailsFrag : OXFragment(), AdapterRVDocuments.ARVInterface {
     lateinit var mBinding: FragTenantDetailsBinding
     val args by lazy { arguments?.let { TenantDetailsFragArgs.fromBundle(it) } }
-    val tenantDetailsVM: TenantDetailsVM by activityViewModels { vmFactoryFactory { TenantDetailsVM(args!!.tenant) } }
+    val tenantDetailsVM: TenantDetailsVM by activityViewModels { vmFactoryFactory { TenantDetailsVM(args!!.tenant, App.appComponent.getRepo()) } }
     val navController by lazy { this.findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater,

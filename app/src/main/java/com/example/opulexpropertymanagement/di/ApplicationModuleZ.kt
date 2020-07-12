@@ -1,5 +1,6 @@
 package com.example.opulexpropertymanagement.di
 
+import android.app.Application
 import com.example.opulexpropertymanagement.BASE_URL
 import com.example.opulexpropertymanagement.layers.data_layer.Repo
 import com.example.opulexpropertymanagement.layers.data_layer.SharedPrefWrapper
@@ -15,7 +16,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 @Module
-class ApplicationModuleZ {
+class ApplicationModuleZ(private val appContext: Application) {
+    @Provides
+    @Singleton
+    fun providesAppContext() = appContext
+
     @Provides
     @Singleton
     fun providesRepo(sharedPrefWrapper: SharedPrefWrapper): Repo {

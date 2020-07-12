@@ -7,11 +7,10 @@ import com.example.opulexpropertymanagement.layers.data_layer.network.apiClient
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.tmcommonkotlin.Coroutines
-import javax.inject.Inject
 
 open class RegisterRepo {
     init {
-        App.component.injectRegisterRepo(this)
+        App.appComponent.injectRegisterRepo(this)
     }
     val streamTryRegisterResult by lazy { MutableLiveData<RegisterResult>() }
 
