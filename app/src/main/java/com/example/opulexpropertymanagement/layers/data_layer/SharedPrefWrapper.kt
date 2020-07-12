@@ -1,19 +1,14 @@
 package com.example.opulexpropertymanagement.layers.data_layer
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.opulexpropertymanagement.*
 import com.example.opulexpropertymanagement.layers.z_ui.User
 import javax.inject.Inject
 
 // GlobalVM needs access
-class SharedPrefWrapper @Inject constructor(appContext: Context): SharedPrefWrapperInterface {
-
-    val sharedPreferences = appContext.getSharedPreferences(
-        SHARED_PREF_FILE_NAME,
-        Context.MODE_PRIVATE
-    )
+class SharedPrefWrapper @Inject constructor(val sharedPreferences: SharedPreferences): SharedPrefWrapperInterface {
     val editor = sharedPreferences.edit()
-
     override fun readUser(): User? {
         // get User from SharedPref, and feed it into loginAttemptStream
         val storedEmail = sharedPreferences.getString(KEY_EMAIL, null)
