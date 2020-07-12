@@ -2,10 +2,12 @@ package com.example.opulexpropertymanagement.util
 
 import android.content.ContentResolver
 import android.content.Context
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Environment
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.NavController
 import com.example.opulexpropertymanagement.R
@@ -37,8 +39,17 @@ fun Context.createImageFile(): File {
     return x
 }
 
-fun getDrawableUri(drawableID:Int): Uri? {
-    val resources = App.getResources();
+fun Fragment.getDrawableUri(drawableID:Int): Uri? {
+    val resources = this.requireActivity().applicationContext.resources
+    return getDrawableUri(drawableID, resources)
+}
+
+fun AppCompatActivity.getDrawableUri(drawableID:Int): Uri? {
+    val resources = this.applicationContext.resources
+    return getDrawableUri(drawableID, resources)
+}
+
+fun getDrawableUri(drawableID:Int, resources:Resources): Uri? {
     return Uri.Builder()
         .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
         .authority(resources.getResourcePackageName(drawableID))
@@ -63,7 +74,7 @@ fun ImageView.easyPicasso(uriTask: Task<Uri>?) {
         throw it
     }
     if (uriTask==null) {
-        val x = getDrawableUri(R.drawable.image_not_found_yet)
+        val x = getDrawableUri(R.drawable.image_not_found_yet, this.context.applicationContext.resources)
         this.setImageURI(x)
     }
 }

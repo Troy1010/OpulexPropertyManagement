@@ -1,7 +1,8 @@
 package com.example.opulexpropertymanagement.layers.view_models
 
 import androidx.lifecycle.*
-import com.example.opulexpropertymanagement.App
+import com.example.opulexpropertymanagement.di.AppModule
+import com.example.opulexpropertymanagement.di.DaggerAppComponent
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.layers.z_ui.GlobalRepo
 import com.example.opulexpropertymanagement.layers.z_ui.User
@@ -9,7 +10,7 @@ import com.example.opulexpropertymanagement.models.mapNetworkRecognizedStringToU
 
 object GlobalVM : ViewModel() {
 
-    val repo2 = App.appComponent.getRepo()
+//    val repo2 = DaggerAppComponent.builder().appModule(AppModule()).build().getRepo()
     val repo = GlobalRepo
 
     val user = MediatorLiveData<User?>() // Other fragment-level VMs require this
@@ -20,7 +21,7 @@ object GlobalVM : ViewModel() {
             if (it!=null)
                 userType.value = mapNetworkRecognizedStringToUserType[it.usertype]
         }
-        user.value = repo2.readUser()
+//        user.value = repo2.readUser()
         user.addSource(repo.streamLoginAttemptResult) {
             user.value = it.user
             user.value?.usertype = userType.value?.toNetworkRecognizedString ?:""

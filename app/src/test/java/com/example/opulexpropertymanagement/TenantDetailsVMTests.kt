@@ -38,9 +38,9 @@ class TenantDetailsVMTests {
         // initialize App Singleton
         //  instantiate AppClass and assign it to AppClass.Companion.instance
         //  *This setter is private, so we must use reflection
-        val setInstanceMethod = AppClass.Companion::class.java.getDeclaredMethod("setInstance", AppClass::class.java)
+        val setInstanceMethod = App.Companion::class.java.getDeclaredMethod("setInstance", App::class.java)
         setInstanceMethod.isAccessible = true
-        setInstanceMethod.invoke(AppClass.Companion, AppClass())
+        setInstanceMethod.invoke(App.Companion, App())
         //  instantiate component
 //        App.appComponent = DaggerApplicationComponentZ.builder().applicationModuleZ(AppModule()).build()
     }

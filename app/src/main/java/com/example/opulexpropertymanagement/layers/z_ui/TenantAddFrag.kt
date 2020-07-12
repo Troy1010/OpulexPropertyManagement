@@ -17,14 +17,16 @@ import com.example.opulexpropertymanagement.databinding.FragTenantAddBinding
 import com.example.opulexpropertymanagement.models.Tenant
 import com.example.opulexpropertymanagement.models.streamable.AddTenantResult
 import com.example.opulexpropertymanagement.models.view_model_intermediates.InputValidationState
+import com.example.opulexpropertymanagement.util.getDrawableUri
 import com.example.opulexpropertymanagement.util.onlyNew
+import com.example.opulexpropertymanagement.util.vmFactoryFactory
 import com.example.tmcommonkotlin.InputValidation
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
 
 class TenantAddFrag : OXFragment() {
     lateinit var mBinding: FragTenantAddBinding
-    val tenantAddVM: TenantAddVM by viewModels()
+    val tenantAddVM: TenantAddVM by viewModels { vmFactoryFactory { TenantAddVM(getDrawableUri(R.drawable.ic_add_box_black_24dp)) } }
     val args by lazy { arguments?.let { TenantAddFragArgs.fromBundle(it) } }
     val navController by lazy { this.findNavController() }
     override fun onCreateView(

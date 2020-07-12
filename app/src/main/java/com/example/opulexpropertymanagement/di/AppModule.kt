@@ -17,10 +17,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val appContext: Application) {
+class AppModule(private val appContext: Application?=null) {
     @Provides
     @Singleton
-    fun providesAppContext() : Context = appContext
+    fun providesAppContext() : Context = appContext!!
 
     @Provides
     @Singleton

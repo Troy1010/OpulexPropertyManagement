@@ -15,19 +15,22 @@ import com.example.opulexpropertymanagement.layers.view_models.GlobalVM
 import com.example.opulexpropertymanagement.layers.z_ui.extras.BottomDialogForPhoto
 import com.example.opulexpropertymanagement.layers.z_ui.inheritables.OXFragment
 import com.example.opulexpropertymanagement.databinding.FragPropertyAddBinding
+import com.example.opulexpropertymanagement.layers.view_models.TenantAddVM
 import com.example.opulexpropertymanagement.models.Property
 import com.example.opulexpropertymanagement.models.PropertyStatus
 import com.example.opulexpropertymanagement.models.ReasonForLogin
 import com.example.opulexpropertymanagement.models.streamable.AddPropertyResult
 import com.example.opulexpropertymanagement.models.view_model_intermediates.InputValidationState
+import com.example.opulexpropertymanagement.util.getDrawableUri
 import com.example.opulexpropertymanagement.util.onlyNew
+import com.example.opulexpropertymanagement.util.vmFactoryFactory
 import com.example.tmcommonkotlin.InputValidation
 import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
 
 class PropertyAddFrag : OXFragment() {
     lateinit var mBinding: FragPropertyAddBinding
-    val propertyAddVM: PropertyAddVM by viewModels()
+    val propertyAddVM: PropertyAddVM by viewModels { vmFactoryFactory { PropertyAddVM(getDrawableUri(R.drawable.ic_add_box_black_24dp)) } }
     val propertiesVM: PropertiesVM by viewModels()
     val navController by lazy { this.findNavController() }
     override fun onCreateView(

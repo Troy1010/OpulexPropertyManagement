@@ -2,16 +2,12 @@ package com.example.opulexpropertymanagement.layers.data_layer
 
 import androidx.lifecycle.MutableLiveData
 import com.example.opulexpropertymanagement.layers.z_ui.GlobalRepo
-import com.example.opulexpropertymanagement.App
 import com.example.opulexpropertymanagement.layers.data_layer.network.apiClient
 import com.example.opulexpropertymanagement.models.UserType
 import com.example.opulexpropertymanagement.models.streamable.RegisterResult
 import com.example.tmcommonkotlin.Coroutines
 
 open class RegisterRepo {
-    init {
-        App.appComponent.injectRegisterRepo(this)
-    }
     val streamTryRegisterResult by lazy { MutableLiveData<RegisterResult>() }
 
     fun tryRegister(email: String?, password: String?, userType: UserType?) {

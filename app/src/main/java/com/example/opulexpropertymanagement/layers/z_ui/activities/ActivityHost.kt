@@ -22,6 +22,7 @@ class ActivityHost : TMActivity(),
     lateinit var drawerToggle: ActionBarDrawerToggle
     override val toolbar: Toolbar? by lazy { toolbar_main }
     val navController by lazy { findNavController(R.id.fragNavHost) }
+    val appComponent by lazy { (applicationContext as App).appComponent }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +49,7 @@ class ActivityHost : TMActivity(),
         drawerToggle.syncState()
         // Keep user hot & save user changes in SharedPref & sync to correct fbTable
         GlobalVM.user.observe(this, Observer {
-            App.appComponent.getRepo().writeUser(it)
+            appComponent.getRepo().writeUser(it)
             it?.let { fbUserDBTable = firebaseDB.getReference(it.id) }
             it?.let { fbUserStorageTable = firebaseStorage.getReference(it.id) }
         })
