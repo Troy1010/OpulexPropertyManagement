@@ -6,8 +6,8 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules= arrayOf(ApplicationModuleZ::class))
-interface ApplicationComponentZ {
+@Component(modules= arrayOf(AppModule::class))
+interface AppComponent {
     fun injectRegisterRepo(repo: RegisterRepo)
 
     fun getRepo(): Repo

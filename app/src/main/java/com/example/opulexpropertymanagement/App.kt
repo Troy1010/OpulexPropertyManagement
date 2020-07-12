@@ -1,9 +1,9 @@
 package com.example.opulexpropertymanagement
 
 import android.app.Application
-import com.example.opulexpropertymanagement.di.ApplicationComponentZ
-import com.example.opulexpropertymanagement.di.ApplicationModuleZ
-import com.example.opulexpropertymanagement.di.DaggerApplicationComponentZ
+import com.example.opulexpropertymanagement.di.AppComponent
+import com.example.opulexpropertymanagement.di.AppModule
+import com.example.opulexpropertymanagement.di.DaggerAppComponent
 
 val App by lazy { AppClass.instance }
 
@@ -11,9 +11,9 @@ class AppClass : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this // TODO remove
-        appComponent = DaggerApplicationComponentZ.builder().applicationModuleZ(ApplicationModuleZ(this)).build()
+        appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
     }
-    lateinit var appComponent: ApplicationComponentZ
+    lateinit var appComponent: AppComponent
     companion object {
         lateinit var instance: AppClass
             private set

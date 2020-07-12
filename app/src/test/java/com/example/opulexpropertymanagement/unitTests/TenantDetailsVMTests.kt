@@ -1,9 +1,10 @@
 package com.example.opulexpropertymanagement.unitTests
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.example.opulexpropertymanagement.App
 import com.example.opulexpropertymanagement.AppClass
-import com.example.opulexpropertymanagement.di.ApplicationModuleZ
-import com.example.opulexpropertymanagement.di.DaggerApplicationComponentZ
+import com.example.opulexpropertymanagement.di.AppModule
 import com.example.opulexpropertymanagement.layers.data_layer.Repo
 import com.example.opulexpropertymanagement.layers.view_models.TenantDetailsVM
 import com.example.opulexpropertymanagement.models.Tenant
@@ -11,7 +12,10 @@ import com.example.opulexpropertymanagement.zzTestUtil.ContentTestExtension
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 
@@ -28,6 +32,11 @@ class TenantDetailsVMTests {
 
     @Before
     fun setUp() {
+        val sharedPrefs = Mockito.mock(SharedPreferences::class.java)
+        val context = Mockito.mock(Context::class.java)
+        Mockito.`when`(context.getSharedPreferences(anyString(), anyInt())).thenReturn(sharedPrefs)
+
+
         MockitoAnnotations.initMocks(this)
         // initialize App Singleton
         //  instantiate AppClass and assign it to AppClass.Companion.instance
@@ -36,7 +45,7 @@ class TenantDetailsVMTests {
         setInstanceMethod.isAccessible = true
         setInstanceMethod.invoke(AppClass.Companion, AppClass())
         //  instantiate component
-        App.appComponent = DaggerApplicationComponentZ.builder().applicationModuleZ(ApplicationModuleZ()).build()
+//        App.appComponent = DaggerApplicationComponentZ.builder().applicationModuleZ(AppModule()).build()
     }
 
     @Test

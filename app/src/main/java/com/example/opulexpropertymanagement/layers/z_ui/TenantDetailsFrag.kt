@@ -19,6 +19,7 @@ import com.example.opulexpropertymanagement.databinding.FragTenantDetailsBinding
 import com.example.opulexpropertymanagement.databinding.ItemDocumentBinding
 import com.example.opulexpropertymanagement.util.easyPicasso
 import com.example.opulexpropertymanagement.util.vmFactoryFactory
+import com.example.tmcommonkotlin.logz
 import kotlinx.android.synthetic.main.frag_tenant_details.view.*
 import kotlinx.android.synthetic.main.includible_rounded_image.view.*
 import kotlinx.android.synthetic.main.item_document.view.*

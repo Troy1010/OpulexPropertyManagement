@@ -4,8 +4,6 @@ import android.net.Uri
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.opulexpropertymanagement.App
-import com.example.opulexpropertymanagement.appComponent
 import com.example.opulexpropertymanagement.layers.data_layer.Repo
 import com.example.opulexpropertymanagement.models.Document
 import com.example.opulexpropertymanagement.models.Tenant
@@ -17,9 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TenantDetailsVM(val tenant: Tenant, val repo2: Repo) : ViewModel() {
-
-    val repo = appComponent.getRepo()
+class TenantDetailsVM(val tenant: Tenant, val repo: Repo) : ViewModel() {
 
     val documents by lazy { MediatorLiveData<List<Document>>() }
 

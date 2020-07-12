@@ -16,7 +16,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 @Module
-class ApplicationModuleZ(private val appContext: Application) {
+class AppModule(private val appContext: Application) {
     @Provides
     @Singleton
     fun providesAppContext() = appContext
