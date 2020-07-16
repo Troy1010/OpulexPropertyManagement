@@ -112,10 +112,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     // ->Retrofit + Coroutines
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
     // ->Retrofit string handling
     implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
-    // ->Retrofit + Coroutines
-    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
     // Event-Emitter (not used)
     implementation 'com.github.Zhuinden:event-emitter:1.1.0'
     // Picasso
