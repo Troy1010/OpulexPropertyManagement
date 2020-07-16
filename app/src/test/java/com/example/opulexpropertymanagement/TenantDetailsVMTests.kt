@@ -17,6 +17,7 @@ import junitparams.Parameters
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
+import org.hamcrest.core.IsInstanceOf.instanceOf
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -38,16 +39,11 @@ open class TenantDetailsVMTests {
     val initializeMocksRule = MockitoJUnit.rule()
     @Mock
     lateinit var repo: Repo
-    val document = Document("654", "795", "A good doc")
-    val tenant = Tenant(
-        "123456", "123", "778", "123 Fake St",
-        "GoodCarrot@gmail.com", "111-222-3333", "Bob"
-    )
     val uri = Uri.parse("content://com.android.providers.media.documents/document/image%3A40")
 
     @Test
     @Parameters(method = "testAddDocumentValues")
-    fun testAddDocument(age:Int, b:Boolean) = coroutineRule.testDispatcher.runBlockingTest {
+    fun testAddDocument(document:Document, tenant:Tenant) = coroutineRule.testDispatcher.runBlockingTest {
         // given
         Mockito.`when`(repo.addDocument(anyString(), any(), anyString()))
             .doReturn(AddDocumentResult.Success(document))
@@ -56,11 +52,21 @@ open class TenantDetailsVMTests {
         tenantDetailsVM.addDocument(uri, "A good document")
         val actual = tenantDetailsVM.addDocumentResult.getOrAwaitValue()
         // assert
-        println("i:$age, s:$b")
         Assert.assertNotNull(actual)
+        Assert.assertThat(actual, instanceOf(AddDocumentResult.Success::class.java))
+        if (actual is AddDocumentResult.Success) {
+            Assert.assertEquals(document, actual.document)
+        }
     }
     @NamedParameters("grownups")
     open fun testAddDocumentValues(): Array<Any>? {
-        return arrayOf(arrayOf(17, false), arrayOf(22, true))
+        val tenant = Tenant(
+            "123456", "123", "778", "123 Fake St",
+            "GoodCarrot@gmail.com", "111-222-3333", "Bob"
+        )
+        return arrayOf(
+            arrayOf(Document("654", "795", "A good doc"), tenant),
+            arrayOf(Document("341", "224", "Some other doc"), tenant)
+        )
     }
 }
