@@ -18,6 +18,8 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -141,5 +143,12 @@ fun <T: ViewModel> vmFactoryFactory(constructor:()->T) : ViewModelProvider.Facto
             @Suppress("UNCHECKED_CAST")
             return constructor() as Y
         }
+    }
+}
+
+fun <T> MutableLiveData<T>.postResult(viewModelScope: CoroutineScope, function: suspend () -> T) {
+    viewModelScope.launch {
+        val result = function()
+        this@postResult.postValue(result)
     }
 }

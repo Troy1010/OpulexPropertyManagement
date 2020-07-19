@@ -20,7 +20,7 @@ import javax.inject.Inject
 class Repo @Inject constructor(private val sharedPrefWrapper: SharedPrefWrapper)
     : SharedPrefWrapperInterface by sharedPrefWrapper
 {
-
+    // create another firebase mutation repo
     suspend fun addDocument(tenantID: String, uri: Uri, title: String): AddDocumentResult {
         val newDocumentID = generateUniqueID()
         val newDocument = Document(newDocumentID, tenantID, title)
@@ -60,21 +60,28 @@ class Repo @Inject constructor(private val sharedPrefWrapper: SharedPrefWrapper)
         }
     }
 
-    fun documentsChangedListener(
+    // create another firebase query repo
+    fun setDocumentsChangedListener(
         tenantID: String,
-        listener: (DataSnapshot) -> Unit,
+        listener: (List<Document>) -> Unit,
         errorListener: ((DatabaseError) -> Unit)?=null
     ) {
-        fbUserDBTable?.child(FBKEY_TENANT)?.child(tenantID)?.child(
-            FBKEY_DOCUMENT
-        )
+        fbUserDBTable?.child(FBKEY_TENANT)?.child(tenantID)?.child(FBKEY_DOCUMENT)
             ?.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     errorListener?.invoke(p0)
                 }
 
-                override fun onDataChange(p0: DataSnapshot) {
-                    listener(p0)
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val documents = if (dataSnapshot.value == null) {
+                        emptyList()
+                    } else {
+                        @Suppress("UNCHECKED_CAST")
+                        (dataSnapshot.value as Map<String, Any>).map {
+                            Document(it.key, tenantID, it.value.toString())
+                        }
+                    }
+                    listener(documents)
                 }
             })
     }
