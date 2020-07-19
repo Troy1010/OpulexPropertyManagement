@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.opulexpropertymanagement.BASE_URL
 import com.example.opulexpropertymanagement.SHARED_PREF_FILE_NAME
+import com.example.opulexpropertymanagement.layers.data_layer.DocumentDataSource
+import com.example.opulexpropertymanagement.layers.data_layer.IDocumentDataSource
 import com.example.opulexpropertymanagement.layers.data_layer.Repo
 import com.example.opulexpropertymanagement.layers.data_layer.SharedPrefWrapper
 import com.example.opulexpropertymanagement.layers.data_layer.network.ApiService
@@ -35,8 +37,14 @@ class AppModule(private val appContext: Application?=null) {
 
     @Provides
     @Singleton
-    fun providesRepo(sharedPrefWrapper: SharedPrefWrapper): Repo {
-        return Repo(sharedPrefWrapper)
+    fun providesDocumentDataSource(): DocumentDataSource {
+        return DocumentDataSource()
+    }
+
+    @Provides
+    @Singleton
+    fun providesRepo(sharedPrefWrapper: SharedPrefWrapper, documentDataSource: DocumentDataSource): Repo {
+        return Repo(sharedPrefWrapper, documentDataSource)
     }
 
     @Provides
